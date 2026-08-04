@@ -1,26 +1,319 @@
 @import "tailwindcss";
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   DESIGN SYSTEM — Color Palette
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary Surfaces */
+  --white: #FFFFFF;
+  --off-white: #FAFAF8;
+  --soft-ivory: #F5F3EF;
+  --warm-white: #F8F6F2;
+
+  /* Accent — Green Family */
+  --deep-teal: #0D4F4F;
+  --emerald: #1B7A5A;
+  --sage: #8FAE8B;
+  --soft-mint: #C8E6D0;
+  --forest: #1A3C34;
+
+  /* Neutrals */
+  --charcoal: #1A1A1A;
+  --graphite: #4A4A4A;
+  --silver: #9A9A9A;
+  --mist: #E8E6E2;
+
+  /* Functional */
+  --background: var(--off-white);
+  --foreground: var(--charcoal);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(26, 60, 52, 0.04);
+  --shadow-md: 0 4px 16px rgba(26, 60, 52, 0.06);
+  --shadow-lg: 0 8px 32px rgba(26, 60, 52, 0.08);
+  --shadow-xl: 0 16px 48px rgba(26, 60, 52, 0.10);
+  --shadow-glow: 0 0 60px rgba(13, 79, 79, 0.08);
+
+  /* Easings */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Spacing */
+  --section-padding: clamp(4rem, 8vw, 8rem);
+  --container-max: 1400px;
+  --container-padding: clamp(1.5rem, 4vw, 4rem);
 }
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TAILWIND THEME INLINE
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-white: var(--white);
+  --color-off-white: var(--off-white);
+  --color-soft-ivory: var(--soft-ivory);
+  --color-warm-white: var(--warm-white);
+  --color-deep-teal: var(--deep-teal);
+  --color-emerald: var(--emerald);
+  --color-sage: var(--sage);
+  --color-soft-mint: var(--soft-mint);
+  --color-forest: var(--forest);
+  --color-charcoal: var(--charcoal);
+  --color-graphite: var(--graphite);
+  --color-silver: var(--silver);
+  --color-mist: var(--mist);
+
+  --font-display: var(--font-playfair);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-space-mono);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BASE STYLES
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scrolling */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--soft-mint);
+  color: var(--deep-teal);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FLUID TYPOGRAPHY
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.text-hero {
+  font-size: clamp(3rem, 8vw, 8rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.text-display {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+.text-heading {
+  font-size: clamp(1.75rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.text-subheading {
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+.text-body-lg {
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  line-height: 1.7;
+}
+
+.text-caption {
+  font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.text-eyebrow {
+  font-size: clamp(0.625rem, 0.85vw, 0.75rem);
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--emerald);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   GLASS EFFECTS
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.glass {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PREMIUM CARD STYLES
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.premium-card {
+  background: var(--white);
+  border-radius: 1.25rem;
+  border: 1px solid var(--mist);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 0.5s var(--ease-out-expo),
+              transform 0.5s var(--ease-out-expo);
+}
+
+.premium-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CUSTOM SCROLLBAR
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--off-white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sage);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--emerald);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   EDITORIAL UTILITIES
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.container-editorial {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.section-spacing {
+  padding-top: var(--section-padding);
+  padding-bottom: var(--section-padding);
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, var(--deep-teal), var(--emerald));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle horizontal rule */
+.divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--mist),
+    var(--sage),
+    var(--mist),
+    transparent
+  );
+  border: none;
+}
+
+/* Image with reveal animation clip-path */
+.img-reveal {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.2s var(--ease-out-expo);
+}
+
+.img-reveal.revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ANIMATION KEYFRAMES
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(1deg); }
+  66% { transform: translateY(-6px) rotate(-1deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-indicator {
+  0% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0.4; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Line draw animation for timeline */
+@keyframes draw-line {
+  from { height: 0; }
+  to { height: 100%; }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE HELPERS
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (max-width: 768px) {
+  .text-hero {
+    font-size: clamp(2.25rem, 10vw, 3.5rem);
+  }
+  
+  .text-display {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
