@@ -231,18 +231,19 @@ function HeroSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 1, delay: t.portrait, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div
+              <motion.div
                 className="w-full h-full"
-                style={{ animation: 'float 9s ease-in-out infinite' }}
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
               >
                 <Image
-                  src="/images/prabhat-hero-new.jpg"
+                  src="/images/prabhat-hero.jpg"
                   alt="Prabhat Singh Rajput"
                   fill
                   priority
                   className="object-cover object-center"
                 />
-              </div>
+              </motion.div>
 
               {/* Decorative border glow */}
               <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-soft-mint/40 via-transparent to-sage/30 -z-10 blur-sm" />
