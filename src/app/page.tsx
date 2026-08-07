@@ -251,13 +251,13 @@ function HeroSection() {
 
             {/* Floating badge 1: TEDx (appears first) */}
             <motion.div
-              className="absolute top-4 sm:top-8 -right-2 sm:-right-8 md:-right-24 premium-card px-3 sm:px-5 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 glass z-20"
+              className="absolute top-4 sm:top-8 -right-2 sm:-right-8 md:-right-24 z-20"
               {...cardEntrance(t.badge1)}
             >
               <motion.div
-                animate={{ y: [0, -3, 0] }}
+                animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="flex items-center gap-2 sm:gap-3"
+                className="premium-card px-3 sm:px-5 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 glass"
               >
                 <div className="w-10 h-10 rounded-full bg-soft-mint/80 flex items-center justify-center">
                   <Sparkles className="w-5 h-5 text-deep-teal" />
@@ -271,13 +271,13 @@ function HeroSection() {
 
             {/* Floating badge 2: Community */}
             <motion.div
-              className="absolute top-2/3 -left-2 sm:-left-6 md:-left-16 premium-card px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 glass z-20"
+              className="absolute top-2/3 -left-2 sm:-left-6 md:-left-16 z-20"
               {...cardEntrance(t.badge2)}
             >
               <motion.div
-                animate={{ y: [0, -3, 0] }}
+                animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-                className="flex items-center gap-2 sm:gap-3"
+                className="premium-card px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 glass"
               >
                 <div className="w-8 h-8 rounded-full bg-emerald/10 flex items-center justify-center">
                   <Users className="w-4 h-4 text-emerald" />
@@ -291,13 +291,13 @@ function HeroSection() {
 
             {/* Floating badge 3: 15+ Years */}
             <motion.div
-              className="absolute -bottom-4 -left-2 sm:-left-8 md:-left-20 premium-card px-3 sm:px-5 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 glass z-20"
+              className="absolute -bottom-4 -left-2 sm:-left-8 md:-left-20 z-20"
               {...cardEntrance(t.badge3)}
             >
               <motion.div
-                animate={{ y: [0, -3, 0] }}
+                animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                className="flex items-center gap-2 sm:gap-3"
+                className="premium-card px-3 sm:px-5 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 glass"
               >
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-soft-mint/80 flex items-center justify-center">
                   <Award className="w-4 h-4 sm:w-5 sm:h-5 text-deep-teal" />
@@ -311,13 +311,13 @@ function HeroSection() {
 
             {/* Floating badge 4: Corporate */}
             <motion.div
-              className="absolute -bottom-8 sm:-bottom-12 right-0 sm:right-2 md:right-4 premium-card px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 glass z-20"
+              className="absolute -bottom-8 sm:-bottom-12 right-0 sm:right-2 md:right-4 z-20"
               {...cardEntrance(t.badge4)}
             >
               <motion.div
-                animate={{ y: [0, -3, 0] }}
+                animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                className="flex items-center gap-2 sm:gap-3"
+                className="premium-card px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 glass"
               >
                 <div className="w-8 h-8 rounded-full bg-deep-teal/10 flex items-center justify-center">
                   <Building2 className="w-4 h-4 text-deep-teal" />
