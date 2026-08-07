@@ -237,7 +237,7 @@ function HeroSection() {
                 transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
               >
                 <Image
-                  src="/images/prabhat-hero.jpg"
+                  src="/images/prabhat-hero-white-shirt.jpg"
                   alt="Prabhat Singh Rajput"
                   fill
                   priority
