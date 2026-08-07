@@ -40,9 +40,9 @@
   --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
 
   /* Spacing */
-  --section-padding: clamp(4rem, 8vw, 8rem);
+  --section-padding: clamp(6rem, 12vw, 12rem);
   --container-max: 1400px;
-  --container-padding: clamp(1.5rem, 4vw, 4rem);
+  --container-padding: clamp(2rem, 6vw, 6rem);
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -106,7 +106,7 @@ body {
    FLUID TYPOGRAPHY
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .text-hero {
-  font-size: clamp(3rem, 8vw, 8rem);
+  font-size: clamp(3rem, 5.5vw, 5.5rem);
   line-height: 0.95;
   letter-spacing: -0.03em;
   font-weight: 700;

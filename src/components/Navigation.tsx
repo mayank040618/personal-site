@@ -84,8 +84,8 @@ export default function Navigation() {
       <motion.header
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
           isScrolled
-            ? 'py-3 glass shadow-sm'
-            : 'py-5 bg-transparent'
+            ? 'py-2 bg-white/60 backdrop-blur-2xl shadow-sm border-b border-black/5'
+            : 'py-6 bg-transparent'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -111,16 +111,23 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors duration-300 relative group ${
+                className={`text-sm font-medium transition-colors duration-300 relative group py-1 ${
                   pathname === link.href
                     ? 'text-deep-teal'
                     : 'text-graphite hover:text-charcoal'
                 }`}
               >
                 {link.label}
+                {pathname === link.href && (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-deep-teal"
+                    transition={{ type: 'spring', stiffness: 200, damping: 25, mass: 0.8 }}
+                  />
+                )}
                 <span
-                  className={`absolute -bottom-1 left-0 h-[1.5px] bg-deep-teal transition-all duration-300 ${
-                    pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'
+                  className={`absolute bottom-0 left-0 h-[1.5px] bg-deep-teal/40 transition-all duration-400 ease-out w-0 group-hover:w-full ${
+                    pathname === link.href ? 'hidden' : ''
                   }`}
                 />
               </Link>

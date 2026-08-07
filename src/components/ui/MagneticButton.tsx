@@ -39,13 +39,13 @@ export default function MagneticButton({
 
   const variantStyles: Record<string, string> = {
     primary:
-      'bg-deep-teal text-white hover:bg-forest border-transparent shadow-md hover:shadow-xl',
+      'bg-forest text-white hover:bg-deep-teal border-transparent shadow-md hover:shadow-[0_0_20px_rgba(42,92,86,0.4)]',
     secondary:
       'bg-soft-mint text-deep-teal hover:bg-sage border-transparent',
     ghost:
       'bg-transparent text-deep-teal hover:bg-soft-mint/30 border-transparent',
     outline:
-      'bg-transparent text-deep-teal border-deep-teal/20 hover:border-deep-teal hover:bg-deep-teal/5',
+      'bg-transparent text-charcoal/80 border-[0.5px] border-charcoal/20 hover:border-charcoal/50 hover:bg-charcoal/5 font-normal',
   };
 
   const sizeStyles: Record<string, string> = {

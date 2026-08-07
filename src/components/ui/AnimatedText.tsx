@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 interface AnimatedTextProps {
   text: string;
   className?: string;
-  variant?: 'slide-up' | 'fade-in' | 'char-reveal' | 'word-reveal';
+  variant?: 'slide-up' | 'fade-in' | 'char-reveal' | 'word-reveal' | 'elegant-reveal' | 'typewriter';
   tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span';
   delay?: number;
   stagger?: number;
@@ -65,20 +65,50 @@ export default function AnimatedText({
     };
   }, [text, variant, delay, stagger, triggerOnScroll]);
 
-  const units = splitBy === 'chars' ? text.split('') : text.split(' ');
+  const isGradient = className.includes('gradient-text');
+  const containerClassName = className.replace('gradient-text', '').trim();
+
+  if (splitBy === 'chars') {
+    const lines = text.split('\n');
+    return (
+      <Tag ref={containerRef as React.RefObject<HTMLHeadingElement>} className={containerClassName}>
+        {lines.map((line, lineIndex) => (
+          <span key={`line-${lineIndex}`} className="block">
+            {line.split('').map((char, i) => (
+              <span
+                key={`char-${lineIndex}-${i}`}
+                className="animated-unit inline-block overflow-hidden"
+                style={{ display: 'inline-block' }}
+              >
+                <span className={`inline-block ${isGradient ? 'gradient-text' : ''}`} style={{ display: 'inline-block', paddingBottom: '0.1em' }}>
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              </span>
+            ))}
+          </span>
+        ))}
+      </Tag>
+    );
+  }
+
+  const lines = text.split('\n');
 
   return (
-    <Tag ref={containerRef as React.RefObject<HTMLHeadingElement>} className={`${className}`}>
-      {units.map((unit, i) => (
-        <span
-          key={`${unit}-${i}`}
-          className="animated-unit inline-block overflow-hidden"
-          style={{ display: 'inline-block' }}
-        >
-          <span className="inline-block" style={{ display: 'inline-block' }}>
-            {unit}
-            {splitBy === 'words' && i < units.length - 1 ? '\u00A0' : ''}
-          </span>
+    <Tag ref={containerRef as React.RefObject<HTMLHeadingElement>} className={containerClassName}>
+      {lines.map((line, lineIndex) => (
+        <span key={`line-${lineIndex}`} className="block">
+          {line.split(' ').map((unit, i, arr) => (
+            <span
+              key={`word-${lineIndex}-${i}`}
+              className="animated-unit inline-block overflow-hidden"
+              style={{ display: 'inline-block' }}
+            >
+              <span className={`inline-block ${isGradient ? 'gradient-text' : ''}`} style={{ display: 'inline-block', paddingBottom: '0.1em' }}>
+                {unit}
+                {i < arr.length - 1 ? '\u00A0' : ''}
+              </span>
+            </span>
+          ))}
         </span>
       ))}
     </Tag>
@@ -114,6 +144,20 @@ function getAnimationProps(variant: string) {
         to: { opacity: 1, y: 0, filter: 'blur(0px)' },
         duration: 0.9,
         ease: 'power3.out',
+      };
+    case 'typewriter':
+      return {
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+        duration: 0.05,
+        ease: 'none',
+      };
+    case 'elegant-reveal':
+      return {
+        from: { y: '120%', opacity: 0, rotationZ: 4, filter: 'blur(12px)' },
+        to: { y: '0%', opacity: 1, rotationZ: 0, filter: 'blur(0px)' },
+        duration: 1.2,
+        ease: 'expo.out',
       };
     default:
       return {

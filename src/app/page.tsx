@@ -6,8 +6,10 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, ChevronDown, Users, Award, Building2, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import FloatingShapes from '@/components/ui/FloatingShapes';
 import AnimatedText from '@/components/ui/AnimatedText';
+import TypingText from '@/components/ui/TypingText';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import Counter from '@/components/ui/Counter';
 import Card from '@/components/ui/Card';
@@ -39,6 +41,7 @@ export default function HomePage() {
 function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const parallaxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!heroRef.current) return;
@@ -56,6 +59,17 @@ function HeroSection() {
         duration: 1.5,
         ease: 'power2.out',
       });
+
+      if (parallaxRef.current) {
+        gsap.to(parallaxRef.current, {
+          x: (e.clientX - window.innerWidth / 2) * -0.02,
+          y: (e.clientY - window.innerHeight / 2) * -0.02,
+          rotationY: (e.clientX - window.innerWidth / 2) * 0.01,
+          rotationX: -(e.clientY - window.innerHeight / 2) * 0.01,
+          duration: 1.5,
+          ease: 'power2.out',
+        });
+      }
     };
 
     heroRef.current.addEventListener('mousemove', handleMouseMove);
@@ -87,10 +101,10 @@ function HeroSection() {
         }}
       />
 
-      <div className="container-editorial relative z-10 pt-32 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div className="container-editorial relative z-10 pt-48 pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-28 items-center">
           {/* Left — Typography */}
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order-1 lg:col-span-7 min-w-0 pr-0 lg:pr-8">
             <motion.span
               className="text-eyebrow block mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -101,20 +115,21 @@ function HeroSection() {
             </motion.span>
 
             <AnimatedText
-              text="WE DON'T TEACH COMMUNICATION."
-              className="text-hero font-display text-charcoal mb-2"
+              text={"WE DON'T\nTEACH\nCOMMUNICATION."}
+              className="text-hero font-display text-charcoal mb-4 whitespace-pre-line"
               variant="slide-up"
               tag="h1"
               delay={0.5}
               stagger={0.06}
+              triggerOnScroll={false}
             />
-            <AnimatedText
-              text="WE CREATE CONFIDENT LEADERS."
-              className="text-hero font-display gradient-text mb-8"
-              variant="slide-up"
+            <TypingText
+              text={"WE CREATE\nCONFIDENT\nLEADERS."}
+              className="text-hero font-display gradient-text mb-8 whitespace-pre-line"
               tag="h1"
-              delay={0.8}
-              stagger={0.06}
+              delay={1800}
+              speed={80}
+              showCursor={true}
             />
 
             <motion.p
@@ -146,65 +161,94 @@ function HeroSection() {
 
           {/* Right — Photo Area */}
           <motion.div
-            className="order-1 lg:order-2 relative"
-            initial={{ opacity: 0, scale: 0.9, clipPath: 'inset(10% 10% 10% 10% round 2rem)' }}
-            animate={{ opacity: 1, scale: 1, clipPath: 'inset(0% 0% 0% 0% round 2rem)' }}
+            className="order-1 lg:order-2 lg:col-span-5 relative min-w-0 lg:translate-x-12 xl:translate-x-20 lg:translate-y-16"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.6, ease: [0.25, 1, 0.5, 1] }}
           >
-            <div className="relative aspect-[3/4] max-w-md mx-auto lg:max-w-none rounded-3xl overflow-hidden shadow-xl">
-              {/* Placeholder for hero photo */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    'linear-gradient(135deg, var(--deep-teal) 0%, var(--emerald) 40%, var(--sage) 100%)',
-                }}
-              >
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-white/90">
-                  <div className="w-32 h-32 rounded-full bg-white/10 flex items-center justify-center mb-6">
-                    <span className="text-5xl font-display font-bold">PR</span>
-                  </div>
-                  <p className="text-sm font-mono tracking-wider opacity-60">
-                    PROFESSIONAL PHOTOGRAPH
-                  </p>
-                </div>
-              </div>
+            <div ref={parallaxRef} className="relative aspect-[3/4] w-full max-w-md mx-auto lg:max-w-[550px] lg:ml-auto rounded-3xl overflow-hidden shadow-2xl" style={{ perspective: '1000px' }}>
+              {/* Hero Photo */}
+              <Image
+                src="/images/prabhat-hero.jpg"
+                alt="Prabhat Singh Rajput"
+                fill
+                priority
+                className="object-cover object-center"
+              />
 
               {/* Decorative border glow */}
               <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-soft-mint/40 via-transparent to-sage/30 -z-10 blur-sm" />
             </div>
 
-            {/* Floating badge */}
+            {/* Floating badge 1: Years */}
             <motion.div
-              className="absolute -bottom-4 -left-4 md:left-4 premium-card px-5 py-3 flex items-center gap-3"
+              className="absolute -bottom-8 -left-12 md:-left-20 premium-card px-5 py-3 flex items-center gap-3 glass z-20"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.8, duration: 0.6 }}
               style={{ animation: 'float 6s ease-in-out infinite' }}
+              whileHover={{ scale: 1.05 }}
             >
-              <div className="w-8 h-8 rounded-full bg-soft-mint flex items-center justify-center">
-                <Award className="w-4 h-4 text-deep-teal" />
+              <div className="w-10 h-10 rounded-full bg-soft-mint/80 flex items-center justify-center">
+                <Award className="w-5 h-5 text-deep-teal" />
               </div>
               <div>
-                <p className="text-xs font-semibold text-charcoal">15+ Years</p>
-                <p className="text-[10px] text-silver">Transforming Lives</p>
+                <p className="text-sm font-bold text-charcoal">15+ Years</p>
+                <p className="text-xs text-graphite font-medium">Transforming Lives</p>
               </div>
             </motion.div>
 
-            {/* Floating badge 2 */}
+            {/* Floating badge 2: TEDx (Dominant) */}
             <motion.div
-              className="absolute -top-4 -right-4 md:right-4 premium-card px-5 py-3 flex items-center gap-3"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
+              className="absolute top-8 -right-12 md:-right-24 premium-card px-5 py-3 flex items-center gap-3 glass z-20"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 2, duration: 0.6 }}
               style={{ animation: 'float 7s ease-in-out infinite 1s' }}
+              whileHover={{ scale: 1.05 }}
             >
-              <div className="w-8 h-8 rounded-full bg-soft-mint flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-deep-teal" />
+              <div className="w-10 h-10 rounded-full bg-soft-mint/80 flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-deep-teal" />
               </div>
               <div>
-                <p className="text-xs font-semibold text-charcoal">TEDx Speaker</p>
-                <p className="text-[10px] text-silver">PhD Scholar</p>
+                <p className="text-sm font-bold text-charcoal">TEDx Speaker</p>
+                <p className="text-xs text-graphite font-medium">PhD Scholar</p>
+              </div>
+            </motion.div>
+
+            {/* Floating badge 3: Community */}
+            <motion.div
+              className="absolute top-2/3 -left-10 md:-left-16 premium-card px-4 py-2.5 flex items-center gap-3 glass z-20"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 2.2, duration: 0.6 }}
+              style={{ animation: 'float 5s ease-in-out infinite 2s' }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="w-8 h-8 rounded-full bg-emerald/10 flex items-center justify-center">
+                <Users className="w-4 h-4 text-emerald" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-charcoal">Community Builder</p>
+                <p className="text-[10px] text-graphite font-medium">100K+ Impacted</p>
+              </div>
+            </motion.div>
+
+            {/* Floating badge 4: Corporate */}
+            <motion.div
+              className="absolute -bottom-12 right-2 md:right-4 premium-card px-4 py-2.5 flex items-center gap-3 glass z-20"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.4, duration: 0.6 }}
+              style={{ animation: 'float 8s ease-in-out infinite 0.5s' }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="w-8 h-8 rounded-full bg-deep-teal/10 flex items-center justify-center">
+                <Building2 className="w-4 h-4 text-deep-teal" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-charcoal">Corporate Trainer</p>
+                <p className="text-[10px] text-graphite font-medium">Top Tier Firms</p>
               </div>
             </motion.div>
           </motion.div>
@@ -244,7 +288,9 @@ function StatsBar() {
   ];
 
   return (
-    <section className="relative py-16 md:py-20 bg-white border-y border-mist">
+    <section className="relative py-16 md:py-24" style={{ background: 'linear-gradient(180deg, var(--soft-ivory) 0%, var(--off-white) 100%)' }}>
+      {/* Soft top gradient instead of hard border */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-mist to-transparent" />
       <div className="container-editorial">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {stats.map((stat, i) => (
@@ -272,8 +318,18 @@ function StatsBar() {
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function IntroductionSection() {
   return (
-    <section className="section-spacing bg-off-white relative overflow-hidden">
-      <div className="container-editorial">
+    <section className="relative overflow-hidden pt-32 pb-24" style={{ background: 'linear-gradient(180deg, var(--soft-ivory) 0%, var(--white) 100%)' }}>
+      {/* Curved SVG Top Divider */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none" style={{ transform: 'translateY(-1px)' }}>
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[120px]">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="var(--off-white)"></path>
+        </svg>
+      </div>
+
+      {/* Decorative Glow */}
+      <div className="absolute top-1/4 -left-64 w-[500px] h-[500px] rounded-full bg-soft-mint/30 blur-[100px] pointer-events-none" />
+
+      <div className="container-editorial relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           {/* Left — Large editorial text */}
           <div className="lg:col-span-7">
@@ -330,9 +386,9 @@ function IntroductionSection() {
           {/* Right — Image */}
           <div className="lg:col-span-5">
             <ScrollReveal variant="scale">
-              <div className="relative">
+              <div className="relative mb-12 lg:mb-0">
                 <div
-                  className="aspect-[4/5] rounded-3xl overflow-hidden shadow-lg"
+                  className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 hover:scale-[1.02]"
                   style={{
                     background:
                       'linear-gradient(160deg, var(--soft-ivory) 0%, var(--sage) 50%, var(--deep-teal) 100%)',
@@ -345,7 +401,20 @@ function IntroductionSection() {
                   </div>
                 </div>
                 {/* Offset decorative frame */}
-                <div className="absolute -bottom-4 -right-4 w-full h-full rounded-3xl border-2 border-sage/20 -z-10" />
+                <div className="absolute -bottom-6 -right-6 w-full h-full rounded-3xl border border-sage/40 -z-10 bg-soft-mint/10 backdrop-blur-md" />
+                
+                {/* Floating element on image */}
+                <motion.div
+                  className="absolute -left-8 top-1/4 premium-card px-4 py-3 flex items-center gap-3 z-20 glass"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.6, duration: 0.6 }}
+                  style={{ animation: 'float 5s ease-in-out infinite' }}
+                >
+                  <div className="w-2 h-2 rounded-full bg-emerald" />
+                  <p className="text-xs font-bold text-charcoal">PhD Scholar</p>
+                </motion.div>
               </div>
             </ScrollReveal>
           </div>

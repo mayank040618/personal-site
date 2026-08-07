@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
 interface FloatingShapesProps {
@@ -10,16 +10,18 @@ interface FloatingShapesProps {
   mouseReactive?: boolean;
 }
 
+const DEFAULT_COLORS = [
+  'rgba(200, 230, 208, 0.3)',
+  'rgba(143, 174, 139, 0.2)',
+  'rgba(13, 79, 79, 0.08)',
+  'rgba(27, 122, 90, 0.1)',
+  'rgba(232, 230, 226, 0.4)',
+];
+
 export default function FloatingShapes({
   className = '',
   count = 5,
-  colors = [
-    'rgba(200, 230, 208, 0.3)',
-    'rgba(143, 174, 139, 0.2)',
-    'rgba(13, 79, 79, 0.08)',
-    'rgba(27, 122, 90, 0.1)',
-    'rgba(232, 230, 226, 0.4)',
-  ],
+  colors = DEFAULT_COLORS,
   mouseReactive = true,
 }: FloatingShapesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -73,15 +75,23 @@ export default function FloatingShapes({
     }
   }, [mouseReactive, count]);
 
-  const shapeDefs = Array.from({ length: count }, (_, i) => ({
-    id: i,
-    size: 80 + Math.random() * 200,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    color: colors[i % colors.length],
-    borderRadius: Math.random() > 0.5 ? '50%' : `${30 + Math.random() * 20}%`,
-    blur: 40 + Math.random() * 40,
-  }));
+  const [shapeDefs, setShapeDefs] = useState<any[]>([]);
+
+  useEffect(() => {
+    setShapeDefs(
+      Array.from({ length: count }, (_, i) => ({
+        id: i,
+        size: 80 + Math.random() * 200,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        color: colors[i % colors.length],
+        borderRadius: Math.random() > 0.5 ? '50%' : `${30 + Math.random() * 20}%`,
+        blur: 40 + Math.random() * 40,
+      }))
+    );
+  }, [count]); // Removed colors from dependencies to prevent infinite loop if passed inline
+
+  if (shapeDefs.length === 0) return null;
 
   return (
     <div
