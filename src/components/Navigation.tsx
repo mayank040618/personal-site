@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -97,8 +98,13 @@ export default function Navigation() {
             href="/"
             className="relative z-[110] flex items-center gap-3 group"
           >
-            <div className="w-10 h-10 rounded-full bg-deep-teal flex items-center justify-center text-white font-display font-bold text-sm group-hover:scale-105 group-hover:bg-forest transition-all duration-500">
-              PR
+            <div className="w-10 h-10 rounded-full bg-deep-teal flex items-center justify-center text-white font-display font-bold text-sm group-hover:scale-105 group-hover:bg-forest transition-all duration-500 overflow-hidden relative">
+              <Image 
+                src="/images/prabhat-hero-new.jpg" 
+                alt="Prabhat Singh"
+                fill
+                className="object-cover"
+              />
             </div>
             <span className="font-display font-semibold text-charcoal text-lg tracking-tight hidden sm:block transition-colors group-hover:text-forest">
               Prabhat Singh
