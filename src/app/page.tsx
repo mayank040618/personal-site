@@ -158,7 +158,7 @@ function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: t.eyebrow, ease: [0.22, 1, 0.36, 1] }}
             >
-              Theatre Educator · Corporate Trainer · Speaker
+              Theatre educator · Soft-skills & Personality development expert · Life learner
             </motion.span>
 
             {/* First headline — word by word */}
