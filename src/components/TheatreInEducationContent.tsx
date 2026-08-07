@@ -10,7 +10,7 @@ export default function TheatreInEducationContent() {
   return (
     <div className="bg-off-white min-h-screen">
       {/* 1. Cinematic Hero */}
-      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden pt-20">
+      <section className="relative h-[70vh] sm:h-[90vh] flex items-center justify-center overflow-hidden pt-20">
         <div className="absolute inset-0 bg-forest">
           {/* Placeholder for dramatic workshop photo */}
           <div className="absolute inset-0 opacity-40 mix-blend-overlay bg-gradient-to-t from-forest via-transparent to-transparent" />
@@ -40,9 +40,9 @@ export default function TheatreInEducationContent() {
       </section>
 
       {/* 2. Impact Statistics */}
-      <section className="py-24 relative bg-off-white">
+      <section className="py-12 md:py-24 relative bg-off-white">
         <div className="container-editorial">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center divide-x divide-mist/50">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 text-center md:divide-x divide-mist/50">
             <div>
               <Counter end={500} suffix="+" label="Workshops" duration={2} />
             </div>
@@ -62,7 +62,7 @@ export default function TheatreInEducationContent() {
       {/* 3. Storytelling & Student Transformation */}
       <section className="py-24 relative">
         <div className="container-editorial">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center">
             <div>
               <ScrollReveal variant="fade-up">
                 <h2 className="text-[2.5rem] md:text-[4rem] font-display text-charcoal mb-8 leading-[1.1]">
@@ -93,16 +93,16 @@ export default function TheatreInEducationContent() {
       </section>
 
       {/* 4. Immersive Quote */}
-      <section className="py-32 relative bg-forest overflow-hidden mt-20">
+      <section className="py-16 md:py-32 relative bg-forest overflow-hidden mt-10 md:mt-20">
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
         
         <div className="container-editorial relative z-10 text-center max-w-5xl mx-auto px-6">
           <ScrollReveal variant="fade-up">
-            <span className="text-[8rem] md:text-[12rem] font-display text-emerald/30 leading-none block mb-4">
+            <span className="text-[5rem] md:text-[12rem] font-display text-emerald/30 leading-none block mb-4">
               &ldquo;
             </span>
-            <h3 className="text-[2rem] md:text-[4rem] font-display text-white leading-[1.2] italic mb-12 -mt-16 relative z-10">
+            <h3 className="text-[1.5rem] md:text-[4rem] font-display text-white leading-[1.2] italic mb-8 md:mb-12 -mt-10 md:-mt-16 relative z-10">
               Every person has a story worth telling. Theatre simply gives them the courage and the stage to finally tell it.
             </h3>
             <p className="text-soft-mint tracking-[0.2em] text-sm uppercase font-semibold">
@@ -113,10 +113,10 @@ export default function TheatreInEducationContent() {
       </section>
 
       {/* 5. Workshop Moments (Masonry / Grid) */}
-      <section className="py-32 relative bg-off-white">
+      <section className="py-16 md:py-32 relative bg-off-white">
         <div className="container-editorial">
           <ScrollReveal variant="fade-up">
-            <h2 className="text-[3rem] md:text-[4.5rem] font-display text-charcoal mb-16 text-center leading-none">
+            <h2 className="text-[2rem] md:text-[4.5rem] font-display text-charcoal mb-10 md:mb-16 text-center leading-none">
               Moments of <br/><span className="italic text-emerald">Discovery</span>
             </h2>
           </ScrollReveal>

@@ -297,7 +297,42 @@ body {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
    RESPONSIVE HELPERS
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
+  :root {
+    --section-padding: clamp(3rem, 8vw, 5rem);
+    --container-padding: clamp(1.25rem, 5vw, 2rem);
+  }
+
+  .text-hero {
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  
+  .text-display {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+    line-height: 1.1;
+  }
+
+  .text-heading {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .text-subheading {
+    font-size: clamp(1.125rem, 3.5vw, 1.5rem);
+  }
+
+  .text-body-lg {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .premium-card {
+    border-radius: 0.875rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
   .text-hero {
     font-size: clamp(2.25rem, 10vw, 3.5rem);
   }
@@ -315,5 +350,19 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (pointer: coarse) {
+  .premium-card {
+    cursor: default;
+  }
+  
+  /* Larger touch targets */
+  nav a, nav button {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
   }
 }

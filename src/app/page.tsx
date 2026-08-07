@@ -101,8 +101,8 @@ function HeroSection() {
         }}
       />
 
-      <div className="container-editorial relative z-10 pt-48 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-28 items-center">
+      <div className="container-editorial relative z-10 pt-28 md:pt-48 pb-12 md:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-28 items-center">
           {/* Left — Typography */}
           <div className="order-2 lg:order-1 lg:col-span-7 min-w-0 pr-0 lg:pr-8">
             <motion.span
@@ -133,7 +133,7 @@ function HeroSection() {
             />
 
             <motion.p
-              className="text-body-lg text-graphite max-w-lg mb-10"
+              className="text-base md:text-body-lg text-graphite max-w-lg mb-8 md:mb-10"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
@@ -144,16 +144,16 @@ function HeroSection() {
             </motion.p>
 
             <motion.div
-              className="flex flex-wrap gap-4"
+              className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.5 }}
             >
-              <MagneticButton variant="primary" size="lg" href="/contact">
+              <MagneticButton variant="primary" size="md" href="/contact">
                 Work with Prabhat
                 <ArrowUpRight className="w-4 h-4" />
               </MagneticButton>
-              <MagneticButton variant="outline" size="lg" href="/about">
+              <MagneticButton variant="outline" size="md" href="/about">
                 Explore the Journey
               </MagneticButton>
             </motion.div>
@@ -166,7 +166,13 @@ function HeroSection() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.6, ease: [0.25, 1, 0.5, 1] }}
           >
-            <div ref={parallaxRef} className="relative aspect-[3/4] w-full max-w-md mx-auto lg:max-w-[550px] lg:ml-auto rounded-3xl overflow-hidden shadow-2xl" style={{ perspective: '1000px' }}>
+            {/* Soft radial glow behind portrait */}
+            <div className="absolute inset-0 -z-10 scale-110" style={{
+              background: 'radial-gradient(ellipse at center, rgba(200, 230, 208, 0.35) 0%, rgba(143, 174, 139, 0.15) 40%, transparent 70%)',
+              filter: 'blur(40px)',
+            }} />
+
+            <div ref={parallaxRef} className="relative aspect-[3/4] w-full max-w-xs sm:max-w-md mx-auto lg:max-w-[550px] lg:ml-auto rounded-2xl md:rounded-3xl overflow-hidden" style={{ perspective: '1000px', boxShadow: '0 20px 60px rgba(13, 79, 79, 0.15), 0 8px 24px rgba(26, 60, 52, 0.10)' }}>
               {/* Hero Photo */}
               <Image
                 src="/images/prabhat-hero.jpg"
@@ -182,15 +188,15 @@ function HeroSection() {
 
             {/* Floating badge 1: Years */}
             <motion.div
-              className="absolute -bottom-8 -left-12 md:-left-20 premium-card px-5 py-3 flex items-center gap-3 glass z-20"
+              className="absolute -bottom-4 -left-2 sm:-left-8 md:-left-20 premium-card px-3 sm:px-5 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 glass z-20"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.8, duration: 0.6 }}
               style={{ animation: 'float 6s ease-in-out infinite' }}
               whileHover={{ scale: 1.05 }}
             >
-              <div className="w-10 h-10 rounded-full bg-soft-mint/80 flex items-center justify-center">
-                <Award className="w-5 h-5 text-deep-teal" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-soft-mint/80 flex items-center justify-center">
+                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-deep-teal" />
               </div>
               <div>
                 <p className="text-sm font-bold text-charcoal">15+ Years</p>
@@ -200,7 +206,7 @@ function HeroSection() {
 
             {/* Floating badge 2: TEDx (Dominant) */}
             <motion.div
-              className="absolute top-8 -right-12 md:-right-24 premium-card px-5 py-3 flex items-center gap-3 glass z-20"
+              className="absolute top-4 sm:top-8 -right-2 sm:-right-8 md:-right-24 premium-card px-3 sm:px-5 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 glass z-20"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 2, duration: 0.6 }}
@@ -218,7 +224,7 @@ function HeroSection() {
 
             {/* Floating badge 3: Community */}
             <motion.div
-              className="absolute top-2/3 -left-10 md:-left-16 premium-card px-4 py-2.5 flex items-center gap-3 glass z-20"
+              className="absolute top-2/3 -left-2 sm:-left-6 md:-left-16 premium-card px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 glass z-20"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 2.2, duration: 0.6 }}
@@ -236,7 +242,7 @@ function HeroSection() {
 
             {/* Floating badge 4: Corporate */}
             <motion.div
-              className="absolute -bottom-12 right-2 md:right-4 premium-card px-4 py-2.5 flex items-center gap-3 glass z-20"
+              className="absolute -bottom-8 sm:-bottom-12 right-0 sm:right-2 md:right-4 premium-card px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 glass z-20"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2.4, duration: 0.6 }}
@@ -255,9 +261,9 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — hidden on mobile */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 sm:flex flex-col items-center gap-2 hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.5 }}
@@ -318,7 +324,7 @@ function StatsBar() {
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function IntroductionSection() {
   return (
-    <section className="relative overflow-hidden pt-32 pb-24" style={{ background: 'linear-gradient(180deg, var(--soft-ivory) 0%, var(--white) 100%)' }}>
+    <section className="relative overflow-hidden pt-20 md:pt-32 pb-16 md:pb-24" style={{ background: 'linear-gradient(180deg, var(--soft-ivory) 0%, var(--white) 100%)' }}>
       {/* Curved SVG Top Divider */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none" style={{ transform: 'translateY(-1px)' }}>
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[120px]">
@@ -330,7 +336,7 @@ function IntroductionSection() {
       <div className="absolute top-1/4 -left-64 w-[500px] h-[500px] rounded-full bg-soft-mint/30 blur-[100px] pointer-events-none" />
 
       <div className="container-editorial relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-20 items-center">
           {/* Left — Large editorial text */}
           <div className="lg:col-span-7">
             <SectionHeading
@@ -401,11 +407,11 @@ function IntroductionSection() {
                   </div>
                 </div>
                 {/* Offset decorative frame */}
-                <div className="absolute -bottom-6 -right-6 w-full h-full rounded-3xl border border-sage/40 -z-10 bg-soft-mint/10 backdrop-blur-md" />
+                <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-full h-full rounded-3xl border border-sage/40 -z-10 bg-soft-mint/10 backdrop-blur-md" />
                 
                 {/* Floating element on image */}
                 <motion.div
-                  className="absolute -left-8 top-1/4 premium-card px-4 py-3 flex items-center gap-3 z-20 glass"
+                  className="absolute -left-4 md:-left-8 top-1/4 premium-card px-3 md:px-4 py-2 md:py-3 flex items-center gap-2 md:gap-3 z-20 glass"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -523,7 +529,7 @@ function ImpactSection() {
   return (
     <section ref={impactRef} className="relative overflow-hidden">
       {/* Full-width image with overlay */}
-      <div className="relative h-[70vh] min-h-[500px]">
+      <div className="relative h-[60vh] sm:h-[70vh] min-h-[400px] sm:min-h-[500px]">
         <div
           className="impact-image absolute inset-[-20%] w-[140%] h-[140%]"
           style={{
@@ -542,12 +548,12 @@ function ImpactSection() {
             </ScrollReveal>
             <AnimatedText
               text="TWO INITIATIVES. ONE HUNDRED THOUSAND LIVES."
-              className="text-display font-display text-white max-w-4xl mb-8"
+              className="text-display font-display text-white max-w-4xl mb-6 md:mb-8"
               variant="word-reveal"
               tag="h2"
             />
             <ScrollReveal variant="fade-up" delay={0.4}>
-              <p className="text-lg text-white/70 max-w-2xl mb-8">
+              <p className="text-base md:text-lg text-white/70 max-w-2xl mb-6 md:mb-8">
                 Through HOPE and Stage4You, Prabhat has built grassroots
                 movements that bring theatre, education, and opportunity to
                 underserved communities.
@@ -588,7 +594,7 @@ function TestimonialPreview() {
 
           <ScrollReveal variant="blur">
             <blockquote>
-              <span className="text-7xl md:text-8xl font-display text-sage/30 leading-none block mb-4">
+              <span className="text-5xl sm:text-7xl md:text-8xl font-display text-sage/30 leading-none block mb-4">
                 &ldquo;
               </span>
               <p className="text-heading font-display text-charcoal italic leading-snug mb-8 -mt-8">

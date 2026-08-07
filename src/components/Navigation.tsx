@@ -228,7 +228,7 @@ export default function Navigation() {
                   >
                     <Link
                       href={link.href}
-                      className={`block py-2 text-3xl md:text-4xl font-display font-semibold transition-colors duration-300 ${
+                      className={`block py-2 text-2xl sm:text-3xl md:text-4xl font-display font-semibold transition-colors duration-300 ${
                         pathname === link.href
                           ? 'text-deep-teal'
                           : 'text-charcoal/40 hover:text-charcoal'
