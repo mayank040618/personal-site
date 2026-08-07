@@ -366,3 +366,14 @@ body {
     align-items: center;
   }
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   LIQUID POUR — text color override
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+[data-liquid-active="true"] * {
+  color: #ffffff !important;
+  transition: color 0.8s ease !important;
+}
+[data-liquid-active="false"] * {
+  transition: color 0.8s ease !important;
+}

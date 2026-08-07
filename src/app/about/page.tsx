@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,6 +11,8 @@ import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import MagneticButton from '@/components/ui/MagneticButton';
 import FloatingShapes from '@/components/ui/FloatingShapes';
+import LiquidPourEffect from '@/components/ui/SmokeEffect';
+import type { LiquidPhase } from '@/components/ui/SmokeEffect';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +32,13 @@ export default function AboutPage() {
    ABOUT HERO
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function AboutHero() {
+  const [phase, setPhase] = useState<LiquidPhase>('idle');
+
+  const handlePhaseChange = useCallback((p: LiquidPhase) => setPhase(p), []);
+
+  // Text turns white while liquid covers the section
+  const isInverted = phase === 'pouring' || phase === 'filled';
+
   return (
     <section
       className="relative min-h-[80vh] flex items-end overflow-hidden"
@@ -40,7 +49,14 @@ function AboutHero() {
     >
       <FloatingShapes count={4} />
 
-      <div className="container-editorial relative z-10 pt-40 pb-20">
+      {/* Liquid overlay — sits between background (z-0) and content (z-10) */}
+      <LiquidPourEffect onPhaseChange={handlePhaseChange} />
+
+      {/* Content — z-10 so it's always visible above the liquid */}
+      <div
+        className="container-editorial relative z-10 pt-40 pb-20"
+        data-liquid-active={isInverted ? 'true' : 'false'}
+      >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-end">
           {/* Text */}
           <div>
