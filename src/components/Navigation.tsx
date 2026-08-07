@@ -82,14 +82,14 @@ export default function Navigation() {
     <>
       {/* Fixed Navbar */}
       <motion.header
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isScrolled
-            ? 'py-2 bg-white/60 backdrop-blur-2xl shadow-sm border-b border-black/5'
-            : 'py-6 bg-transparent'
+            ? 'py-2 lg:py-3 bg-white/75 backdrop-blur-[32px] shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-charcoal/5'
+            : 'py-5 lg:py-8 bg-transparent'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+        transition={{ duration: 1, ease: [0.25, 1, 0.5, 1] }}
       >
         <div className="container-editorial flex items-center justify-between">
           {/* Logo */}
@@ -97,10 +97,10 @@ export default function Navigation() {
             href="/"
             className="relative z-[110] flex items-center gap-3 group"
           >
-            <div className="w-10 h-10 rounded-full bg-deep-teal flex items-center justify-center text-white font-display font-bold text-sm group-hover:scale-110 transition-transform duration-300">
+            <div className="w-10 h-10 rounded-full bg-deep-teal flex items-center justify-center text-white font-display font-bold text-sm group-hover:scale-105 group-hover:bg-forest transition-all duration-500">
               PR
             </div>
-            <span className="font-display font-semibold text-charcoal text-lg tracking-tight hidden sm:block">
+            <span className="font-display font-semibold text-charcoal text-lg tracking-tight hidden sm:block transition-colors group-hover:text-forest">
               Prabhat Singh
             </span>
           </Link>
@@ -111,7 +111,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors duration-300 relative group py-1 ${
+                className={`text-sm font-medium transition-colors duration-300 relative group py-1.5 ${
                   pathname === link.href
                     ? 'text-deep-teal'
                     : 'text-graphite hover:text-charcoal'
@@ -121,12 +121,12 @@ export default function Navigation() {
                 {pathname === link.href && (
                   <motion.span
                     layoutId="nav-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-deep-teal"
-                    transition={{ type: 'spring', stiffness: 200, damping: 25, mass: 0.8 }}
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-deep-teal rounded-full"
+                    transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 0.5 }}
                   />
                 )}
                 <span
-                  className={`absolute bottom-0 left-0 h-[1.5px] bg-deep-teal/40 transition-all duration-400 ease-out w-0 group-hover:w-full ${
+                  className={`absolute bottom-0 left-0 h-[2px] bg-deep-teal/30 rounded-full transition-all duration-500 ease-out w-0 group-hover:w-full ${
                     pathname === link.href ? 'hidden' : ''
                   }`}
                 />

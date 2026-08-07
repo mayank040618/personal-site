@@ -46,7 +46,7 @@ function HeroSection() {
   useEffect(() => {
     if (!heroRef.current) return;
 
-    // Mouse-following glow
+    // Mouse-following glow (desktop only)
     const handleMouseMove = (e: MouseEvent) => {
       if (!glowRef.current) return;
       const rect = heroRef.current!.getBoundingClientRect();
@@ -78,7 +78,39 @@ function HeroSection() {
     };
   }, []);
 
+  /* ── Choreography Timings ── */
+  const t = {
+    eyebrow: 0.6,
+    word1: 0.9,      // WE DON'T
+    word2: 1.1,       // TEACH
+    word3: 1.3,       // COMMUNICATION.
+    portrait: 1.5,
+    badge1: 2.0,      // TEDx
+    badge2: 2.25,     // Community
+    badge3: 2.5,      // 15+ Years
+    badge4: 2.75,     // Corporate
+    word4: 2.4,       // WE CREATE
+    word5: 2.6,       // CONFIDENT
+    word6: 2.8,       // LEADERS.
+    description: 3.2,
+    buttons: 3.6,
+    scroll: 4.2,
+  };
+
+  const wordReveal = (delay: number) => ({
+    initial: { opacity: 0, y: 28 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  });
+
+  const cardEntrance = (delay: number) => ({
+    initial: { opacity: 0, y: 16, scale: 0.95 },
+    animate: { opacity: 1, y: 0, scale: 1 },
+    transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  });
+
   return (
+    <>
     <section
       ref={heroRef}
       className="relative min-h-screen flex items-center overflow-hidden"
@@ -89,6 +121,21 @@ function HeroSection() {
     >
       {/* Floating shapes */}
       <FloatingShapes count={6} />
+
+      {/* Slow-drifting ambient glow */}
+      <motion.div
+        className="absolute top-1/4 left-1/3 w-[600px] h-[600px] rounded-full pointer-events-none opacity-40"
+        style={{
+          background: 'radial-gradient(circle, rgba(200, 230, 208, 0.3) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+        }}
+        animate={{
+          x: [0, 40, -20, 0],
+          y: [0, -30, 20, 0],
+          opacity: [0.3, 0.5, 0.35, 0.3],
+        }}
+        transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+      />
 
       {/* Mouse-following glow */}
       <div
@@ -107,36 +154,44 @@ function HeroSection() {
           <div className="order-2 lg:order-1 lg:col-span-7 min-w-0 pr-0 lg:pr-8">
             <motion.span
               className="text-eyebrow block mb-6"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: t.eyebrow, ease: [0.22, 1, 0.36, 1] }}
             >
               Theatre Educator · Corporate Trainer · Speaker
             </motion.span>
 
-            <AnimatedText
-              text={"WE DON'T\nTEACH\nCOMMUNICATION."}
-              className="text-hero font-display text-charcoal mb-4 whitespace-pre-line"
-              variant="slide-up"
-              tag="h1"
-              delay={0.5}
-              stagger={0.06}
-              triggerOnScroll={false}
-            />
-            <TypingText
-              text={"WE CREATE\nCONFIDENT\nLEADERS."}
-              className="text-hero font-display gradient-text mb-8 whitespace-pre-line"
-              tag="h1"
-              delay={1800}
-              speed={80}
-              showCursor={true}
-            />
+            {/* First headline — word by word */}
+            <h1 className="text-hero font-display text-charcoal mb-4 whitespace-pre-line">
+              <span className="block overflow-hidden">
+                <motion.span className="inline-block" {...wordReveal(t.word1)}>WE DON&apos;T</motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span className="inline-block" {...wordReveal(t.word2)}>TEACH</motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span className="inline-block" {...wordReveal(t.word3)}>COMMUNICATION.</motion.span>
+              </span>
+            </h1>
+
+            {/* Second headline — gradient, word by word */}
+            <h1 className="text-hero font-display gradient-text mb-8 whitespace-pre-line">
+              <span className="block overflow-hidden">
+                <motion.span className="inline-block gradient-text" {...wordReveal(t.word4)}>WE CREATE</motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span className="inline-block gradient-text" {...wordReveal(t.word5)}>CONFIDENT</motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span className="inline-block gradient-text" {...wordReveal(t.word6)}>LEADERS.</motion.span>
+              </span>
+            </h1>
 
             <motion.p
               className="text-base md:text-body-lg text-graphite max-w-lg mb-8 md:mb-10"
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
+              transition={{ duration: 0.7, delay: t.description, ease: [0.22, 1, 0.36, 1] }}
             >
               Prabhat Singh Rajput transforms lives through the power of
               theatre, communication training, and purposeful leadership —
@@ -145,13 +200,13 @@ function HeroSection() {
 
             <motion.div
               className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.5 }}
+              transition={{ duration: 0.6, delay: t.buttons, ease: [0.22, 1, 0.36, 1] }}
             >
               <MagneticButton variant="primary" size="md" href="/contact">
                 Work with Prabhat
-                <ArrowUpRight className="w-4 h-4" />
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </MagneticButton>
               <MagneticButton variant="outline" size="md" href="/about">
                 Explore the Journey
@@ -160,125 +215,168 @@ function HeroSection() {
           </div>
 
           {/* Right — Photo Area */}
-          <motion.div
-            className="order-1 lg:order-2 lg:col-span-5 relative min-w-0 lg:translate-x-12 xl:translate-x-20 lg:translate-y-16"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.6, ease: [0.25, 1, 0.5, 1] }}
-          >
+          <div className="order-1 lg:order-2 lg:col-span-5 relative min-w-0 lg:translate-x-12 xl:translate-x-20 lg:translate-y-16">
             {/* Soft radial glow behind portrait */}
             <div className="absolute inset-0 -z-10 scale-110" style={{
               background: 'radial-gradient(ellipse at center, rgba(200, 230, 208, 0.35) 0%, rgba(143, 174, 139, 0.15) 40%, transparent 70%)',
               filter: 'blur(40px)',
             }} />
 
-            <div ref={parallaxRef} className="relative aspect-[3/4] w-full max-w-xs sm:max-w-md mx-auto lg:max-w-[550px] lg:ml-auto rounded-2xl md:rounded-3xl overflow-hidden" style={{ perspective: '1000px', boxShadow: '0 20px 60px rgba(13, 79, 79, 0.15), 0 8px 24px rgba(26, 60, 52, 0.10)' }}>
-              {/* Hero Photo */}
-              <Image
-                src="/images/prabhat-hero.jpg"
-                alt="Prabhat Singh Rajput"
-                fill
-                priority
-                className="object-cover object-center"
-              />
+            {/* Portrait with cinematic entrance + subtle float */}
+            <motion.div
+              ref={parallaxRef}
+              className="relative aspect-[3/4] w-full max-w-xs sm:max-w-md mx-auto lg:max-w-[550px] lg:ml-auto rounded-2xl md:rounded-3xl overflow-hidden"
+              style={{ perspective: '1000px', boxShadow: '0 20px 60px rgba(13, 79, 79, 0.15), 0 8px 24px rgba(26, 60, 52, 0.10)' }}
+              initial={{ opacity: 0, scale: 0.96, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 1, delay: t.portrait, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <motion.div
+                className="w-full h-full"
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <Image
+                  src="/images/prabhat-hero.jpg"
+                  alt="Prabhat Singh Rajput"
+                  fill
+                  priority
+                  className="object-cover object-center"
+                />
+              </motion.div>
 
               {/* Decorative border glow */}
               <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-soft-mint/40 via-transparent to-sage/30 -z-10 blur-sm" />
-            </div>
-
-            {/* Floating badge 1: Years */}
-            <motion.div
-              className="absolute -bottom-4 -left-2 sm:-left-8 md:-left-20 premium-card px-3 sm:px-5 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 glass z-20"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.8, duration: 0.6 }}
-              style={{ animation: 'float 6s ease-in-out infinite' }}
-              whileHover={{ scale: 1.05 }}
-            >
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-soft-mint/80 flex items-center justify-center">
-                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-deep-teal" />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-charcoal">15+ Years</p>
-                <p className="text-xs text-graphite font-medium">Transforming Lives</p>
-              </div>
             </motion.div>
 
-            {/* Floating badge 2: TEDx (Dominant) */}
+            {/* Floating badge 1: TEDx (appears first) */}
             <motion.div
               className="absolute top-4 sm:top-8 -right-2 sm:-right-8 md:-right-24 premium-card px-3 sm:px-5 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 glass z-20"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 2, duration: 0.6 }}
-              style={{ animation: 'float 7s ease-in-out infinite 1s' }}
-              whileHover={{ scale: 1.05 }}
+              {...cardEntrance(t.badge1)}
             >
-              <div className="w-10 h-10 rounded-full bg-soft-mint/80 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-deep-teal" />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-charcoal">TEDx Speaker</p>
-                <p className="text-xs text-graphite font-medium">PhD Scholar</p>
-              </div>
+              <motion.div
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                className="flex items-center gap-2 sm:gap-3"
+              >
+                <div className="w-10 h-10 rounded-full bg-soft-mint/80 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-deep-teal" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-charcoal">TEDx Speaker</p>
+                  <p className="text-xs text-graphite font-medium">PhD Scholar</p>
+                </div>
+              </motion.div>
             </motion.div>
 
-            {/* Floating badge 3: Community */}
+            {/* Floating badge 2: Community */}
             <motion.div
               className="absolute top-2/3 -left-2 sm:-left-6 md:-left-16 premium-card px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 glass z-20"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 2.2, duration: 0.6 }}
-              style={{ animation: 'float 5s ease-in-out infinite 2s' }}
-              whileHover={{ scale: 1.05 }}
+              {...cardEntrance(t.badge2)}
             >
-              <div className="w-8 h-8 rounded-full bg-emerald/10 flex items-center justify-center">
-                <Users className="w-4 h-4 text-emerald" />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-charcoal">Community Builder</p>
-                <p className="text-[10px] text-graphite font-medium">100K+ Impacted</p>
-              </div>
+              <motion.div
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+                className="flex items-center gap-2 sm:gap-3"
+              >
+                <div className="w-8 h-8 rounded-full bg-emerald/10 flex items-center justify-center">
+                  <Users className="w-4 h-4 text-emerald" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-charcoal">Community Builder</p>
+                  <p className="text-[10px] text-graphite font-medium">100K+ Impacted</p>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Floating badge 3: 15+ Years */}
+            <motion.div
+              className="absolute -bottom-4 -left-2 sm:-left-8 md:-left-20 premium-card px-3 sm:px-5 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 glass z-20"
+              {...cardEntrance(t.badge3)}
+            >
+              <motion.div
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                className="flex items-center gap-2 sm:gap-3"
+              >
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-soft-mint/80 flex items-center justify-center">
+                  <Award className="w-4 h-4 sm:w-5 sm:h-5 text-deep-teal" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-charcoal">15+ Years</p>
+                  <p className="text-xs text-graphite font-medium">Transforming Lives</p>
+                </div>
+              </motion.div>
             </motion.div>
 
             {/* Floating badge 4: Corporate */}
             <motion.div
               className="absolute -bottom-8 sm:-bottom-12 right-0 sm:right-2 md:right-4 premium-card px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 glass z-20"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.4, duration: 0.6 }}
-              style={{ animation: 'float 8s ease-in-out infinite 0.5s' }}
-              whileHover={{ scale: 1.05 }}
+              {...cardEntrance(t.badge4)}
             >
-              <div className="w-8 h-8 rounded-full bg-deep-teal/10 flex items-center justify-center">
-                <Building2 className="w-4 h-4 text-deep-teal" />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-charcoal">Corporate Trainer</p>
-                <p className="text-[10px] text-graphite font-medium">Top Tier Firms</p>
-              </div>
+              <motion.div
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                className="flex items-center gap-2 sm:gap-3"
+              >
+                <div className="w-8 h-8 rounded-full bg-deep-teal/10 flex items-center justify-center">
+                  <Building2 className="w-4 h-4 text-deep-teal" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-charcoal">Corporate Trainer</p>
+                  <p className="text-[10px] text-graphite font-medium">Top Tier Firms</p>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Scroll indicator — hidden on mobile */}
+      {/* Scroll indicator — premium animation, hidden on mobile */}
       <motion.div
         className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 sm:flex flex-col items-center gap-2 hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.5 }}
+        transition={{ delay: t.scroll, duration: 0.8 }}
       >
         <span className="text-[10px] tracking-[0.2em] uppercase text-silver font-medium">
-          Scroll to explore
+          Scroll to Discover
         </span>
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          animate={{ y: [0, 6, 0], opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
           <ChevronDown className="w-4 h-4 text-sage" />
         </motion.div>
       </motion.div>
     </section>
+
+    {/* ── Storytelling Bridge ── */}
+    <section className="relative py-24 md:py-40 overflow-hidden" style={{ background: 'linear-gradient(180deg, var(--soft-ivory) 0%, var(--off-white) 100%)' }}>
+      <div className="container-editorial max-w-4xl mx-auto text-center">
+        <ScrollReveal variant="fade-up">
+          <p className="text-heading md:text-display font-display text-charcoal/80 leading-snug mb-6">
+            Because confidence is never taught.
+          </p>
+        </ScrollReveal>
+        <ScrollReveal variant="fade-up" delay={0.2}>
+          <p className="text-heading md:text-display font-display text-charcoal/60 leading-snug mb-6">
+            It is experienced.
+          </p>
+        </ScrollReveal>
+        <ScrollReveal variant="fade-up" delay={0.4}>
+          <p className="text-heading md:text-display font-display text-charcoal/40 leading-snug mb-6">
+            It is performed.
+          </p>
+        </ScrollReveal>
+        <ScrollReveal variant="fade-up" delay={0.6}>
+          <p className="text-heading md:text-display font-display gradient-text leading-snug">
+            It is lived.
+          </p>
+        </ScrollReveal>
+      </div>
+    </section>
+    </>
   );
 }
 

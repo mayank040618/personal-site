@@ -24,6 +24,7 @@ export default function MagneticButton({
 }: MagneticButtonProps) {
   const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!buttonRef.current) return;
@@ -35,17 +36,18 @@ export default function MagneticButton({
 
   const handleMouseLeave = () => {
     setPosition({ x: 0, y: 0 });
+    setIsHovered(false);
   };
 
   const variantStyles: Record<string, string> = {
     primary:
-      'bg-forest text-white hover:bg-deep-teal border-transparent shadow-md hover:shadow-[0_0_20px_rgba(42,92,86,0.4)]',
+      'bg-forest text-white hover:bg-charcoal border-transparent shadow-md hover:shadow-[0_8px_20px_rgba(26,60,52,0.3)] transition-all duration-300',
     secondary:
-      'bg-soft-mint text-deep-teal hover:bg-sage border-transparent',
+      'bg-soft-mint text-deep-teal hover:bg-sage border-transparent transition-all duration-300',
     ghost:
-      'bg-transparent text-deep-teal hover:bg-soft-mint/30 border-transparent',
+      'bg-transparent text-deep-teal hover:bg-soft-mint/30 border-transparent transition-all duration-300',
     outline:
-      'bg-transparent text-charcoal/80 border-[0.5px] border-charcoal/20 hover:border-charcoal/50 hover:bg-charcoal/5 font-normal',
+      'bg-transparent text-charcoal border-[0.5px] border-charcoal/20 hover:border-emerald hover:bg-emerald/5 hover:text-emerald font-normal transition-all duration-300',
   };
 
   const sizeStyles: Record<string, string> = {
@@ -55,9 +57,8 @@ export default function MagneticButton({
   };
 
   const baseStyles = `
-    relative inline-flex items-center justify-center gap-2
+    group relative inline-flex items-center justify-center gap-2
     rounded-full border font-medium
-    transition-colors duration-300
     cursor-pointer select-none
     ${variantStyles[variant]}
     ${sizeStyles[size]}
@@ -73,10 +74,11 @@ export default function MagneticButton({
       onClick={onClick}
       className={baseStyles}
       onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
       animate={{
         x: position.x,
-        y: position.y,
+        y: isHovered ? position.y - 3 : position.y,
       }}
       transition={{
         type: 'spring',
@@ -87,13 +89,6 @@ export default function MagneticButton({
       whileTap={{ scale: 0.97 }}
     >
       <span className="relative z-10 flex items-center gap-2">{children}</span>
-      {variant === 'primary' && (
-        <motion.div
-          className="absolute inset-0 rounded-full opacity-0 bg-emerald"
-          whileHover={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        />
-      )}
     </MotionComponent>
   );
 }
