@@ -163,26 +163,26 @@ function HeroSection() {
 
             {/* First headline — word by word */}
             <h1 className="text-hero font-display text-charcoal mb-4 whitespace-pre-line">
-              <span className="block overflow-hidden">
+              <span className="block overflow-hidden -mr-12 pr-12 pb-2 -mb-2">
                 <motion.span className="inline-block" {...wordReveal(t.word1)}>WE DON&apos;T</motion.span>
               </span>
-              <span className="block overflow-hidden">
+              <span className="block overflow-hidden -mr-12 pr-12 pb-2 -mb-2">
                 <motion.span className="inline-block" {...wordReveal(t.word2)}>TEACH</motion.span>
               </span>
-              <span className="block overflow-hidden">
+              <span className="block overflow-hidden -mr-12 pr-12 pb-2 -mb-2">
                 <motion.span className="inline-block" {...wordReveal(t.word3)}>COMMUNICATION.</motion.span>
               </span>
             </h1>
 
             {/* Second headline — gradient, word by word */}
             <h1 className="text-hero font-display gradient-text mb-8 whitespace-pre-line">
-              <span className="block overflow-hidden">
+              <span className="block overflow-hidden -mr-12 pr-12 pb-2 -mb-2">
                 <motion.span className="inline-block gradient-text" {...wordReveal(t.word4)}>WE CREATE</motion.span>
               </span>
-              <span className="block overflow-hidden">
+              <span className="block overflow-hidden -mr-12 pr-12 pb-2 -mb-2">
                 <motion.span className="inline-block gradient-text" {...wordReveal(t.word5)}>CONFIDENT</motion.span>
               </span>
-              <span className="block overflow-hidden">
+              <span className="block overflow-hidden -mr-12 pr-12 pb-2 -mb-2">
                 <motion.span className="inline-block gradient-text" {...wordReveal(t.word6)}>LEADERS.</motion.span>
               </span>
             </h1>
