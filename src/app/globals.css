@@ -106,9 +106,9 @@ body {
    FLUID TYPOGRAPHY
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .text-hero {
-  font-size: clamp(3rem, 5.5vw, 5.5rem);
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-size: clamp(1.75rem, 3.7vw, 3.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
   font-weight: 700;
 }
 
@@ -257,6 +257,20 @@ body {
   clip-path: inset(0 0 0 0);
 }
 
+/* Subtle paper grain texture */
+.bg-grain {
+  position: relative;
+}
+.bg-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.25;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
    ANIMATION KEYFRAMES
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -304,8 +318,8 @@ body {
   }
 
   .text-hero {
-    font-size: clamp(2rem, 9vw, 3rem);
-    line-height: 1;
+    font-size: clamp(1.2rem, 5.2vw, 1.85rem);
+    line-height: 1.15;
     letter-spacing: -0.02em;
   }
   
@@ -334,7 +348,7 @@ body {
 
 @media (min-width: 641px) and (max-width: 768px) {
   .text-hero {
-    font-size: clamp(2.25rem, 10vw, 3.5rem);
+    font-size: clamp(1.6rem, 4.5vw, 2.75rem);
   }
   
   .text-display {

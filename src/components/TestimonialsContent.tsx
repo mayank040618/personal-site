@@ -120,10 +120,9 @@ export default function TestimonialsContent() {
                     </div>
                   </div>
 
-                  {/* Body */}
                   <div>
                     <p className="text-lg md:text-xl text-charcoal leading-relaxed italic">
-                      "{testimonials[currentIndex].text}"
+                      &quot;{testimonials[currentIndex].text}&quot;
                     </p>
                   </div>
                   

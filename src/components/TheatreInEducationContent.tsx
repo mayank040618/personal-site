@@ -68,11 +68,11 @@ export default function TheatreInEducationContent() {
                 <h2 className="text-[2.5rem] md:text-[4rem] font-display text-charcoal mb-8 leading-[1.1]">
                   Rewiring The Mind <br/><span className="text-sage italic">Through Art</span>
                 </h2>
-                <p className="text-body-lg text-graphite mb-6 leading-relaxed">
-                  Traditional education teaches us what to think, but theatre teaches us how to feel, how to express, and how to connect. When a student steps onto the stage, they aren't just learning lines — they are breaking down the walls of communication anxiety.
+                <p className="text-body-lg text-graphite mb-8 leading-relaxed max-w-3xl mx-auto">
+                  &apos;Theatre in Education&apos; is not about making actors. It&apos;s about building empathetic, communicative, and socially aware individuals. By integrating performative arts into mainstream pedagogy, we create classrooms where learning is experienced, not just memorized.
                 </p>
                 <p className="text-body-lg text-graphite leading-relaxed">
-                  Through immersive role-play, voice modulation exercises, and empathetic character building, we help students discover a voice they didn't know they had. The transformation is immediate, emotional, and permanent.
+                  Through immersive role-play, voice modulation exercises, and empathetic character building, we help students discover a voice they didn&apos;t know they had. The transformation is immediate, emotional, and permanent.
                 </p>
               </ScrollReveal>
             </div>
