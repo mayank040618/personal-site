@@ -99,9 +99,16 @@ const fragmentShaderSource = `
       // Maximum opacity is 0.92 to slightly tint the portrait behind it
       float finalAlpha = clamp(alpha, 0.0, 0.92); 
       
-      // Deep charcoal/ink color #0a0a0a (rgb: 10, 10, 10) -> normalize to ~ 0.04
+      // Emerald Noir luxury palette
+      // Deep jewel-toned emerald: #062e22 -> #0d503f -> #147a5e
+      float colorNoise = fbm(warpedUV * 4.0 + u_time * 0.05);
+      vec3 deepEmerald  = vec3(0.024, 0.18, 0.13);   // #062e22 — deep noir base
+      vec3 richEmerald  = vec3(0.05, 0.31, 0.25);    // #0d503f — jewel core
+      vec3 brightEmerald = vec3(0.08, 0.48, 0.37);   // #147a5e — luminous accent
+      vec3 inkColor = mix(deepEmerald, mix(richEmerald, brightEmerald, colorNoise * 0.5), colorNoise);
+      
       // Pre-multiply alpha for WebGL
-      gl_FragColor = vec4(0.04 * finalAlpha, 0.04 * finalAlpha, 0.04 * finalAlpha, finalAlpha);
+      gl_FragColor = vec4(inkColor * finalAlpha, finalAlpha);
   }
 `;
 

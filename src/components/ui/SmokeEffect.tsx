@@ -64,12 +64,12 @@ export default function LiquidPourEffect({
       >
         <path
           d="M0,100 C180,20 360,80 540,40 C720,0 900,60 1080,30 C1260,0 1380,70 1440,100 L1440,100 L0,100 Z"
-          fill="#0a0a0a"
+          fill="#0d503f"
         />
       </svg>
 
-      {/* ── Solid black body ── */}
-      <div className="w-full h-full" style={{ background: '#0a0a0a' }} />
+      {/* ── Solid teal body ── */}
+      <div className="w-full h-full" style={{ background: '#0d503f' }} />
 
       {/* ── Bottom wavy edge (visible while pouring) ── */}
       <svg
@@ -81,7 +81,7 @@ export default function LiquidPourEffect({
       >
         <path
           d="M0,0 C180,80 360,20 540,60 C720,100 900,40 1080,70 C1260,100 1380,30 1440,0 L1440,0 L0,0 Z"
-          fill="#0a0a0a"
+          fill="#0d503f"
         />
       </svg>
     </motion.div>

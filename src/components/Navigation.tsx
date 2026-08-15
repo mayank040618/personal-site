@@ -32,15 +32,15 @@ function LiquidInkLayer({ isOpen }: { isOpen: boolean }) {
       transition={{ delay: isOpen ? 0.3 : 0, duration: 1.2, ease: [0.65, 0, 0.35, 1] }}
       className="absolute top-0 left-0 w-full h-full pointer-events-none z-0"
     >
-      <div className="w-full h-full bg-[#0a0a0a]" />
+      <div className="w-full h-full" style={{ background: 'linear-gradient(180deg, #041f17 0%, #062e22 30%, #0d503f 70%, #0a4430 100%)' }} />
       {/* Wavy edge sliding down */}
       <svg
-        className="absolute bottom-0 left-0 w-full translate-y-[99%] text-[#0a0a0a]"
+        className="absolute bottom-0 left-0 w-full translate-y-[99%]"
         viewBox="0 0 1440 100"
         preserveAspectRatio="none"
         style={{ height: '80px' }}
       >
-        <path d="M0,0 C180,80 360,20 540,60 C720,100 900,40 1080,70 C1260,100 1380,30 1440,0 L1440,0 L0,0 Z" fill="currentColor" />
+        <path d="M0,0 C180,80 360,20 540,60 C720,100 900,40 1080,70 C1260,100 1380,30 1440,0 L1440,0 L0,0 Z" fill="#0a4430" />
       </svg>
     </motion.div>
   );
