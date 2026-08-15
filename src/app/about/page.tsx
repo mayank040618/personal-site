@@ -11,9 +11,7 @@ import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import MagneticButton from '@/components/ui/MagneticButton';
 import FloatingShapes from '@/components/ui/FloatingShapes';
-import LiquidPourEffect from '@/components/ui/SmokeEffect';
-import type { LiquidPhase } from '@/components/ui/SmokeEffect';
-
+import OrganicInkEffect from '@/components/ui/OrganicInkEffect';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutPage() {
@@ -32,71 +30,27 @@ export default function AboutPage() {
    ABOUT HERO
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function AboutHero() {
-  const [phase, setPhase] = useState<LiquidPhase>('idle');
-
-  const handlePhaseChange = useCallback((p: LiquidPhase) => setPhase(p), []);
-
-  // Text turns white while liquid covers the section
-  const isInverted = phase === 'pouring' || phase === 'filled';
-
   return (
     <section
-      className="relative min-h-[80vh] flex items-end overflow-hidden"
+      className="relative min-h-[120vh] flex items-start overflow-hidden"
       style={{
-        background:
-          'linear-gradient(180deg, var(--warm-white) 0%, var(--soft-ivory) 100%)',
+        background: '#FAF9F6', // Pure ivory to ensure perfect difference calculations
       }}
     >
       <FloatingShapes count={4} />
 
-      {/* Liquid overlay — sits between background (z-0) and content (z-10) */}
-      <LiquidPourEffect onPhaseChange={handlePhaseChange} />
-
-      {/* Content — z-10 so it's always visible above the liquid */}
-      <div
-        className="container-editorial relative z-10 pt-40 pb-20"
-        data-liquid-active={isInverted ? 'true' : 'false'}
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-end">
-          {/* Text */}
-          <div>
-            <motion.span
-              className="text-eyebrow block mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              Chapter One
-            </motion.span>
-
-            <AnimatedText
-              text="THE MAN BEHIND THE MISSION"
-              className="text-hero font-display text-charcoal mb-6"
-              variant="slide-up"
-              tag="h1"
-              delay={0.4}
-            />
-
-            <motion.p
-              className="text-body-lg text-graphite max-w-lg"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-            >
-              A theatre artist who became an educator. A trainer who became a
-              movement. A researcher who believes art can change the world.
-            </motion.p>
-          </div>
-
-          {/* Photo */}
+      {/* 1. Portrait Layer (Behind Ink) - z-0 */}
+      <div className="absolute inset-0 z-0 container-editorial pt-40 pb-20 pointer-events-none">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 h-full items-end">
+          <div className="hidden lg:block" /> {/* spacer for text side */}
           <motion.div
-            className="relative"
+            className="relative pointer-events-auto w-full h-full flex flex-col justify-end pb-32"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
           >
             <div
-              className="aspect-[3/4] rounded-3xl overflow-hidden shadow-xl max-w-sm ml-auto"
+              className="aspect-[3/4] rounded-3xl overflow-hidden shadow-xl max-w-sm ml-auto w-full"
               style={{
                 background:
                   'linear-gradient(150deg, var(--sage) 0%, var(--deep-teal) 100%)',
@@ -107,6 +61,51 @@ function AboutHero() {
               </div>
             </div>
           </motion.div>
+        </div>
+      </div>
+
+      {/* 2. Organic Ink WebGL Layer - z-10 */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        <OrganicInkEffect />
+      </div>
+
+      {/* 3. Text Layer (Above Ink, using mix-blend-mode: difference) - z-20 */}
+      <div
+        className="container-editorial relative z-20 pt-40 pb-20 h-screen flex flex-col justify-end"
+        style={{ mixBlendMode: 'difference' }}
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          {/* Text Container */}
+          <div className="pb-32">
+            <motion.span
+              className="font-mono text-sm uppercase tracking-[0.2em] block mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              style={{ color: '#E9E8E5' }} // Inverts to charcoal on ivory, and ivory on black
+            >
+              Chapter One
+            </motion.span>
+
+            <h1
+              className="text-[3rem] md:text-[4rem] lg:text-[5rem] font-display leading-[1.05] tracking-[-0.02em] mb-6"
+              style={{ color: '#E9E8E5' }}
+            >
+              <motion.span className="block" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}>THE MAN BEHIND THE</motion.span>
+              <motion.span className="block" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }}>MISSION</motion.span>
+            </h1>
+
+            <motion.p
+              className="text-lg md:text-xl font-medium max-w-lg leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1 }}
+              style={{ color: '#E9E8E5' }}
+            >
+              A theatre artist who became an educator. A trainer who became a
+              movement. A researcher who believes art can change the world.
+            </motion.p>
+          </div>
         </div>
       </div>
     </section>

@@ -34,7 +34,7 @@ export default function FloatingShapes({
     const shapes = shapesRef.current.filter(Boolean);
 
     // Initial floating animations
-    shapes.forEach((shape, i) => {
+    shapes.forEach((shape) => {
       const duration = 6 + Math.random() * 4;
       const delay = Math.random() * 2;
 
@@ -75,9 +75,10 @@ export default function FloatingShapes({
     }
   }, [mouseReactive, count]);
 
-  const [shapeDefs, setShapeDefs] = useState<any[]>([]);
+  const [shapeDefs, setShapeDefs] = useState<Array<{id: number, size: number, x: number, y: number, color: string, borderRadius: string, blur: number}>>([]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setShapeDefs(
       Array.from({ length: count }, (_, i) => ({
         id: i,
@@ -89,6 +90,7 @@ export default function FloatingShapes({
         blur: 40 + Math.random() * 40,
       }))
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]); // Removed colors from dependencies to prevent infinite loop if passed inline
 
   if (shapeDefs.length === 0) return null;

@@ -118,6 +118,8 @@ function HeroSection() {
           background:
             'linear-gradient(180deg, var(--warm-white) 0%, var(--off-white) 50%, var(--soft-ivory) 100%)',
         }}
+        data-nav-chapter="01"
+        data-nav-title="THE MAN"
       >
         {/* Floating shapes */}
         <FloatingShapes count={6} />
@@ -415,7 +417,7 @@ function StatsBar() {
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function IntroductionSection() {
   return (
-    <section className="relative overflow-hidden pt-20 md:pt-32 pb-16 md:pb-24" style={{ background: 'linear-gradient(180deg, var(--soft-ivory) 0%, var(--white) 100%)' }}>
+    <section className="relative overflow-hidden pt-20 md:pt-32 pb-16 md:pb-24" style={{ background: 'linear-gradient(180deg, var(--soft-ivory) 0%, var(--white) 100%)' }} data-nav-chapter="02" data-nav-title="THE JOURNEY">
       {/* Curved SVG Top Divider */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none" style={{ transform: 'translateY(-1px)' }}>
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[120px]">
@@ -553,7 +555,7 @@ function ServicesPreview() {
   ];
 
   return (
-    <section className="section-spacing bg-white relative">
+    <section className="section-spacing bg-white relative" data-nav-chapter="03" data-nav-title="THEATRE">
       <div className="container-editorial">
         <SectionHeading
           eyebrow="What I Do"
@@ -618,7 +620,7 @@ function ImpactSection() {
   }, []);
 
   return (
-    <section ref={impactRef} className="relative overflow-hidden">
+    <section ref={impactRef} className="relative overflow-hidden" data-theme="dark" data-nav-chapter="06" data-nav-title="IMPACT">
       {/* Full-width image with overlay */}
       <div className="relative h-[60vh] sm:h-[70vh] min-h-[400px] sm:min-h-[500px]">
         <div

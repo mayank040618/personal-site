@@ -1,7 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import Image from 'next/image';
 import AnimatedText from '@/components/ui/AnimatedText';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import Counter from '@/components/ui/Counter';
@@ -10,7 +8,7 @@ export default function TheatreInEducationContent() {
   return (
     <div className="bg-off-white min-h-screen">
       {/* 1. Cinematic Hero */}
-      <section className="relative h-[70vh] sm:h-[90vh] flex items-center justify-center overflow-hidden pt-20">
+      <section className="relative h-[70vh] sm:h-[90vh] flex items-center justify-center overflow-hidden pt-20" data-theme="dark">
         <div className="absolute inset-0 bg-forest">
           {/* Placeholder for dramatic workshop photo */}
           <div className="absolute inset-0 opacity-40 mix-blend-overlay bg-gradient-to-t from-forest via-transparent to-transparent" />
@@ -30,7 +28,7 @@ export default function TheatreInEducationContent() {
           />
           <ScrollReveal variant="fade-up" delay={0.4}>
             <p className="text-lg md:text-2xl font-light text-white/80 max-w-3xl mx-auto">
-              Theatre isn't just performance — it's the most powerful pedagogical tool for building confidence, empathy, and authentic communication.
+              Theatre isn&apos;t just performance — it&apos;s the most powerful pedagogical tool for building confidence, empathy, and authentic communication.
             </p>
           </ScrollReveal>
         </div>
@@ -93,7 +91,7 @@ export default function TheatreInEducationContent() {
       </section>
 
       {/* 4. Immersive Quote */}
-      <section className="py-16 md:py-32 relative bg-forest overflow-hidden mt-10 md:mt-20">
+      <section className="py-16 md:py-32 relative bg-forest overflow-hidden mt-10 md:mt-20" data-theme="dark">
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
         
