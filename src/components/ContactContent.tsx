@@ -40,7 +40,7 @@ export default function ContactContent() {
           {/* Left Column: Typography & Info */}
           <div className="lg:col-span-5 lg:col-start-1 flex flex-col justify-between h-full">
             <div>
-              <ScrollReveal variant="fade-right">
+              <ScrollReveal variant="slide-right">
                 <span 
                   className="inline-block text-[10px] font-medium uppercase tracking-[0.3em] mb-8 border rounded-full px-5 py-2"
                   style={{ 
@@ -53,7 +53,7 @@ export default function ContactContent() {
                 </span>
               </ScrollReveal>
               
-              <ScrollReveal variant="fade-right" delay={0.1}>
+              <ScrollReveal variant="slide-right" delay={0.1}>
                 <h1 
                   className="text-5xl md:text-7xl font-display leading-[0.95] mb-8"
                   style={{ color: 'var(--charcoal)' }}
@@ -70,7 +70,7 @@ export default function ContactContent() {
                 </h1>
               </ScrollReveal>
 
-              <ScrollReveal variant="fade-right" delay={0.2}>
+              <ScrollReveal variant="slide-right" delay={0.2}>
                 <p 
                   className="text-lg font-light leading-relaxed mb-12 max-w-md"
                   style={{ color: 'var(--graphite)' }}
@@ -80,7 +80,7 @@ export default function ContactContent() {
               </ScrollReveal>
             </div>
 
-            <ScrollReveal variant="fade-right" delay={0.3}>
+            <ScrollReveal variant="slide-right" delay={0.3}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 pt-8 border-t" style={{ borderColor: 'var(--mist)' }}>
                 {contactInfo.map((info, idx) => (
                   <div key={info.label} className="group">
