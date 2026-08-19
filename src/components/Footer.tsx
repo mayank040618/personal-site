@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ArrowUpRight, Mail, ExternalLink, Globe } from 'lucide-react';
 import ScrollReveal from './ui/ScrollReveal';
@@ -82,8 +83,13 @@ export default function Footer() {
             <ScrollReveal variant="fade-up">
               <div className="col-span-2 md:col-span-1">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white font-display font-bold text-sm">
-                    PR
+                  <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/10 shrink-0">
+                    <Image 
+                      src="/images/prabhat-profile.jpeg" 
+                      alt="Prabhat Singh Rajput" 
+                      fill 
+                      className="object-cover"
+                    />
                   </div>
                   <span className="font-display font-semibold text-lg">
                     Prabhat Singh
