@@ -6,9 +6,9 @@ import Counter from '@/components/ui/Counter';
 
 export default function TheatreInEducationContent() {
   return (
-    <div className="bg-off-white min-h-screen">
-      {/* 1. Cinematic Hero */}
-      <section className="relative h-[70vh] sm:h-[90vh] flex items-center justify-center overflow-hidden pt-20" data-theme="dark">
+    <div className="min-h-screen bg-forest">
+      {/* 1. Cinematic Hero (Sticky Parallax) */}
+      <section className="sticky top-0 h-[70vh] sm:h-[90vh] flex items-center justify-center overflow-hidden pt-20 z-0" data-theme="dark">
         <div className="absolute inset-0 bg-forest">
           {/* Placeholder for dramatic workshop photo */}
           <div className="absolute inset-0 opacity-40 mix-blend-overlay bg-gradient-to-t from-forest via-transparent to-transparent" />
@@ -32,17 +32,16 @@ export default function TheatreInEducationContent() {
             </p>
           </ScrollReveal>
         </div>
-        
-        {/* Soft gradient transition at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-off-white to-transparent pointer-events-none" />
       </section>
 
-      {/* 2. Impact Statistics */}
-      <section className="py-12 md:py-24 relative bg-off-white">
+      {/* Wrapper for the rest of the page to scroll over the sticky hero */}
+      <div className="relative z-10 bg-off-white rounded-t-[3rem] md:rounded-t-[5rem] shadow-[0_-20px_50px_rgba(0,0,0,0.15)] mt-[-3rem] md:mt-[-5rem]">
+        {/* 2. Impact Statistics */}
+        <section className="py-12 md:py-24 relative">
         <div className="container-editorial">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 text-center md:divide-x divide-mist/50">
             <div>
-              <Counter end={500} suffix="+" label="Workshops" duration={2} />
+              <Counter end={50} suffix="+" label="Workshops" duration={2} />
             </div>
             <div>
               <Counter end={50} suffix="+" label="Institutions" duration={2} />
@@ -51,7 +50,7 @@ export default function TheatreInEducationContent() {
               <Counter end={100} suffix="K+" label="Students Reached" duration={2.5} />
             </div>
             <div>
-              <Counter end={15} suffix="+" label="Years of Impact" duration={2} />
+              <Counter end={10} suffix="+" label="Years of Impact" duration={2} />
             </div>
           </div>
         </div>
@@ -144,6 +143,7 @@ export default function TheatreInEducationContent() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }

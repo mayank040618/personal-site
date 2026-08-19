@@ -3,15 +3,23 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 const menuItems = [
+  { num: '00', title: 'HOME', desc: 'Return to the landing page.', href: '/' },
   { num: '01', title: 'THE MAN', desc: 'The story behind the mission.', href: '/about' },
   { num: '02', title: 'THE JOURNEY', desc: 'Milestones and evolution.', href: '/journey' },
   { num: '03', title: 'THEATRE', desc: 'Learning through performance.', href: '/theatre-in-education' },
   { num: '04', title: 'TRAINING', desc: 'Corporate and academic excellence.', href: '/training' },
   { num: '05', title: 'SPEAKING', desc: 'TEDx, keynotes and panels.', href: '/speaking' },
   { num: '06', title: 'IMPACT', desc: '100,000 lives transformed.', href: '/testimonials' },
+  { num: '07', title: 'GALLERY', desc: 'Visuals from theatre & events.', href: '/gallery' },
+  { num: '08', title: 'RESEARCH', desc: 'Academic insights and PhD.', href: '/research' },
+  { num: '09', title: 'H.O.P.E', desc: 'Healing Our Past Experiences.', href: '/hope' },
+  { num: '10', title: 'STAGE4YOU', desc: 'The flagship theatre initiative.', href: '/stage4you' },
+  { num: '11', title: 'MEDIA', desc: 'Press, coverage and articles.', href: '/media' },
+  { num: '12', title: 'ACHIEVEMENTS', desc: 'Awards and milestones.', href: '/achievements' },
 ];
 
 function getFallbackChapter(pathname: string) {
@@ -20,7 +28,14 @@ function getFallbackChapter(pathname: string) {
   if (pathname.includes('/theatre')) return { num: '03', title: 'THEATRE' };
   if (pathname.includes('/training')) return { num: '04', title: 'TRAINING' };
   if (pathname.includes('/speaking')) return { num: '05', title: 'SPEAKING' };
-  if (pathname.includes('/testimonials') || pathname.includes('/gallery')) return { num: '06', title: 'IMPACT' };
+  if (pathname.includes('/testimonials')) return { num: '06', title: 'IMPACT' };
+  if (pathname.includes('/gallery')) return { num: '07', title: 'GALLERY' };
+  if (pathname.includes('/research')) return { num: '08', title: 'RESEARCH' };
+  if (pathname.includes('/hope')) return { num: '09', title: 'H.O.P.E' };
+  if (pathname.includes('/stage4you')) return { num: '10', title: 'STAGE4YOU' };
+  if (pathname.includes('/media')) return { num: '11', title: 'MEDIA' };
+  if (pathname.includes('/achievements')) return { num: '12', title: 'ACHIEVEMENTS' };
+  if (pathname.includes('/contact')) return { num: '13', title: 'CONTACT' };
   return { num: '01', title: 'THE MAN' }; // default for root
 }
 
@@ -212,8 +227,17 @@ export default function Navigation() {
           </motion.div>
 
           {/* Left Brand */}
-          <div className="pl-6 md:pl-8 flex-shrink-0 z-10 w-[120px] md:w-[150px]">
-            <Link href="/" className="group flex items-center h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-deep-teal rounded-sm">
+          <div className="pl-6 md:pl-8 flex-shrink-0 z-10 w-[160px] md:w-[200px]">
+            <Link href="/" className="group flex items-center gap-2.5 h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-deep-teal rounded-sm">
+              <div className="relative w-8 h-8 rounded-full overflow-hidden ring-1.5 ring-sage/30 flex-shrink-0 group-hover:ring-deep-teal/50 transition-all duration-300">
+                <Image
+                  src="/images/prabhat-profile.jpeg"
+                  alt="Prabhat Singh Rajput"
+                  fill
+                  className="object-cover object-top"
+                  sizes="32px"
+                />
+              </div>
               <motion.span 
                 className="font-display text-[14px] md:text-[15px] tracking-[-0.01em] group-hover:opacity-80 transition-opacity"
                 animate={{ color: brandTextColor }}
@@ -301,12 +325,12 @@ export default function Navigation() {
 
             {/* Menu Header (Floating over Ink) */}
             <div className="relative z-10 flex items-center justify-between px-8 md:px-12 pt-8 md:pt-10">
-              <div className="flex-shrink-0">
-                <span className="font-display text-[15px] tracking-[-0.01em] text-white">
+              <Link href="/" onClick={() => setIsOpen(false)} className="flex-shrink-0 group">
+                <span className="font-display text-[15px] tracking-[-0.01em] text-white group-hover:text-deep-teal transition-colors">
                   <span className="font-[600]">PRABHAT</span>{' '}
                   <span className="font-[400]">SINGH</span>
                 </span>
-              </div>
+              </Link>
               
               <button 
                 onClick={() => setIsOpen(false)}
@@ -317,33 +341,33 @@ export default function Navigation() {
             </div>
 
             {/* Menu Content */}
-            <div className="relative z-10 container-editorial flex-grow flex flex-col justify-center py-12">
-              <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 md:gap-y-10">
+            <div className="relative z-10 container-editorial flex-grow flex flex-col justify-start md:justify-center pt-20 md:pt-12 pb-24 md:pb-12 overflow-y-auto overflow-x-hidden">
+              <div className="w-full max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-8 gap-y-6 md:gap-y-8 mt-16 md:my-auto">
                 {menuItems.map((item, i) => (
                   <motion.div
                     key={item.title}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20, transition: { duration: 0.3, delay: (menuItems.length - i) * 0.04 } }}
-                    transition={{ delay: 0.7 + (i * 0.08), duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    exit={{ opacity: 0, y: -20, transition: { duration: 0.2, delay: (menuItems.length - i) * 0.02 } }}
+                    transition={{ delay: 0.5 + (i * 0.04), duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <Link
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                       className="group flex flex-col items-start focus:outline-none"
                     >
-                      <span className="text-[11px] font-mono text-white/40 mb-2 group-hover:text-deep-teal transition-colors duration-300">
+                      <span className="text-[9px] md:text-[10px] font-mono text-white/40 mb-1 group-hover:text-deep-teal transition-colors duration-300">
                         {item.num}
                       </span>
-                      <div className="flex items-center gap-4">
-                        <span className="text-3xl md:text-5xl font-display font-[500] text-white/90 group-hover:text-white group-hover:translate-x-2 transition-transform duration-300">
+                      <div className="flex items-center gap-2 md:gap-3 w-full">
+                        <span className="text-[1.1rem] sm:text-2xl md:text-3xl lg:text-4xl font-display font-[500] text-white/90 group-hover:text-white group-hover:translate-x-2 transition-transform duration-300 truncate">
                           {item.title}
                         </span>
-                        <span className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-deep-teal text-xl">
+                        <span className="opacity-0 -translate-x-2 md:-translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-deep-teal text-sm md:text-xl shrink-0">
                           →
                         </span>
                       </div>
-                      <span className="text-[13px] text-white/50 mt-3 max-w-xs group-hover:text-white/70 transition-colors">
+                      <span className="text-[10px] md:text-[12px] text-white/50 mt-1.5 md:mt-2 max-w-[200px] group-hover:text-white/70 transition-colors line-clamp-2 md:line-clamp-1 leading-snug">
                         {item.desc}
                       </span>
                     </Link>

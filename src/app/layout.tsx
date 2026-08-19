@@ -5,6 +5,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Navigation from "@/components/Navigation";
 import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer";
+import BackToTop from "@/components/ui/BackToTop";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main>{children}</main>
           <Footer />
         </SmoothScroll>
+        <BackToTop />
       </body>
     </html>
   );

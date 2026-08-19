@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ArrowUpRight, Mail, ExternalLink, Globe } from 'lucide-react';
 import ScrollReveal from './ui/ScrollReveal';
 
@@ -42,32 +43,36 @@ const socials = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  
   return (
     <footer className="bg-forest text-white relative overflow-hidden">
       {/* Top CTA Section */}
-      <div className="section-spacing border-b border-white/10">
-        <div className="container-editorial">
-          <ScrollReveal variant="fade-up">
-            <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
-              <div>
-                <span className="text-eyebrow !text-soft-mint block mb-4">
-                  Let&apos;s Connect
-                </span>
-                <h2 className="text-display font-display text-white max-w-lg">
-                  Ready to create something meaningful?
-                </h2>
+      {pathname !== '/contact' && (
+        <div className="section-spacing border-b border-white/10">
+          <div className="container-editorial">
+            <ScrollReveal variant="fade-up">
+              <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
+                <div>
+                  <span className="text-eyebrow !text-soft-mint block mb-4">
+                    Let&apos;s Connect
+                  </span>
+                  <h2 className="text-display font-display text-white max-w-lg">
+                    Ready to create something meaningful?
+                  </h2>
+                </div>
+                <Link
+                  href="/contact"
+                  className="group flex items-center gap-3 px-8 py-4 rounded-full bg-white text-forest font-medium hover:bg-soft-mint transition-colors duration-300"
+                >
+                  Get in Touch
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </Link>
               </div>
-              <Link
-                href="/contact"
-                className="group flex items-center gap-3 px-8 py-4 rounded-full bg-white text-forest font-medium hover:bg-soft-mint transition-colors duration-300"
-              >
-                Get in Touch
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </Link>
-            </div>
-          </ScrollReveal>
+            </ScrollReveal>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Links Grid */}
       <div className="section-spacing">

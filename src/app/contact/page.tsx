@@ -1,4 +1,4 @@
-import PlaceholderPage from '@/components/PlaceholderPage';
+import ContactContent from '@/components/ContactContent';
 
 export const metadata = {
   title: 'Contact — Prabhat Singh Rajput',
@@ -6,12 +6,5 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  return (
-    <PlaceholderPage
-      eyebrow="Let's Connect"
-      title="START A CONVERSATION"
-      subtitle="Whether you're an institution, corporation, or community organization — let's explore how theatre and training can transform your people."
-      gradient="from-deep-teal to-sage"
-    />
-  );
+  return <ContactContent />;
 }

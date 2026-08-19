@@ -248,7 +248,7 @@ function HeroSection() {
                 <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-soft-mint/40 via-transparent to-sage/30 -z-10 blur-sm" />
               </motion.div>
 
-              {/* Floating badge 1: TEDx (appears first) */}
+              {/* Floating badge 1 */}
               <motion.div
                 className="absolute top-4 right-2 sm:right-4 md:right-2 z-20"
                 {...cardEntrance(t.badge1)}
@@ -261,13 +261,13 @@ function HeroSection() {
                     <Sparkles className="w-5 h-5 text-deep-teal" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-charcoal">TEDx Speaker</p>
-                    <p className="text-xs text-graphite font-medium">PhD Scholar</p>
+                    <p className="text-sm font-bold text-charcoal">Theatre</p>
+                    <p className="text-xs text-graphite font-medium">Enthusiast</p>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Floating badge 2: Community */}
+              {/* Floating badge 2 */}
               <motion.div
                 className="absolute top-2/3 left-2 sm:-left-2 md:-left-4 z-20"
                 {...cardEntrance(t.badge2)}
@@ -280,15 +280,15 @@ function HeroSection() {
                     <Users className="w-4 h-4 text-emerald" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-charcoal">Community Builder</p>
-                    <p className="text-[10px] text-graphite font-medium">100K+ Impacted</p>
+                    <p className="text-xs font-bold text-charcoal">Soft-Skills Personality</p>
+                    <p className="text-[10px] text-graphite font-medium">Development Expert</p>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Floating badge 3: 15+ Years */}
+              {/* Floating badge 3 */}
               <motion.div
-                className="absolute -bottom-4 left-2 sm:-left-2 md:-left-4 z-20"
+                className="absolute -bottom-4 right-2 sm:right-4 md:right-2 z-20"
                 {...cardEntrance(t.badge3)}
               >
                 <div
@@ -299,27 +299,8 @@ function HeroSection() {
                     <Award className="w-4 h-4 sm:w-5 sm:h-5 text-deep-teal" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-charcoal">15+ Years</p>
-                    <p className="text-xs text-graphite font-medium">Transforming Lives</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Floating badge 4: Corporate */}
-              <motion.div
-                className="absolute -bottom-6 right-2 sm:right-4 md:right-2 z-20"
-                {...cardEntrance(t.badge4)}
-              >
-                <div
-                  className="premium-card px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 glass"
-                  style={{ animation: 'float 9s ease-in-out infinite 2s' }}
-                >
-                  <div className="w-8 h-8 rounded-full bg-deep-teal/10 flex items-center justify-center">
-                    <Building2 className="w-4 h-4 text-deep-teal" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-charcoal">Corporate Trainer</p>
-                    <p className="text-[10px] text-graphite font-medium">Top Tier Firms</p>
+                    <p className="text-sm font-bold text-charcoal">Life</p>
+                    <p className="text-xs text-graphite font-medium">Learner</p>
                   </div>
                 </div>
               </motion.div>
@@ -380,10 +361,10 @@ function HeroSection() {
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function StatsBar() {
   const stats = [
-    { end: 500, suffix: '+', label: 'Workshops Conducted' },
+    { end: 50, suffix: '+', label: 'Workshops Conducted' },
     { end: 100000, suffix: '+', label: 'Lives Impacted', prefix: '' },
     { end: 50, suffix: '+', label: 'Institutions Trained' },
-    { end: 15, suffix: '+', label: 'Years of Experience' },
+    { end: 10, suffix: '+', label: 'Years of Experience' },
   ];
 
   return (
@@ -440,7 +421,7 @@ function IntroductionSection() {
 
             <ScrollReveal variant="fade-up" delay={0.2}>
               <p className="text-body-lg text-graphite mb-6 leading-relaxed">
-                For over fifteen years, Prabhat Singh Rajput has been at the
+                For over ten years, Prabhat Singh Rajput has been at the
                 intersection of art and education — wielding the power of
                 theatre to unlock human potential. From university auditoriums
                 to corporate boardrooms, his workshops don&apos;t just teach
@@ -501,19 +482,6 @@ function IntroductionSection() {
                 </div>
                 {/* Offset decorative frame */}
                 <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-full h-full rounded-3xl border border-sage/40 -z-10 bg-soft-mint/10 backdrop-blur-md" />
-
-                {/* Floating element on image */}
-                <motion.div
-                  className="absolute -left-4 md:-left-8 top-1/4 premium-card px-3 md:px-4 py-2 md:py-3 flex items-center gap-2 md:gap-3 z-20 glass"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6, duration: 0.6 }}
-                  style={{ animation: 'float 5s ease-in-out infinite' }}
-                >
-                  <div className="w-2 h-2 rounded-full bg-emerald" />
-                  <p className="text-xs font-bold text-charcoal">PhD Scholar</p>
-                </motion.div>
               </div>
             </ScrollReveal>
           </div>
