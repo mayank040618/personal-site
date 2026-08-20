@@ -11,7 +11,6 @@ const footerLinks = [
     title: 'Explore',
     links: [
       { label: 'About', href: '/about' },
-      { label: 'Journey', href: '/journey' },
       { label: 'Gallery', href: '/gallery' },
       { label: 'Testimonials', href: '/testimonials' },
     ],
@@ -20,9 +19,9 @@ const footerLinks = [
     title: 'Work',
     links: [
       { label: 'Theatre in Education', href: '/theatre-in-education' },
-      { label: 'Training Programs', href: '/training' },
-      { label: 'Speaking', href: '/speaking' },
-      { label: 'Research', href: '/research' },
+
+
+
     ],
   },
   {
@@ -30,8 +29,6 @@ const footerLinks = [
     links: [
       { label: 'HOPE', href: '/hope' },
       { label: 'Stage4You', href: '/stage4you' },
-      { label: 'Media', href: '/media' },
-      { label: 'Achievements', href: '/achievements' },
     ],
   },
 ];

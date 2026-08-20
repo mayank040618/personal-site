@@ -9,34 +9,22 @@ import { usePathname } from 'next/navigation';
 const menuItems = [
   { num: '00', title: 'HOME', desc: 'Return to the landing page.', href: '/' },
   { num: '01', title: 'THE MAN', desc: 'The story behind the mission.', href: '/about' },
-  { num: '02', title: 'THE JOURNEY', desc: 'Milestones and evolution.', href: '/journey' },
-  { num: '03', title: 'THEATRE', desc: 'Learning through performance.', href: '/theatre-in-education' },
-  { num: '04', title: 'TRAINING', desc: 'Corporate and academic excellence.', href: '/training' },
-  { num: '05', title: 'SPEAKING', desc: 'TEDx, keynotes and panels.', href: '/speaking' },
-  { num: '06', title: 'IMPACT', desc: '100,000 lives transformed.', href: '/testimonials' },
-  { num: '07', title: 'GALLERY', desc: 'Visuals from theatre & events.', href: '/gallery' },
-  { num: '08', title: 'RESEARCH', desc: 'Academic insights and PhD.', href: '/research' },
-  { num: '09', title: 'H.O.P.E', desc: 'Healing Our Past Experiences.', href: '/hope' },
-  { num: '10', title: 'STAGE4YOU', desc: 'The flagship theatre initiative.', href: '/stage4you' },
-  { num: '11', title: 'MEDIA', desc: 'Press, coverage and articles.', href: '/media' },
-  { num: '12', title: 'ACHIEVEMENTS', desc: 'Awards and milestones.', href: '/achievements' },
+  { num: '02', title: 'THEATRE', desc: 'Learning through performance.', href: '/theatre-in-education' },
+  { num: '03', title: 'IMPACT', desc: '100,000 lives transformed.', href: '/testimonials' },
+  { num: '04', title: 'GALLERY', desc: 'Visuals, awards and milestones.', href: '/gallery' },
+  { num: '05', title: 'H.O.P.E', desc: 'Healing Our Past Experiences.', href: '/hope' },
+  { num: '06', title: 'STAGE4YOU', desc: 'The flagship theatre initiative.', href: '/stage4you' },
 ];
 
 function getFallbackChapter(pathname: string) {
   if (pathname.includes('/about')) return { num: '01', title: 'THE MAN' };
-  if (pathname.includes('/journey')) return { num: '02', title: 'THE JOURNEY' };
-  if (pathname.includes('/theatre')) return { num: '03', title: 'THEATRE' };
-  if (pathname.includes('/training')) return { num: '04', title: 'TRAINING' };
-  if (pathname.includes('/speaking')) return { num: '05', title: 'SPEAKING' };
-  if (pathname.includes('/testimonials')) return { num: '06', title: 'IMPACT' };
-  if (pathname.includes('/gallery')) return { num: '07', title: 'GALLERY' };
-  if (pathname.includes('/research')) return { num: '08', title: 'RESEARCH' };
-  if (pathname.includes('/hope')) return { num: '09', title: 'H.O.P.E' };
-  if (pathname.includes('/stage4you')) return { num: '10', title: 'STAGE4YOU' };
-  if (pathname.includes('/media')) return { num: '11', title: 'MEDIA' };
-  if (pathname.includes('/achievements')) return { num: '12', title: 'ACHIEVEMENTS' };
-  if (pathname.includes('/contact')) return { num: '13', title: 'CONTACT' };
-  return { num: '01', title: 'THE MAN' }; // default for root
+  if (pathname.includes('/theatre')) return { num: '02', title: 'THEATRE' };
+  if (pathname.includes('/testimonials')) return { num: '03', title: 'IMPACT' };
+  if (pathname.includes('/gallery')) return { num: '04', title: 'GALLERY' };
+  if (pathname.includes('/hope')) return { num: '05', title: 'H.O.P.E' };
+  if (pathname.includes('/stage4you')) return { num: '06', title: 'STAGE4YOU' };
+  if (pathname.includes('/contact')) return { num: '07', title: 'CONTACT' };
+  return { num: '01', title: 'THE MAN' };
 }
 
 function LiquidInkLayer({ isOpen }: { isOpen: boolean }) {
@@ -79,7 +67,6 @@ export default function Navigation() {
 
   useEffect(() => {
     isTouchDevice.current = window.matchMedia("(pointer: coarse)").matches;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setActiveChapter(getFallbackChapter(pathname));
 
     // IntersectionObserver to detect both dark sections AND active chapters
@@ -124,7 +111,6 @@ export default function Navigation() {
 
   // Make sure menu closes on navigation
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsOpen(false);
   }, [pathname]);
 
@@ -341,7 +327,10 @@ export default function Navigation() {
             </div>
 
             {/* Menu Content */}
-            <div className="relative z-10 container-editorial flex-grow flex flex-col justify-start md:justify-center pt-20 md:pt-12 pb-24 md:pb-12 overflow-y-auto overflow-x-hidden">
+            <div 
+              data-lenis-prevent="true"
+              className="relative z-10 container-editorial flex-grow flex flex-col justify-start md:justify-center pt-20 md:pt-12 pb-24 md:pb-12 overflow-y-auto overflow-x-hidden"
+            >
               <div className="w-full max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-8 gap-y-6 md:gap-y-8 mt-16 md:my-auto">
                 {menuItems.map((item, i) => (
                   <motion.div

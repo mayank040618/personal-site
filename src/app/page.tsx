@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, ChevronDown, Users, Award, Building2, Sparkles } from 'lucide-react';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import FloatingShapes from '@/components/ui/FloatingShapes';
 import AnimatedText from '@/components/ui/AnimatedText';
-import TypingText from '@/components/ui/TypingText';
+
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import Counter from '@/components/ui/Counter';
 import Card from '@/components/ui/Card';
@@ -27,7 +27,7 @@ export default function HomePage() {
       <HeroSection />
       <StatsBar />
       <IntroductionSection />
-      <ServicesPreview />
+
       <ImpactSection />
       <TestimonialPreview />
       <CTASection />
@@ -72,9 +72,10 @@ function HeroSection() {
       }
     };
 
-    heroRef.current.addEventListener('mousemove', handleMouseMove);
+    const currentHeroRef = heroRef.current;
+    currentHeroRef.addEventListener('mousemove', handleMouseMove);
     return () => {
-      heroRef.current?.removeEventListener('mousemove', handleMouseMove);
+      currentHeroRef?.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
@@ -491,77 +492,7 @@ function IntroductionSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SERVICES PREVIEW
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-function ServicesPreview() {
-  const services = [
-    {
-      icon: Users,
-      title: 'Theatre in Education',
-      description:
-        'Transforming classrooms through immersive theatre-based pedagogy. Building confidence, empathy, and communication skills in students across India.',
-      href: '/theatre-in-education',
-      color: 'from-deep-teal/10 to-emerald/5',
-    },
-    {
-      icon: Building2,
-      title: 'Corporate Training',
-      description:
-        'High-impact workshops for corporate teams — from leadership communication to presentation mastery, designed to unlock professional excellence.',
-      href: '/training',
-      color: 'from-emerald/10 to-sage/5',
-    },
-    {
-      icon: Sparkles,
-      title: 'Keynote Speaking',
-      description:
-        'TEDx-caliber talks that inspire action. Prabhat delivers powerful narratives on communication, leadership, and the transformative power of storytelling.',
-      href: '/speaking',
-      color: 'from-sage/10 to-soft-mint/10',
-    },
-  ];
 
-  return (
-    <section className="section-spacing bg-white relative" data-nav-chapter="03" data-nav-title="THEATRE">
-      <div className="container-editorial">
-        <SectionHeading
-          eyebrow="What I Do"
-          title="Crafting Leaders Through Art & Science"
-          subtitle="Three pillars of work, one shared mission: empowering people to communicate with confidence, lead with empathy, and perform with purpose."
-          alignment="center"
-          className="mb-16"
-        />
-
-        <ScrollReveal stagger staggerDelay={0.15}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {services.map((service) => (
-              <Link href={service.href} key={service.title} className="block group">
-                <Card variant="default" padding="lg" className="h-full">
-                  <div
-                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}
-                  >
-                    <service.icon className="w-6 h-6 text-deep-teal" />
-                  </div>
-                  <h3 className="text-xl font-display font-semibold text-charcoal mb-3 group-hover:text-deep-teal transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-graphite leading-relaxed mb-6">
-                    {service.description}
-                  </p>
-                  <div className="flex items-center gap-2 text-sm font-medium text-emerald group-hover:gap-3 transition-all">
-                    Learn more
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </div>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </ScrollReveal>
-      </div>
-    </section>
-  );
-}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
    IMPACT SECTION
@@ -645,6 +576,38 @@ function ImpactSection() {
    TESTIMONIAL PREVIEW
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function TestimonialPreview() {
+  const previewTestimonials = [
+    {
+      text: "I had the opportunity to work with Prabhat Singh during the online placement assessment process for Nxtwave at Amity University Greater Noida, and it was a very smooth experience. Even though we worked together for only one day, I was impressed by his leadership, planning, and sense of accountability.",
+      name: 'Sangeet Banik',
+      title: 'Associate Program Manager — Nxtwave',
+      initials: 'SB',
+    },
+    {
+      text: "I have had the pleasure of working with Mr. Prabhat Singh, and I can confidently say that they are an exceptional professional with a strong commitment to excellence. He consistently demonstrates deep subject knowledge, a proactive attitude, and the ability to handle responsibilities with great efficiency.",
+      name: 'Er. Gourav Tomar',
+      title: 'Assistant Professor — Former Govt. College Lecturer',
+      initials: 'GT',
+    },
+    {
+      text: "Prabhat is one of the best people I have as a youngest colleague. His ability to tackle any problem is remarkable and with a warm smile. I highly recommend his expertise to any person who want to seek an advice on team building as well as theatre.",
+      name: 'Arpit Agrawal',
+      title: 'Vice Chairperson — JECRC University',
+      initials: 'AA',
+    },
+  ];
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % previewTestimonials.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [previewTestimonials.length]);
+
+  const current = previewTestimonials[activeIndex];
+
   return (
     <section className="section-spacing bg-soft-ivory relative overflow-hidden">
       <div className="container-editorial">
@@ -653,38 +616,58 @@ function TestimonialPreview() {
             <span className="text-eyebrow block mb-6">What People Say</span>
           </ScrollReveal>
 
-          <ScrollReveal variant="blur">
-            <blockquote>
-              <span className="text-5xl sm:text-7xl md:text-8xl font-display text-sage/30 leading-none block mb-4">
-                &ldquo;
-              </span>
-              <p className="text-heading font-display text-charcoal italic leading-snug mb-8 -mt-8">
-                Prabhat&apos;s workshop didn&apos;t just improve our
-                communication — it changed the way our entire team thinks
-                about collaboration and leadership.
-              </p>
-              <div className="flex items-center justify-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-sage/30 flex items-center justify-center">
-                  <span className="text-sm font-semibold text-deep-teal">
-                    AK
-                  </span>
+          <div className="relative min-h-[320px] md:min-h-[280px] flex flex-col items-center justify-center">
+            <AnimatePresence mode="wait">
+              <motion.blockquote
+                key={activeIndex}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <span className="text-5xl sm:text-7xl md:text-8xl font-display text-sage/30 leading-none block mb-4">
+                  &ldquo;
+                </span>
+                <p className="text-heading font-display text-charcoal italic leading-snug mb-8 -mt-8">
+                  {current.text}
+                </p>
+                <div className="flex items-center justify-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-sage/30 flex items-center justify-center">
+                    <span className="text-sm font-semibold text-deep-teal">
+                      {current.initials}
+                    </span>
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm font-semibold text-charcoal">
+                      {current.name}
+                    </p>
+                    <p className="text-xs text-silver">
+                      {current.title}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <p className="text-sm font-semibold text-charcoal">
-                    Dr. Ananya Krishnan
-                  </p>
-                  <p className="text-xs text-silver">
-                    Dean, School of Humanities — IIT Delhi
-                  </p>
-                </div>
-              </div>
-            </blockquote>
-          </ScrollReveal>
+              </motion.blockquote>
+            </AnimatePresence>
+          </div>
+
+          {/* Dots indicator */}
+          <div className="flex justify-center gap-2 mt-8 mb-12">
+            {previewTestimonials.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  i === activeIndex ? 'bg-deep-teal w-6' : 'bg-sage/30'
+                }`}
+                aria-label={`View testimonial ${i + 1}`}
+              />
+            ))}
+          </div>
 
           <ScrollReveal variant="fade-up" delay={0.4}>
-            <div className="mt-12">
+            <div>
               <MagneticButton variant="outline" href="/testimonials">
-                Read More Testimonials
+                Read All 13 Testimonials
                 <ArrowUpRight className="w-4 h-4" />
               </MagneticButton>
             </div>
@@ -738,9 +721,7 @@ function CTASection() {
                 Start a Conversation
                 <ArrowUpRight className="w-4 h-4" />
               </MagneticButton>
-              <MagneticButton variant="outline" size="lg" href="/training">
-                View Programs
-              </MagneticButton>
+
             </div>
           </ScrollReveal>
         </div>

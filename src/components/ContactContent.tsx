@@ -49,7 +49,7 @@ export default function ContactContent() {
                     background: 'rgba(255,255,255,0.4)',
                   }}
                 >
-                  Let's Connect
+                  Let&apos;s Connect
                 </span>
               </ScrollReveal>
               
@@ -75,14 +75,14 @@ export default function ContactContent() {
                   className="text-lg font-light leading-relaxed mb-12 max-w-md"
                   style={{ color: 'var(--graphite)' }}
                 >
-                  Whether you're an institution looking for corporate training, a community seeking theatre workshops, or simply want to collaborate.
+                  Whether you&apos;re an institution looking for corporate training, a community seeking theatre workshops, or simply want to collaborate.
                 </p>
               </ScrollReveal>
             </div>
 
             <ScrollReveal variant="slide-right" delay={0.3}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 pt-8 border-t" style={{ borderColor: 'var(--mist)' }}>
-                {contactInfo.map((info, idx) => (
+                {contactInfo.map((info) => (
                   <div key={info.label} className="group">
                     <p className="text-[10px] uppercase tracking-[0.2em] mb-2" style={{ color: 'var(--sage)' }}>
                       {info.label}
@@ -130,7 +130,7 @@ export default function ContactContent() {
                         </svg>
                       </div>
                       <h3 className="text-3xl font-display mb-4" style={{ color: 'var(--charcoal)' }}>Message Sent</h3>
-                      <p style={{ color: 'var(--graphite)' }}>Thank you for reaching out. I'll get back to you shortly.</p>
+                      <p style={{ color: 'var(--graphite)' }}>Thank you for reaching out. I&apos;ll get back to you shortly.</p>
                       <button 
                         onClick={() => setFormState('idle')}
                         className="mt-8 text-sm uppercase tracking-widest font-medium border-b border-transparent hover:border-current transition-colors pb-1"

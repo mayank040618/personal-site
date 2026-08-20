@@ -1,10 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, BookOpen, Heart, Mic, GraduationCap, Theater, Users } from 'lucide-react';
+import { ArrowUpRight, Heart, Theater, Users } from 'lucide-react';
 import AnimatedText from '@/components/ui/AnimatedText';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import SectionHeading from '@/components/ui/SectionHeading';
@@ -12,7 +9,7 @@ import Card from '@/components/ui/Card';
 import MagneticButton from '@/components/ui/MagneticButton';
 import FloatingShapes from '@/components/ui/FloatingShapes';
 import OrganicInkEffect from '@/components/ui/OrganicInkEffect';
-gsap.registerPlugin(ScrollTrigger);
+import JourneyContent from '@/components/JourneyContent';
 
 export default function AboutPage() {
   return (
@@ -20,7 +17,7 @@ export default function AboutPage() {
       <AboutHero />
       <StorySection />
       <PhilosophyCards />
-      <MilestonesTimeline />
+      <JourneyContent hideHeroAndFooter />
       <PersonalTouch />
     </>
   );
@@ -262,125 +259,7 @@ function PhilosophyCards() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
-   MILESTONES TIMELINE (Horizontal scrolling)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-function MilestonesTimeline() {
-  const trackRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!trackRef.current) return;
-
-    const track = trackRef.current;
-    const totalScroll = track.scrollWidth - track.clientWidth;
-
-    gsap.to(track, {
-      x: -totalScroll,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: track.parentElement,
-        start: 'top 20%',
-        end: `+=${totalScroll}`,
-        scrub: 1,
-        pin: true,
-      },
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((st) => {
-        if (st.trigger === track.parentElement) st.kill();
-      });
-    };
-  }, []);
-
-  const milestones = [
-    {
-      year: '2008',
-      title: 'First Theatre Workshop',
-      description: 'Conducted the first theatre-based communication workshop at a local university.',
-      icon: Theater,
-    },
-    {
-      year: '2012',
-      title: 'HOPE Foundation',
-      description: 'Founded HOPE — bringing education and arts to underserved communities.',
-      icon: Heart,
-    },
-    {
-      year: '2015',
-      title: 'Corporate Expansion',
-      description: 'Began delivering leadership and communication training for Fortune 500 companies.',
-      icon: Users,
-    },
-    {
-      year: '2017',
-      title: 'Stage4You Launch',
-      description: 'Created Stage4You — a platform celebrating performing arts with 1L+ community members.',
-      icon: Mic,
-    },
-    {
-      year: '2019',
-      title: 'TEDx Speaker',
-      description: 'Delivered a TEDx talk on the power of theatre pedagogy in modern education.',
-      icon: Mic,
-    },
-    {
-      year: '2021',
-      title: 'PhD Research',
-      description: 'Began doctoral research on theatre pedagogy\'s impact on communication anxiety.',
-      icon: GraduationCap,
-    },
-    {
-      year: '2024',
-      title: '100K Lives Impacted',
-      description: 'Combined impact of all initiatives crosses the 100,000 lives milestone.',
-      icon: BookOpen,
-    },
-  ];
-
-  return (
-    <section className="section-spacing bg-soft-ivory overflow-hidden">
-      <div className="container-editorial mb-12">
-        <SectionHeading
-          eyebrow="The Timeline"
-          title="Moments That Defined the Journey"
-        />
-      </div>
-
-      <div className="relative">
-        <div ref={trackRef} className="flex gap-6 pl-[var(--container-padding)] pr-32">
-          {milestones.map((milestone, i) => (
-            <div
-              key={i}
-              className="flex-shrink-0 w-[320px] md:w-[380px]"
-            >
-              <Card variant="default" padding="lg" className="h-full">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-soft-mint/50 flex items-center justify-center">
-                    <milestone.icon className="w-5 h-5 text-deep-teal" />
-                  </div>
-                  <span className="text-2xl font-display font-bold gradient-text">
-                    {milestone.year}
-                  </span>
-                </div>
-                <h3 className="text-lg font-display font-semibold text-charcoal mb-2">
-                  {milestone.title}
-                </h3>
-                <p className="text-sm text-graphite leading-relaxed">
-                  {milestone.description}
-                </p>
-              </Card>
-            </div>
-          ))}
-        </div>
-
-        {/* Gradient edges */}
-        <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-soft-ivory to-transparent pointer-events-none z-10" />
-        <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-soft-ivory to-transparent pointer-events-none z-10" />
-      </div>
-    </section>
-  );
-}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
    PERSONAL TOUCH
@@ -423,17 +302,7 @@ function PersonalTouch() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal variant="scale" delay={0.5}>
-            <div className="flex flex-wrap justify-center gap-4">
-              <MagneticButton variant="primary" href="/journey">
-                Explore the Full Journey
-                <ArrowUpRight className="w-4 h-4" />
-              </MagneticButton>
-              <MagneticButton variant="outline" href="/contact">
-                Get in Touch
-              </MagneticButton>
-            </div>
-          </ScrollReveal>
+
         </div>
       </div>
 

@@ -57,7 +57,7 @@ export default function Card({
     lg: 'p-10',
   };
 
-  const Component = href ? 'a' : 'div';
+
 
   return (
     <motion.div

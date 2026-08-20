@@ -68,11 +68,14 @@ export default function ParallaxImage({
       );
     }
 
+    const currContainerRef = containerRef.current;
+    const currImageRef = imageRef.current;
+
     return () => {
       ScrollTrigger.getAll().forEach((st) => {
         if (
-          st.trigger === containerRef.current ||
-          st.trigger === imageRef.current
+          st.trigger === currContainerRef ||
+          st.trigger === currImageRef
         ) {
           st.kill();
         }

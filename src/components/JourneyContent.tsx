@@ -258,7 +258,7 @@ function TimelineCard({ milestone, index }: { milestone: Milestone; index: numbe
   );
 }
 
-export default function JourneyContent() {
+export default function JourneyContent({ hideHeroAndFooter = false }: { hideHeroAndFooter?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [trackWidth, setTrackWidth] = useState(0);
@@ -303,78 +303,80 @@ export default function JourneyContent() {
   );
 
   // Background parallax
-  const bgX = useTransform(smoothProgress, [0, 1], ['0%', '-15%']);
+
   const bgOpacity = useTransform(smoothProgress, [0, 0.5, 1], [0.03, 0.06, 0.03]);
 
   return (
     <div className="relative" style={{ background: 'var(--soft-ivory)' }}>
       {/* ── Hero Section ── */}
-      <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-6">
-        {/* Decorative elements */}
-        <div 
-          className="absolute top-20 right-1/4 w-[500px] h-[500px] rounded-full blur-[150px] opacity-15 pointer-events-none"
-          style={{ background: 'var(--sage)' }}
-        />
-        <div 
-          className="absolute bottom-20 left-1/4 w-[400px] h-[400px] rounded-full blur-[120px] opacity-10 pointer-events-none"
-          style={{ background: 'var(--emerald)' }}
-        />
-        
-        <ScrollReveal variant="fade-up" className="relative z-10 text-center">
-          <span 
-            className="inline-block text-xs font-medium uppercase tracking-[0.35em] mb-8 border rounded-full px-6 py-2.5"
-            style={{ 
-              color: 'var(--deep-teal)',
-              borderColor: 'var(--mist)',
-              background: 'rgba(255,255,255,0.6)',
-            }}
-          >
-            The Timeline
-          </span>
-          <h1 
-            className="text-[3.5rem] md:text-[6rem] lg:text-[7.5rem] font-display leading-[0.95] mb-6"
-            style={{ color: 'var(--charcoal)' }}
-          >
-            A Journey of
-            <br />
-            <span className="italic" style={{ color: 'var(--emerald)' }}>Purpose & Passion</span>
-          </h1>
-          <p 
-            className="text-lg md:text-xl max-w-lg mx-auto font-light mb-6"
-            style={{ color: 'var(--graphite)' }}
-          >
-            From theatre stages to university boardrooms — a decade of building, creating, and transforming lives.
-          </p>
-
-          {/* Category Legend */}
-          <div className="flex flex-wrap justify-center gap-3 mb-14">
-            {Object.entries(categoryConfig).map(([key, config]) => (
-              <span 
-                key={key}
-                className="inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.15em] px-4 py-2 rounded-full"
-                style={{ color: config.color, background: config.bg, border: `1px solid ${config.border}` }}
-              >
-                <span className="w-1.5 h-1.5 rounded-full" style={{ background: config.color }} />
-                {config.label}
-              </span>
-            ))}
-          </div>
+      {!hideHeroAndFooter && (
+        <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-6">
+          {/* Decorative elements */}
+          <div 
+            className="absolute top-20 right-1/4 w-[500px] h-[500px] rounded-full blur-[150px] opacity-15 pointer-events-none"
+            style={{ background: 'var(--sage)' }}
+          />
+          <div 
+            className="absolute bottom-20 left-1/4 w-[400px] h-[400px] rounded-full blur-[120px] opacity-10 pointer-events-none"
+            style={{ background: 'var(--emerald)' }}
+          />
           
-          {/* Scroll indicator */}
-          <motion.div 
-            className="flex flex-col items-center gap-3"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <span className="text-[10px] uppercase tracking-[0.3em]" style={{ color: 'var(--silver)' }}>
-              Scroll to explore
+          <ScrollReveal variant="fade-up" className="relative z-10 text-center">
+            <span 
+              className="inline-block text-xs font-medium uppercase tracking-[0.35em] mb-8 border rounded-full px-6 py-2.5"
+              style={{ 
+                color: 'var(--deep-teal)',
+                borderColor: 'var(--mist)',
+                background: 'rgba(255,255,255,0.6)',
+              }}
+            >
+              The Timeline
             </span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ opacity: 0.3 }}>
-              <path d="M12 5L12 19M12 19L5 12M12 19L19 12" stroke="var(--charcoal)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </motion.div>
-        </ScrollReveal>
-      </div>
+            <h1 
+              className="text-[3.5rem] md:text-[6rem] lg:text-[7.5rem] font-display leading-[0.95] mb-6"
+              style={{ color: 'var(--charcoal)' }}
+            >
+              A Journey of
+              <br />
+              <span className="italic" style={{ color: 'var(--emerald)' }}>Purpose & Passion</span>
+            </h1>
+            <p 
+              className="text-lg md:text-xl max-w-lg mx-auto font-light mb-6"
+              style={{ color: 'var(--graphite)' }}
+            >
+              From theatre stages to university boardrooms — a decade of building, creating, and transforming lives.
+            </p>
+
+            {/* Category Legend */}
+            <div className="flex flex-wrap justify-center gap-3 mb-14">
+              {Object.entries(categoryConfig).map(([key, config]) => (
+                <span 
+                  key={key}
+                  className="inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.15em] px-4 py-2 rounded-full"
+                  style={{ color: config.color, background: config.bg, border: `1px solid ${config.border}` }}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: config.color }} />
+                  {config.label}
+                </span>
+              ))}
+            </div>
+            
+            {/* Scroll indicator */}
+            <motion.div 
+              className="flex flex-col items-center gap-3"
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <span className="text-[10px] uppercase tracking-[0.3em]" style={{ color: 'var(--silver)' }}>
+                Scroll to explore
+              </span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ opacity: 0.3 }}>
+                <path d="M12 5L12 19M12 19L5 12M12 19L19 12" stroke="var(--charcoal)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </motion.div>
+          </ScrollReveal>
+        </div>
+      )}
 
       {/* ── Fixed Progress + Year Counter ── */}
       <div className="fixed top-0 left-0 right-0 z-50">
@@ -482,21 +484,23 @@ export default function JourneyContent() {
       </div>
 
       {/* ── Closing Section ── */}
-      <div 
-        className="py-32 text-center relative overflow-hidden"
-        style={{ background: 'var(--off-white)' }}
-      >
-        <ScrollReveal variant="fade-up">
-          <p 
-            className="text-5xl md:text-7xl font-display italic leading-tight max-w-3xl mx-auto px-6"
-            style={{ color: 'var(--charcoal)' }}
-          >
-            {milestones.length} milestones.
-            <br />
-            <span style={{ color: 'var(--emerald)' }}>One purpose.</span>
-          </p>
-        </ScrollReveal>
-      </div>
+      {!hideHeroAndFooter && (
+        <div 
+          className="py-32 text-center relative overflow-hidden"
+          style={{ background: 'var(--off-white)' }}
+        >
+          <ScrollReveal variant="fade-up">
+            <p 
+              className="text-5xl md:text-7xl font-display italic leading-tight max-w-3xl mx-auto px-6"
+              style={{ color: 'var(--charcoal)' }}
+            >
+              {milestones.length} milestones.
+              <br />
+              <span style={{ color: 'var(--emerald)' }}>One purpose.</span>
+            </p>
+          </ScrollReveal>
+        </div>
+      )}
     </div>
   );
 }

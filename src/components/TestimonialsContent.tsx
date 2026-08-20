@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Quote } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
@@ -146,12 +146,7 @@ function TestimonialCard({
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 1]);
   const y = useTransform(scrollYProgress, [0, 1], [80, 0]);
 
-  // Alternate subtle background tints for visual variety
-  const bgColors = [
-    'rgba(13, 79, 79, 0.03)',
-    'rgba(27, 122, 90, 0.03)',
-    'rgba(143, 174, 139, 0.03)',
-  ];
+
 
   return (
     <div
