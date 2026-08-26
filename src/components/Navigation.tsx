@@ -152,18 +152,18 @@ export default function Navigation() {
   const navHeight = scrollPhase === 'hero' ? 72 : (scrollPhase === 'compact' && !isScrollingUp ? 60 : 70);
   
   const navBg = isDarkTheme 
-    ? (scrollPhase === 'hero' ? 'rgba(20,22,20,0.05)' : 'rgba(25,28,26,0.72)')
-    : (scrollPhase === 'hero' ? 'rgba(250,249,246,0.18)' : 'rgba(250,249,246,0.76)');
+    ? (scrollPhase === 'hero' ? 'rgba(20,20,20,0.05)' : 'rgba(120,120,120,0.15)')
+    : (scrollPhase === 'hero' ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.3)');
     
-  const navBlur = scrollPhase === 'hero' ? 'blur(8px)' : 'blur(24px) saturate(145%)';
+  const navBlur = scrollPhase === 'hero' ? 'blur(12px) saturate(120%)' : 'blur(40px) saturate(180%)';
   
   const navBorder = isDarkTheme
-    ? (scrollPhase === 'hero' ? 'rgba(255,255,255,0)' : 'rgba(255,255,255,0.06)')
-    : (scrollPhase === 'hero' ? 'rgba(17,17,17,0)' : 'rgba(17,17,17,0.06)');
+    ? (scrollPhase === 'hero' ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.12)')
+    : (scrollPhase === 'hero' ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.5)');
     
   const navShadow = isDarkTheme
-    ? (scrollPhase === 'hero' ? '0 0 0 rgba(0,0,0,0)' : '0 8px 35px rgba(0,0,0,0.2)')
-    : (scrollPhase === 'hero' ? '0 0 0 rgba(0,0,0,0)' : '0 8px 35px rgba(17,17,17,0.06)');
+    ? (scrollPhase === 'hero' ? '0 0 0 rgba(0,0,0,0)' : 'inset 0 1px 1px rgba(255,255,255,0.2), inset 0 0 20px rgba(255,255,255,0.05), 0 12px 40px rgba(0,0,0,0.4)')
+    : (scrollPhase === 'hero' ? '0 0 0 rgba(0,0,0,0)' : 'inset 0 1px 1px rgba(255,255,255,0.9), inset 0 0 20px rgba(255,255,255,0.2), 0 12px 40px rgba(0,0,0,0.1)');
 
   const brandTextColor = isDarkTheme ? '#FFFFFF' : 'var(--charcoal)';
 
@@ -193,14 +193,14 @@ export default function Navigation() {
             backdropFilter: navBlur,
             borderColor: navBorder,
             boxShadow: navShadow,
-            borderRadius: 20,
+            borderRadius: 24,
           }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           style={{ borderStyle: 'solid', borderWidth: '1px' }}
         >
           {/* Subtle Optical Highlight */}
           <motion.div 
-            className="absolute inset-0 pointer-events-none rounded-[19px] overflow-hidden hidden lg:block"
+            className="absolute inset-0 pointer-events-none rounded-[23px] overflow-hidden hidden lg:block"
             animate={{ opacity: scrollPhase !== 'hero' ? 1 : 0 }}
           >
             <div 

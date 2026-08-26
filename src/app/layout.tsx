@@ -57,6 +57,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${playfair.variable} ${inter.variable} ${spaceMono.variable} antialiased`}
     >
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      </head>
       <body className="min-h-screen bg-off-white text-charcoal font-body overflow-x-hidden">
         <SmoothScroll>
           <CustomCursor />

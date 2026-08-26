@@ -22,12 +22,12 @@ export default function TheatreInEducationContent() {
           </ScrollReveal>
           <AnimatedText
             text={"WHERE THEATRE\nMEETS EDUCATION"}
-            className="text-[3rem] md:text-[6rem] lg:text-[7rem] font-display mb-8 leading-[0.9] whitespace-pre-line"
+            className="text-[clamp(2.5rem,8vw,7rem)] font-display mb-4 md:mb-8 leading-[0.9] whitespace-pre-line px-4"
             variant="slide-up"
             tag="h1"
           />
           <ScrollReveal variant="fade-up" delay={0.4}>
-            <p className="text-lg md:text-2xl font-light text-white/80 max-w-3xl mx-auto">
+            <p className="text-[clamp(1.125rem,2vw,1.5rem)] font-light text-white/80 max-w-3xl mx-auto px-4 md:px-0">
               Theatre isn&apos;t just performance — it&apos;s the most powerful pedagogical tool for building confidence, empathy, and authentic communication.
             </p>
           </ScrollReveal>
@@ -62,14 +62,17 @@ export default function TheatreInEducationContent() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center">
             <div>
               <ScrollReveal variant="fade-up">
-                <h2 className="text-[2.5rem] md:text-[4rem] font-display text-charcoal mb-8 leading-[1.1]">
-                  Rewiring The Mind <br/><span className="text-sage italic">Through Art</span>
+                <span className="text-sage font-medium tracking-wider uppercase text-sm mb-4 block">
+                  Theatre in Education (TIE)
+                </span>
+                <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-display text-charcoal mb-8 leading-[1.1]">
+                  Why Theatre in <br/><span className="text-sage italic">Education?</span>
                 </h2>
                 <p className="text-body-lg text-graphite mb-8 leading-relaxed max-w-3xl mx-auto">
-                  &apos;Theatre in Education&apos; is not about making actors. It&apos;s about building empathetic, communicative, and socially aware individuals. By integrating performative arts into mainstream pedagogy, we create classrooms where learning is experienced, not just memorized.
+                  Theatre in Education (TIE) empowers students through artistic expression, critical thinking, and social awareness. By engaging in self-discovery, creativity, and the exploration of societal roles, participants build empathy, teamwork, and confidence — alongside a deeper understanding of storytelling and performance.
                 </p>
                 <p className="text-body-lg text-graphite leading-relaxed">
-                  Through immersive role-play, voice modulation exercises, and empathetic character building, we help students discover a voice they didn&apos;t know they had. The transformation is immediate, emotional, and permanent.
+                  These aren&apos;t just performance skills. They translate directly into academic and professional practice, making learning more experiential, engaging, and meaningful — whether in a classroom, a training room, or a boardroom.
                 </p>
               </ScrollReveal>
             </div>
@@ -96,10 +99,10 @@ export default function TheatreInEducationContent() {
         
         <div className="container-editorial relative z-10 text-center max-w-5xl mx-auto px-6">
           <ScrollReveal variant="fade-up">
-            <span className="text-[5rem] md:text-[12rem] font-display text-emerald/30 leading-none block mb-4">
+            <span className="text-[clamp(5rem,15vw,12rem)] font-display text-emerald/30 leading-none block mb-4">
               &ldquo;
             </span>
-            <h3 className="text-[1.5rem] md:text-[4rem] font-display text-white leading-[1.2] italic mb-8 md:mb-12 -mt-10 md:-mt-16 relative z-10">
+            <h3 className="text-[clamp(1.5rem,5vw,4rem)] font-display text-white leading-[1.2] italic mb-8 md:mb-12 -mt-6 md:-mt-16 relative z-10">
               Every person has a story worth telling. Theatre simply gives them the courage and the stage to finally tell it.
             </h3>
             <p className="text-soft-mint tracking-[0.2em] text-sm uppercase font-semibold">
@@ -110,10 +113,10 @@ export default function TheatreInEducationContent() {
       </section>
 
       {/* 5. Workshop Moments (Masonry / Grid) */}
-      <section className="py-16 md:py-32 relative bg-off-white">
+      <section className="py-16 md:py-32 relative bg-off-white px-4 md:px-0">
         <div className="container-editorial">
           <ScrollReveal variant="fade-up">
-            <h2 className="text-[2rem] md:text-[4.5rem] font-display text-charcoal mb-10 md:mb-16 text-center leading-none">
+            <h2 className="text-[clamp(2.5rem,6vw,4.5rem)] font-display text-charcoal mb-10 md:mb-16 text-center leading-none">
               Moments of <br/><span className="italic text-emerald">Discovery</span>
             </h2>
           </ScrollReveal>

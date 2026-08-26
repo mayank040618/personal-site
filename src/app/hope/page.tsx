@@ -1,17 +1,10 @@
-import PlaceholderPage from '@/components/PlaceholderPage';
+import HopeContent from '@/components/HopeContent';
 
 export const metadata = {
   title: 'HOPE — Prabhat Singh Rajput',
-  description: 'HOPE is Prabhat Singh Rajput\'s community initiative bringing education, arts, and opportunity to underserved communities across India.',
+  description: 'HOPE is a platform for passion-preneurs — people ready to turn what they love into what they do.',
 };
 
 export default function HopePage() {
-  return (
-    <PlaceholderPage
-      eyebrow="Community Initiative"
-      title="HOPE: EMPOWERING COMMUNITIES"
-      subtitle="A grassroots movement bringing education, theatre, and opportunity to those who need it most — because hope is not just a feeling, it's an action."
-      gradient="from-forest to-deep-teal"
-    />
-  );
+  return <HopeContent />;
 }

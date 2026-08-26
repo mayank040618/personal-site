@@ -1,14 +1,15 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 interface TypingTextProps {
   text: string;
   className?: string;
-  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span';
-  delay?: number;       // ms before typing starts
-  speed?: number;       // ms per character
-  showCursor?: boolean;
+  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span' | 'div';
+  delay?: number;       // ms before animation starts
+  speed?: number;       // ms delay between each character
+  showCursor?: boolean; // Kept for compatibility, though a smooth fade doesn't typically use a block cursor
 }
 
 export default function TypingText({
@@ -16,80 +17,70 @@ export default function TypingText({
   className = '',
   tag: Tag = 'h1',
   delay = 0,
-  speed = 70,
-  showCursor = true,
+  speed = 40,
+  showCursor = false, 
 }: TypingTextProps) {
-  const [displayedCount, setDisplayedCount] = useState(0);
-  const [started, setStarted] = useState(false);
-  const [cursorVisible, setCursorVisible] = useState(true);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const containerRef = useRef<HTMLElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "0px 0px -100px 0px" });
 
-  // Wait for initial delay, then start typing
-  useEffect(() => {
-    const delayTimer = setTimeout(() => {
-      setStarted(true);
-    }, delay);
-    return () => clearTimeout(delayTimer);
-  }, [delay]);
+  // Use framer-motion's dynamic component creation
+  const MotionTag = motion[Tag as keyof typeof motion] as React.ElementType;
 
-  // Type characters one by one
-  useEffect(() => {
-    if (!started) return;
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { 
+        staggerChildren: speed / 1000, // Convert ms to seconds for stagger
+        delayChildren: delay / 1000 
+      },
+    },
+  };
 
-    intervalRef.current = setInterval(() => {
-      setDisplayedCount((prev) => {
-        if (prev >= text.length) {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, speed);
-
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [started, text, speed]);
-
-  // Blink cursor
-  useEffect(() => {
-    if (!showCursor) return;
-    const blink = setInterval(() => {
-      setCursorVisible((v) => !v);
-    }, 530);
-    return () => clearInterval(blink);
-  }, [showCursor]);
-
-  const isComplete = displayedCount >= text.length;
-  const displayed = text.slice(0, displayedCount);
-
-  // Split by newlines for proper block rendering
-  const lines = displayed.split('\n');
-  // Also figure out total lines in the full text to reserve space
-  const allLines = text.split('\n');
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        type: "spring" as const,
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 8,
+      filter: "blur(4px)",
+      transition: {
+        type: "spring" as const,
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+  };
 
   return (
-    <Tag className={className}>
-      {allLines.map((fullLine, lineIndex) => (
-        <span key={`line-${lineIndex}`} className="block" style={{ minHeight: '1.1em' }}>
-          {lines[lineIndex] || ''}
-          {/* Show cursor only after typing has started */}
-          {showCursor && started && !isComplete && lineIndex === lines.length - 1 && (
-            <span
-              className="inline-block ml-0.5 align-baseline"
-              style={{
-                width: '3px',
-                height: '0.85em',
-                background: 'currentColor',
-                opacity: cursorVisible ? 1 : 0,
-                transition: 'opacity 0.1s',
-                verticalAlign: 'baseline',
-                marginBottom: '-0.05em',
-              }}
-            />
-          )}
+    <MotionTag
+      className={className}
+      ref={containerRef as any}
+      variants={container}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+    >
+      {text.split('\n').map((line, lineIndex) => (
+        <span key={`line-${lineIndex}`} className="block">
+          {line.split(' ').map((word, wordIndex) => (
+            <span key={`word-${wordIndex}`} className="inline-block whitespace-nowrap mr-[0.25em]">
+              {word.split('').map((char, charIndex) => (
+                <motion.span variants={child} key={`char-${charIndex}`} className="inline-block">
+                  {char}
+                </motion.span>
+              ))}
+            </span>
+          ))}
         </span>
       ))}
-    </Tag>
+    </MotionTag>
   );
 }

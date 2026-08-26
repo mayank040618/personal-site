@@ -15,7 +15,7 @@ export default function ContactContent() {
   };
 
   const contactInfo = [
-    { label: 'Email', value: 'prabhat@example.com', href: 'mailto:prabhat@example.com' },
+    { label: 'Email', value: 'prabhatweb23@gmail.com', href: 'mailto:prabhatweb23@gmail.com' },
     { label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
     { label: 'Location', value: 'Greater Noida, India', href: '#' },
     { label: 'LinkedIn', value: 'Prabhat Singh Rajput', href: 'https://linkedin.com/' },

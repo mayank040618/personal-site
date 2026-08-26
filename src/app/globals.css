@@ -344,6 +344,11 @@ body {
   .premium-card {
     border-radius: 0.875rem;
   }
+
+  /* Prevent horizontal overflow on mobile */
+  .container-editorial {
+    overflow-x: hidden;
+  }
 }
 
 @media (min-width: 641px) and (max-width: 768px) {
@@ -369,16 +374,61 @@ body {
 
 /* Touch device optimizations */
 @media (pointer: coarse) {
+  /* Remove tap highlight */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   .premium-card {
     cursor: default;
   }
+
+  .premium-card:hover {
+    transform: none;
+  }
   
-  /* Larger touch targets */
-  nav a, nav button {
+  /* Larger touch targets for interactive elements */
+  nav a, nav button, footer a, button {
     min-height: 44px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
   }
+
+  /* Disable hover effects that don't work on touch */
+  .group:hover .group-hover\:scale-105 {
+    transform: none;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SAFE AREAS (Notched devices)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@supports (padding-top: env(safe-area-inset-top)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  footer {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   iOS INPUT ZOOM PREVENTION
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CANVAS / WEBGL PERF HINT
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+canvas {
+  touch-action: pan-y;
+  will-change: auto;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -391,3 +441,4 @@ body {
 [data-liquid-active="false"] * {
   transition: color 0.8s ease !important;
 }
+

@@ -79,8 +79,10 @@ export default function FloatingShapes({
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const mobileCount = isMobile ? Math.min(count, 3) : count;
     setShapeDefs(
-      Array.from({ length: count }, (_, i) => ({
+      Array.from({ length: mobileCount }, (_, i) => ({
         id: i,
         size: 80 + Math.random() * 200,
         x: Math.random() * 100,

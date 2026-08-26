@@ -13,7 +13,18 @@ const vertexShaderSource = `
   }
 `;
 
-const fragmentShaderSource = `
+const getFragmentShaderSource = (theme: 'emerald' | 'hope') => {
+  const colorDefs = theme === 'emerald' ? `
+      deepColor  = vec3(0.024, 0.18, 0.13);   // #062e22
+      richColor  = vec3(0.05, 0.31, 0.25);    // #0d503f
+      brightColor = vec3(0.08, 0.48, 0.37);   // #147a5e
+  ` : `
+      deepColor  = vec3(0.027, 0.09, 0.235);  // #07173c
+      richColor  = vec3(0.082, 0.306, 0.675); // #154eb0
+      brightColor = vec3(0.035, 0.706, 0.886); // #09b4e2
+  `;
+
+  return `
   precision highp float;
 
   uniform vec2 u_resolution;
@@ -77,40 +88,36 @@ const fragmentShaderSource = `
       float n = fbm(warpedUV * 2.0 + 4.0 * r);
       
       // Base threshold based on u_progress (0 to 1)
-      // Scale so ink goes from completely off-screen top to completely covering
       float threshold = (u_progress * 2.0) - 0.5; 
       
       // Calculate ink field
       float inkField = (threshold - warpedUV.y) * 2.0 + n * 1.5;
       
-      // Drain logic: subtract density from the bottom center if draining
       if (u_drainProgress > 0.0) {
           float drainMask = smoothstep(1.2, 0.4, uv.y + u_drainProgress * 0.5) * smoothstep(0.5, 0.0, abs(uv.x - 0.5));
           inkField -= drainMask * 5.0 * u_drainProgress;
       }
 
-      // Smooth organic edge
       float alpha = smoothstep(0.1, 0.8, inkField);
       
-      // Add extra density variation
       float densityVariation = smoothstep(0.2, 1.0, fbm(warpedUV * 5.0 - u_time * 0.2));
       alpha = min(alpha, alpha * (0.8 + 0.2 * densityVariation));
       
-      // Maximum opacity is 0.92 to slightly tint the portrait behind it
       float finalAlpha = clamp(alpha, 0.0, 0.92); 
       
-      // Emerald Noir luxury palette
-      // Deep jewel-toned emerald: #062e22 -> #0d503f -> #147a5e
       float colorNoise = fbm(warpedUV * 4.0 + u_time * 0.05);
-      vec3 deepEmerald  = vec3(0.024, 0.18, 0.13);   // #062e22 — deep noir base
-      vec3 richEmerald  = vec3(0.05, 0.31, 0.25);    // #0d503f — jewel core
-      vec3 brightEmerald = vec3(0.08, 0.48, 0.37);   // #147a5e — luminous accent
-      vec3 inkColor = mix(deepEmerald, mix(richEmerald, brightEmerald, colorNoise * 0.5), colorNoise);
+      vec3 deepColor;
+      vec3 richColor;
+      vec3 brightColor;
+
+      ${colorDefs}
       
-      // Pre-multiply alpha for WebGL
+      vec3 inkColor = mix(deepColor, mix(richColor, brightColor, colorNoise * 0.5), colorNoise);
+      
       gl_FragColor = vec4(inkColor * finalAlpha, finalAlpha);
   }
 `;
+}
 
 function compileShader(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type);
@@ -125,7 +132,13 @@ function compileShader(gl: WebGLRenderingContext, type: number, source: string) 
   return shader;
 }
 
-export default function OrganicInkEffect() {
+export default function OrganicInkEffect({ 
+  theme = 'emerald',
+  autoPlay = false
+}: { 
+  theme?: 'emerald' | 'hope',
+  autoPlay?: boolean 
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -138,7 +151,7 @@ export default function OrganicInkEffect() {
 
     // Compile Shaders
     const vertexShader = compileShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
-    const fragmentShader = compileShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+    const fragmentShader = compileShader(gl, gl.FRAGMENT_SHADER, getFragmentShaderSource(theme));
     if (!vertexShader || !fragmentShader) return;
 
     const program = gl.createProgram();
@@ -185,8 +198,9 @@ export default function OrganicInkEffect() {
 
     // Resize Handler
     const handleResize = () => {
-      // Use devicePixelRatio for crisp rendering on retina
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Use devicePixelRatio for crisp rendering on retina, cap lower on mobile
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
       const rect = canvas.parentElement?.getBoundingClientRect();
       if (rect) {
         canvas.width = rect.width * dpr;
@@ -199,9 +213,8 @@ export default function OrganicInkEffect() {
     handleResize();
 
     // GSAP ScrollTrigger Sequence
-    // The effect spans the entire AboutHero section. We use a timeline to map scroll to our uniforms.
     const section = canvas.closest('section');
-    if (section) {
+    if (section && !autoPlay) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -232,6 +245,12 @@ export default function OrganicInkEffect() {
 
     const render = (now: number) => {
       const time = (now - startTime) * 0.001; // Seconds
+
+      if (autoPlay) {
+        // If autoPlay, smoothly interpolate progress to 0.8 so the ink covers most of the screen
+        // and flows beautifully without scrolling needed.
+        state.progress = Math.min(0.8, time * 0.3);
+      }
 
       gl.uniform1f(uTime, time);
       gl.uniform1f(uProgress, state.progress);

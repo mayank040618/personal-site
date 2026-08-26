@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { ArrowUpRight, Mail, ExternalLink, Globe } from 'lucide-react';
+import { ArrowUpRight, Mail } from 'lucide-react';
+import { LinkedinIcon, InstagramIcon, YoutubeIcon } from './ui/SocialIcons';
 import ScrollReveal from './ui/ScrollReveal';
 
 const footerLinks = [
@@ -33,18 +34,50 @@ const footerLinks = [
   },
 ];
 
-const socials = [
-  { label: 'LinkedIn', icon: ExternalLink, href: 'https://linkedin.com' },
-  { label: 'Instagram', icon: Globe, href: 'https://instagram.com' },
-  { label: 'YouTube', icon: Globe, href: 'https://youtube.com' },
-  { label: 'Email', icon: Mail, href: 'mailto:hello@prabhatsingh.com' },
-];
-
 export default function Footer() {
   const pathname = usePathname();
   
+  let instagramLink = 'https://www.instagram.com/prab_singh_rajput_?igsi=ZnJnNTZxYWN1dWVk'; // Sir's Instagram
+  let theme = {
+    bg: 'bg-forest',
+    accent: '!text-soft-mint',
+    btnText: 'text-forest',
+    btnHover: 'hover:bg-soft-mint',
+    blob1: 'bg-emerald/5',
+    blob2: 'bg-deep-teal/10'
+  };
+
+  if (pathname === '/hope') {
+    instagramLink = 'https://www.instagram.com/homeofpassionevents?igsh=bmFoZzN2b291cW80'; // HOPE
+    theme = {
+      bg: 'bg-blue-950',
+      accent: '!text-cyan-400',
+      btnText: 'text-blue-950',
+      btnHover: 'hover:bg-cyan-400',
+      blob1: 'bg-cyan-400/5',
+      blob2: 'bg-blue-600/10'
+    };
+  } else if (pathname === '/stage4you') {
+    instagramLink = 'https://www.instagram.com/_stage4you_?igsi=OHhxZnNvbHNjbG85'; // Stage4You
+    theme = {
+      bg: 'bg-charcoal',
+      accent: '!text-amber-500',
+      btnText: 'text-charcoal',
+      btnHover: 'hover:bg-amber-500',
+      blob1: 'bg-amber-500/5',
+      blob2: 'bg-graphite/30'
+    };
+  }
+
+  const socials = [
+    { label: 'LinkedIn', icon: LinkedinIcon, href: 'https://www.linkedin.com/in/prabhatsinghrajput/' },
+    { label: 'Instagram', icon: InstagramIcon, href: instagramLink },
+    { label: 'YouTube', icon: YoutubeIcon, href: 'https://youtube.com' },
+    { label: 'Email', icon: Mail, href: 'mailto:prabhatweb23@gmail.com' },
+  ];
+
   return (
-    <footer className="bg-forest text-white relative overflow-hidden">
+    <footer className={`${theme.bg} text-white relative overflow-hidden transition-colors duration-500`}>
       {/* Top CTA Section */}
       {pathname !== '/contact' && (
         <div className="section-spacing border-b border-white/10">
@@ -52,7 +85,7 @@ export default function Footer() {
             <ScrollReveal variant="fade-up">
               <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
                 <div>
-                  <span className="text-eyebrow !text-soft-mint block mb-4">
+                  <span className={`text-eyebrow ${theme.accent} block mb-4 transition-colors duration-500`}>
                     Let&apos;s Connect
                   </span>
                   <h2 className="text-display font-display text-white max-w-lg">
@@ -61,7 +94,7 @@ export default function Footer() {
                 </div>
                 <Link
                   href="/contact"
-                  className="group flex items-center gap-3 px-8 py-4 rounded-full bg-white text-forest font-medium hover:bg-soft-mint transition-colors duration-300"
+                  className={`group flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white ${theme.btnText} font-medium ${theme.btnHover} transition-colors duration-300 w-full sm:w-auto`}
                 >
                   Get in Touch
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -75,10 +108,10 @@ export default function Footer() {
       {/* Links Grid */}
       <div className="section-spacing">
         <div className="container-editorial">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-16">
             {/* Brand Column */}
             <ScrollReveal variant="fade-up">
-              <div className="col-span-2 md:col-span-1">
+              <div className="col-span-1 sm:col-span-2 md:col-span-1">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/10 shrink-0">
                     <Image 
@@ -151,8 +184,8 @@ export default function Footer() {
       </div>
 
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-deep-teal/10 rounded-full blur-[80px] pointer-events-none" />
+      <div className={`absolute top-0 right-0 w-96 h-96 ${theme.blob1} rounded-full blur-[100px] pointer-events-none transition-colors duration-500`} />
+      <div className={`absolute bottom-0 left-0 w-64 h-64 ${theme.blob2} rounded-full blur-[80px] pointer-events-none transition-colors duration-500`} />
     </footer>
   );
 }
