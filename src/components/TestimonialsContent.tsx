@@ -268,10 +268,10 @@ export default function TestimonialsContent() {
           <span className="inline-block text-xs font-medium uppercase tracking-[0.35em] mb-6" style={{ color: 'var(--deep-teal)' }}>
             The Impact
           </span>
-          <h1 className="text-[3.5rem] md:text-[6rem] lg:text-[7.5rem] font-display leading-[0.95] mb-8" style={{ color: 'var(--charcoal)' }}>
+          <h1 className="text-[2.75rem] sm:text-[3.5rem] md:text-[6rem] lg:text-[7.5rem] font-display leading-[0.95] mb-8" style={{ color: 'var(--charcoal)' }}>
             Voices of
             <br />
-            <span className="italic opacity-90" style={{ color: 'var(--emerald)' }}>Transformation</span>
+            <span className="italic opacity-90 block break-words" style={{ color: 'var(--emerald)' }}>Transformation</span>
           </h1>
           <p className="text-lg md:text-xl font-light" style={{ color: 'var(--graphite)' }}>
             Scroll to experience what peers, clients & mentors say.
@@ -291,10 +291,10 @@ export default function TestimonialsContent() {
       {/* ─── Cinematic Scroll Section ─── */}
       <div 
         ref={containerRef} 
-        style={{ height: '1500vh' }} // 15 full viewports of scroll distance
+        style={{ height: '500vh' }} // Reduced to 500vh so a very small flick of the finger brings the next testimonial
         className="relative"
       >
-        {/* This container sticks to the screen while you scroll through the 1500vh */}
+        {/* This container sticks to the screen while you scroll through the 500vh */}
         <div 
           className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center" 
           style={{ background: 'var(--off-white)', perspective: '1200px' }}
@@ -313,12 +313,12 @@ export default function TestimonialsContent() {
 
           {/* Testimonial Layers */}
           {testimonials.map((testimonial, i) => (
-            <CinematicTestimonial
-              key={testimonial.id}
-              testimonial={testimonial}
-              index={i}
-              total={testimonials.length}
-              scrollYProgress={scrollYProgress}
+            <CinematicTestimonial 
+              key={testimonial.id} 
+              testimonial={testimonial} 
+              index={i} 
+              total={testimonials.length} 
+              scrollYProgress={scrollYProgress} 
             />
           ))}
         </div>
