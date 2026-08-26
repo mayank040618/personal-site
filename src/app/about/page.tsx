@@ -29,7 +29,7 @@ export default function AboutPage() {
 function AboutHero() {
   return (
     <section
-      className="relative min-h-[120vh] flex items-start overflow-hidden"
+      className="relative min-h-screen lg:min-h-[120vh] flex items-start overflow-hidden"
       style={{
         background: '#FAF9F6', // Pure ivory to ensure perfect difference calculations
       }}
@@ -37,24 +37,24 @@ function AboutHero() {
       <FloatingShapes count={4} />
 
       {/* 1. Portrait Layer (Behind Ink) - z-0 */}
-      <div className="absolute inset-0 z-0 container-editorial pt-40 pb-20 pointer-events-none">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 h-full items-end">
+      <div className="absolute inset-0 z-0 container-editorial pt-24 lg:pt-40 pb-20 pointer-events-none">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 h-full items-start lg:items-end">
           <div className="hidden lg:block" /> {/* spacer for text side */}
           <motion.div
-            className="relative pointer-events-auto w-full h-full flex flex-col justify-end pb-32"
+            className="relative pointer-events-auto w-full flex flex-col justify-start lg:justify-end lg:pb-32 lg:h-full"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
           >
             <div
-              className="aspect-[3/4] rounded-3xl overflow-hidden shadow-xl max-w-sm ml-auto w-full"
+              className="aspect-square lg:aspect-[3/4] rounded-full lg:rounded-3xl overflow-hidden shadow-xl w-[55%] sm:w-[45%] lg:w-full max-w-sm mx-auto lg:ml-auto"
               style={{
                 background:
                   'linear-gradient(150deg, var(--sage) 0%, var(--deep-teal) 100%)',
               }}
             >
               <div className="absolute inset-0 flex items-center justify-center text-white/60">
-                <p className="text-sm font-mono tracking-wider">PORTRAIT</p>
+                <p className="text-[10px] lg:text-sm font-mono tracking-wider">PORTRAIT</p>
               </div>
             </div>
           </motion.div>
@@ -68,14 +68,13 @@ function AboutHero() {
 
       {/* 3. Text Layer (Above Ink, using mix-blend-mode: difference) - z-20 */}
       <div
-        className="container-editorial relative z-20 pt-40 pb-20 h-screen flex flex-col justify-end"
-        style={{ mixBlendMode: 'difference' }}
+        className="container-editorial relative z-20 pt-32 lg:pt-40 pb-12 lg:pb-20 min-h-[90vh] lg:h-screen flex flex-col justify-end mix-blend-difference"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20">
           {/* Text Container */}
-          <div className="pb-32">
+          <div className="pb-10 lg:pb-32 pl-1 sm:pl-0">
             <motion.span
-              className="font-mono text-sm uppercase tracking-[0.2em] block mb-4"
+              className="font-mono text-xs lg:text-sm uppercase tracking-[0.2em] block mb-4 lg:mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -85,15 +84,15 @@ function AboutHero() {
             </motion.span>
 
             <h1
-              className="text-[3rem] md:text-[4rem] lg:text-[5rem] font-display leading-[1.05] tracking-[-0.02em] mb-6"
+              className="text-[3.25rem] sm:text-[4rem] lg:text-[5rem] font-display leading-[1.05] tracking-[-0.02em] mb-6"
               style={{ color: '#E9E8E5' }}
             >
-              <motion.span className="block" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}>THE MAN BEHIND THE</motion.span>
-              <motion.span className="block" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }}>MISSION</motion.span>
+              <motion.span className="block" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}>THE MAN BEHIND</motion.span>
+              <motion.span className="block" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }}>THE MISSION</motion.span>
             </h1>
 
             <motion.p
-              className="text-lg md:text-xl font-medium max-w-lg leading-relaxed"
+              className="text-base sm:text-lg lg:text-xl font-medium max-w-lg leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 }}
