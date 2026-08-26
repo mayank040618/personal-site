@@ -248,8 +248,10 @@ export default function TestimonialsContent() {
       activeIndexRef.current = currentIndex;
       
       // Trigger a short haptic vibration on supported devices
-      if (typeof navigator !== 'undefined' && navigator.vibrate) {
-        navigator.vibrate(30); // 30ms vibration feels like a subtle click/tick
+      if (typeof window !== 'undefined' && typeof navigator !== 'undefined' && navigator.vibrate) {
+        console.log(`Haptic tick triggered for index: ${currentIndex}`);
+        // 50ms is slightly longer to ensure the motor actually spins up on all devices
+        navigator.vibrate(50); 
       }
     }
   });
