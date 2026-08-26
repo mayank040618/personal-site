@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, ChevronDown, Users, Award, Building2, Sparkles } from 'lucide-react';
+import { ArrowUpRight, ChevronDown, Users, Award, Building2, Sparkles, Star } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import FloatingShapes from '@/components/ui/FloatingShapes';
@@ -28,8 +28,11 @@ export default function HomePage() {
       <StatsBar />
       <IntroductionSection />
 
-      <ImpactSection />
       <TestimonialPreview />
+      <GalleryPreview />
+      <HopePreview />
+      <Stage4YouPreview />
+      
       <CTASection />
     </>
   );
@@ -490,79 +493,160 @@ function IntroductionSection() {
       </div>
     </section>
   );
+}/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   GALLERY PREVIEW SECTION
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function GalleryPreview() {
+  return (
+    <section className="relative overflow-hidden py-24 md:py-32 bg-white" data-nav-chapter="04" data-nav-title="GALLERY">
+      <div className="container-editorial">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-20">
+          <div>
+            <ScrollReveal variant="fade-up">
+              <span className="text-eyebrow block mb-4">The Gallery</span>
+            </ScrollReveal>
+            <AnimatedText
+              text="MOMENTS IN TIME"
+              className="text-display font-display text-charcoal max-w-lg"
+              variant="word-reveal"
+              tag="h2"
+            />
+          </div>
+          <ScrollReveal variant="fade-up" delay={0.4}>
+            <MagneticButton variant="outline" href="/gallery">
+              View Full Gallery
+              <ArrowUpRight className="w-4 h-4" />
+            </MagneticButton>
+          </ScrollReveal>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <ScrollReveal variant="fade-up" delay={0.2}>
+            <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden group shadow-lg">
+              <Image src="/images/hope-event.jpg" alt="Theatre Event" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-charcoal/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
+          </ScrollReveal>
+          <ScrollReveal variant="fade-up" delay={0.4}>
+            <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden group shadow-lg md:mt-12">
+              <div className="absolute inset-0 bg-sage/20 flex flex-col items-center justify-center p-6 text-center transition-transform duration-700 group-hover:scale-105">
+                <Star className="w-8 h-8 text-deep-teal mb-4 opacity-50" />
+                <span className="text-charcoal font-mono tracking-widest text-xs uppercase opacity-60">Over 50+ Workshops</span>
+              </div>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal variant="fade-up" delay={0.6}>
+            <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden group shadow-lg hidden sm:block">
+              <Image src="/images/stage4you-event.jpg" alt="Stage4You Event" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-charcoal/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
+          </ScrollReveal>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 
-
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
-   IMPACT SECTION
+   HOPE PREVIEW SECTION
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-function ImpactSection() {
-  const impactRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!impactRef.current) return;
-
-    const el = impactRef.current.querySelector('.impact-image');
-    if (!el) return;
-
-    gsap.to(el, {
-      yPercent: -15,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: impactRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1,
-      },
-    });
-  }, []);
-
+function HopePreview() {
   return (
-    <section ref={impactRef} className="relative overflow-hidden" data-theme="dark" data-nav-chapter="06" data-nav-title="IMPACT">
-      {/* Full-width image with overlay */}
-      <div className="relative h-[60vh] sm:h-[70vh] min-h-[400px] sm:min-h-[500px]">
-        <div
-          className="impact-image absolute inset-[-20%] w-[140%] h-[140%]"
-          style={{
-            background:
-              'linear-gradient(135deg, var(--forest) 0%, var(--deep-teal) 40%, var(--emerald) 100%)',
-          }}
-        />
-        <div className="absolute inset-0 bg-forest/40" />
-
-        <div className="absolute inset-0 flex items-center">
-          <div className="container-editorial">
+    <section className="relative overflow-hidden py-24 md:py-32" style={{ background: 'linear-gradient(180deg, var(--white) 0%, var(--soft-ivory) 100%)' }} data-nav-chapter="05" data-nav-title="H.O.P.E">
+      <div className="container-editorial relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="order-2 lg:order-1">
+            <ScrollReveal variant="scale">
+              <div className="relative aspect-square md:aspect-[4/3] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/images/hope-event.jpg"
+                  alt="HOPE Initiative"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-[#0a192f]/20 mix-blend-overlay" />
+              </div>
+            </ScrollReveal>
+          </div>
+          <div className="order-1 lg:order-2">
             <ScrollReveal variant="fade-up">
-              <span className="text-eyebrow !text-soft-mint block mb-4">
-                Community Impact
+              <span className="text-eyebrow !text-[#64ffda] block mb-4 bg-[#0a192f] inline-block px-3 py-1 rounded-full">
+                Community Initiative
               </span>
             </ScrollReveal>
             <AnimatedText
-              text="TWO INITIATIVES. ONE HUNDRED THOUSAND LIVES."
-              className="text-display font-display text-white max-w-4xl mb-6 md:mb-8"
+              text="H.O.P.E."
+              className="text-display font-display text-[#0a192f] mb-2"
+              variant="word-reveal"
+              tag="h2"
+            />
+            <ScrollReveal variant="fade-up" delay={0.2}>
+              <h3 className="text-2xl font-display text-[#0a192f]/80 mb-6">
+                Healing Our Past Experiences
+              </h3>
+            </ScrollReveal>
+            <ScrollReveal variant="fade-up" delay={0.4}>
+              <p className="text-body-lg text-graphite mb-8 leading-relaxed">
+                HOPE is a transformative community platform that uses the medium of art, storytelling, and open dialogue to help individuals navigate trauma and build emotional resilience.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal variant="fade-up" delay={0.6}>
+              <MagneticButton variant="outline" href="/hope">
+                Discover HOPE
+                <ArrowUpRight className="w-4 h-4" />
+              </MagneticButton>
+            </ScrollReveal>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   STAGE4YOU PREVIEW SECTION
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function Stage4YouPreview() {
+  return (
+    <section className="relative overflow-hidden py-24 md:py-32 bg-[#1C1C1C]" data-theme="dark" data-nav-chapter="06" data-nav-title="STAGE4YOU">
+      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#FFB800] via-transparent to-transparent" />
+      <div className="container-editorial relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div>
+            <ScrollReveal variant="fade-up">
+              <span className="text-eyebrow !text-[#FFB800] block mb-4">
+                Flagship Platform
+              </span>
+            </ScrollReveal>
+            <AnimatedText
+              text="STAGE4YOU"
+              className="text-display font-display text-white mb-6"
               variant="word-reveal"
               tag="h2"
             />
             <ScrollReveal variant="fade-up" delay={0.4}>
-              <p className="text-base md:text-lg text-white/70 max-w-2xl mb-6 md:mb-8">
-                Through HOPE and Stage4You, Prabhat has built grassroots
-                movements that bring theatre, education, and opportunity to
-                underserved communities.
+              <p className="text-body-lg text-white/70 mb-8 leading-relaxed">
+                A massive theatre initiative designed to bring the stage to everyone. Stage4You breaks down barriers, providing a professional platform for aspiring artists and communicators to find their voice and captivate an audience.
               </p>
             </ScrollReveal>
             <ScrollReveal variant="fade-up" delay={0.6}>
-              <div className="flex flex-wrap gap-4">
-                <MagneticButton variant="secondary" href="/hope">
-                  Discover HOPE
-                </MagneticButton>
-                <MagneticButton
-                  variant="ghost"
-                  href="/stage4you"
-                  className="!text-white hover:!bg-white/10"
-                >
-                  Explore Stage4You
-                </MagneticButton>
+              <MagneticButton variant="primary" href="/stage4you" className="!bg-[#FFB800] !text-charcoal hover:!bg-[#FFB800]/90">
+                Explore Stage4You
+                <ArrowUpRight className="w-4 h-4" />
+              </MagneticButton>
+            </ScrollReveal>
+          </div>
+          <div>
+            <ScrollReveal variant="scale">
+              <div className="relative aspect-square md:aspect-[4/3] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(255,184,0,0.15)] border border-white/5">
+                <Image
+                  src="/images/stage4you-event.jpg"
+                  alt="Stage4You Initiative"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-[#FFB800]/10 mix-blend-overlay" />
               </div>
             </ScrollReveal>
           </div>
@@ -609,11 +693,11 @@ function TestimonialPreview() {
   const current = previewTestimonials[activeIndex];
 
   return (
-    <section className="section-spacing bg-soft-ivory relative overflow-hidden">
+    <section className="section-spacing bg-soft-ivory relative overflow-hidden" data-nav-chapter="03" data-nav-title="IMPACT">
       <div className="container-editorial">
         <div className="max-w-4xl mx-auto text-center">
           <ScrollReveal variant="fade-up">
-            <span className="text-eyebrow block mb-6">What People Say</span>
+            <span className="text-eyebrow block mb-6">The Impact</span>
           </ScrollReveal>
 
           <div className="relative min-h-[320px] md:min-h-[280px] flex flex-col items-center justify-center">
@@ -693,6 +777,8 @@ function CTASection() {
         background:
           'linear-gradient(180deg, var(--off-white) 0%, var(--warm-white) 100%)',
       }}
+      data-nav-chapter="07"
+      data-nav-title="CONNECT"
     >
       <div className="container-editorial">
         <div className="max-w-3xl mx-auto text-center">
