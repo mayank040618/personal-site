@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 
 const testimonials = [
   {
@@ -140,20 +140,23 @@ function CinematicTestimonial({
   
   const inputRange: number[] = [0];
   const opacityOutput: number[] = [0];
-  const yOutput: number[] = [100];
-  const scaleOutput: number[] = [0.95];
+  const yOutput: number[] = [150];
+  const scaleOutput: number[] = [0.9];
+  const rotateXOutput: number[] = [45];
 
   if (index === 0) {
     opacityOutput[0] = 1;
     yOutput[0] = 0;
     scaleOutput[0] = 1;
+    rotateXOutput[0] = 0;
   }
 
   if (center - spread > 0) {
     inputRange.push(center - spread);
     opacityOutput.push(0);
-    yOutput.push(100);
-    scaleOutput.push(0.95);
+    yOutput.push(150);
+    scaleOutput.push(0.9);
+    rotateXOutput.push(45);
   }
 
   if (index !== 0 && index !== total - 1) {
@@ -161,13 +164,15 @@ function CinematicTestimonial({
     opacityOutput.push(1);
     yOutput.push(0);
     scaleOutput.push(1);
+    rotateXOutput.push(0);
   }
 
   if (center + spread < 1) {
     inputRange.push(center + spread);
     opacityOutput.push(0);
-    yOutput.push(-100);
-    scaleOutput.push(1.05);
+    yOutput.push(-150);
+    scaleOutput.push(0.9);
+    rotateXOutput.push(-45);
   }
 
   inputRange.push(1);
@@ -175,25 +180,28 @@ function CinematicTestimonial({
     opacityOutput.push(1);
     yOutput.push(0);
     scaleOutput.push(1);
+    rotateXOutput.push(0);
   } else {
     opacityOutput.push(0);
-    yOutput.push(-100);
-    scaleOutput.push(1.05);
+    yOutput.push(-150);
+    scaleOutput.push(0.9);
+    rotateXOutput.push(-45);
   }
 
   const opacity = useTransform(scrollYProgress, inputRange, opacityOutput);
   const y = useTransform(scrollYProgress, inputRange, yOutput);
   const scale = useTransform(scrollYProgress, inputRange, scaleOutput);
+  const rotateX = useTransform(scrollYProgress, inputRange, rotateXOutput);
 
   return (
     <motion.div 
       className="absolute inset-0 flex items-center justify-center px-6 md:px-12 lg:px-24"
-      style={{ opacity }}
+      style={{ opacity, transformStyle: 'preserve-3d' }}
     >
-      <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
-        {/* Left Side: Author */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 max-w-7xl mx-auto w-full items-center">
+        {/* Left Side: Name and Title */}
         <div className="lg:col-span-4 flex flex-col justify-center order-2 lg:order-1">
-          <motion.div style={{ y }} className="relative">
+          <motion.div style={{ y, rotateX }} className="relative">
             {/* Massive decorative quote mark */}
             <div className="text-[12rem] md:text-[16rem] leading-none font-serif absolute -top-24 -left-12 select-none pointer-events-none" style={{ color: 'rgba(13, 79, 79, 0.05)' }}>
               &ldquo;
@@ -210,7 +218,7 @@ function CinematicTestimonial({
         {/* Right Side: Quote */}
         <div className="lg:col-span-8 order-1 lg:order-2">
           <motion.p 
-            style={{ y, scale, color: 'var(--charcoal)' }}
+            style={{ y, scale, rotateX, color: 'var(--charcoal)' }}
             className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-tight font-light font-display"
           >
             {testimonial.text}
@@ -223,11 +231,27 @@ function CinematicTestimonial({
 
 export default function TestimonialsContent() {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  // We track the scroll progress of the entire container (which is 1500vh tall)
+  const [activeIndex, setActiveIndex] = useState(0);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end end'],
+    offset: ['start start', 'end end']
+  });
+
+  // Haptic feedback logic
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // Calculate which testimonial is currently in the center of the screen
+    const total = testimonials.length;
+    const currentIndex = Math.round(latest * (total - 1));
+    
+    if (currentIndex !== activeIndex) {
+      setActiveIndex(currentIndex);
+      
+      // Trigger a short haptic vibration on supported devices
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        navigator.vibrate(30); // 30ms vibration feels like a subtle click/tick
+      }
+    }
   });
 
   return (
@@ -271,7 +295,10 @@ export default function TestimonialsContent() {
         className="relative"
       >
         {/* This container sticks to the screen while you scroll through the 1500vh */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center" style={{ background: 'var(--off-white)' }}>
+        <div 
+          className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center" 
+          style={{ background: 'var(--off-white)', perspective: '1200px' }}
+        >
           
           {/* Scroll Progress Bar (Left edge) */}
           <div className="absolute left-0 top-0 bottom-0 w-[2px] z-20" style={{ background: 'rgba(0,0,0,0.05)' }}>
