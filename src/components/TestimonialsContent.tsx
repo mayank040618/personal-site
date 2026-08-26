@@ -231,7 +231,7 @@ function CinematicTestimonial({
 
 export default function TestimonialsContent() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(0);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -244,8 +244,8 @@ export default function TestimonialsContent() {
     const total = testimonials.length;
     const currentIndex = Math.round(latest * (total - 1));
     
-    if (currentIndex !== activeIndex) {
-      setActiveIndex(currentIndex);
+    if (currentIndex !== activeIndexRef.current) {
+      activeIndexRef.current = currentIndex;
       
       // Trigger a short haptic vibration on supported devices
       if (typeof navigator !== 'undefined' && navigator.vibrate) {
