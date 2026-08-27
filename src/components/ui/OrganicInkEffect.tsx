@@ -229,8 +229,8 @@ export default function OrganicInkEffect({
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: 'bottom top',
-          scrub: 1.5, // Smooth scrubbing
+          end: '60% top',
+          scrub: 0.6,
         },
       });
 
