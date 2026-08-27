@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface CardProps {
@@ -26,16 +26,29 @@ export default function Card({
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
   const [glarePosition, setGlarePosition] = useState({ x: 50, y: 50 });
+  const rafPending = useRef(false);
+  const isTouchDevice = useRef(false);
+
+  useEffect(() => {
+    isTouchDevice.current = window.matchMedia('(pointer: coarse)').matches;
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!hover3D || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
+    if (!hover3D || !cardRef.current || isTouchDevice.current) return;
+    if (rafPending.current) return;
+    rafPending.current = true;
 
-    setRotateX((y - 0.5) * -8);
-    setRotateY((x - 0.5) * 8);
-    setGlarePosition({ x: x * 100, y: y * 100 });
+    requestAnimationFrame(() => {
+      rafPending.current = false;
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+
+      setRotateX((y - 0.5) * -8);
+      setRotateY((x - 0.5) * 8);
+      setGlarePosition({ x: x * 100, y: y * 100 });
+    });
   };
 
   const handleMouseLeave = () => {
@@ -57,7 +70,7 @@ export default function Card({
     lg: 'p-10',
   };
 
-
+  const enable3D = hover3D && !isTouchDevice.current;
 
   return (
     <motion.div
@@ -73,12 +86,12 @@ export default function Card({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
-        transformStyle: 'preserve-3d',
-        perspective: '1000px',
+        transformStyle: enable3D ? 'preserve-3d' : undefined,
+        perspective: enable3D ? '1000px' : undefined,
       }}
       animate={{
-        rotateX: hover3D ? rotateX : 0,
-        rotateY: hover3D ? rotateY : 0,
+        rotateX: enable3D ? rotateX : 0,
+        rotateY: enable3D ? rotateY : 0,
       }}
       transition={{
         type: 'spring',
@@ -89,7 +102,7 @@ export default function Card({
       onClick={onClick}
     >
       {children}
-      {hover3D && variant !== 'glass' && (
+      {enable3D && variant !== 'glass' && (
         <div
           className="absolute inset-0 pointer-events-none opacity-0 hover:opacity-100 transition-opacity duration-500"
           style={{

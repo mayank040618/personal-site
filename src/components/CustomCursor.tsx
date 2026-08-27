@@ -1,13 +1,44 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const cursorInnerRef = useRef<HTMLDivElement>(null);
+  const dotInnerRef = useRef<HTMLDivElement>(null);
+  // Use refs instead of state to avoid re-renders on every mouse event
+  const isVisibleRef = useRef(false);
+  const isHoveringRef = useRef(false);
+  // Track elements that already have listeners to prevent leak
+  const trackedElements = useRef(new WeakSet<Element>());
+
+  const updateVisibility = useCallback((visible: boolean) => {
+    if (isVisibleRef.current === visible) return;
+    isVisibleRef.current = visible;
+    if (cursorRef.current) {
+      cursorRef.current.style.opacity = visible ? '1' : '0';
+    }
+    if (cursorDotRef.current) {
+      cursorDotRef.current.style.opacity = visible ? '1' : '0';
+    }
+  }, []);
+
+  const updateHoverState = useCallback((hovering: boolean) => {
+    if (isHoveringRef.current === hovering) return;
+    isHoveringRef.current = hovering;
+    if (cursorInnerRef.current) {
+      cursorInnerRef.current.style.width = hovering ? '56px' : '36px';
+      cursorInnerRef.current.style.height = hovering ? '56px' : '36px';
+      cursorInnerRef.current.style.borderWidth = hovering ? '1px' : '1.5px';
+      cursorInnerRef.current.style.background = hovering ? 'rgba(13, 79, 79, 0.06)' : 'transparent';
+    }
+    if (dotInnerRef.current) {
+      dotInnerRef.current.style.width = hovering ? '4px' : '5px';
+      dotInnerRef.current.style.height = hovering ? '4px' : '5px';
+    }
+  }, []);
 
   useEffect(() => {
     // Only show custom cursor on desktop
@@ -17,59 +48,61 @@ export default function CustomCursor() {
     const dot = cursorDotRef.current;
     if (!cursor || !dot) return;
 
-    const mouse = { x: 0, y: 0 };
-
     const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-
-      if (!isVisible) setIsVisible(true);
+      if (!isVisibleRef.current) updateVisibility(true);
 
       // Dot follows immediately
       gsap.to(dot, {
-        x: mouse.x,
-        y: mouse.y,
+        x: e.clientX,
+        y: e.clientY,
         duration: 0.1,
         ease: 'power2.out',
+        overwrite: 'auto',
       });
 
       // Circle follows with delay
       gsap.to(cursor, {
-        x: mouse.x,
-        y: mouse.y,
+        x: e.clientX,
+        y: e.clientY,
         duration: 0.5,
         ease: 'power3.out',
+        overwrite: 'auto',
       });
     };
 
-    const handleMouseEnterInteractive = () => setIsHovering(true);
-    const handleMouseLeaveInteractive = () => setIsHovering(false);
-    const handleMouseLeave = () => setIsVisible(false);
-    const handleMouseEnter = () => setIsVisible(true);
+    const handleMouseEnterInteractive = () => updateHoverState(true);
+    const handleMouseLeaveInteractive = () => updateHoverState(false);
+    const handleMouseLeave = () => updateVisibility(false);
+    const handleMouseEnter = () => updateVisibility(true);
 
-    document.addEventListener('mousemove', handleMouseMove);
+    const addListenersToElement = (el: Element) => {
+      if (trackedElements.current.has(el)) return;
+      trackedElements.current.add(el);
+      el.addEventListener('mouseenter', handleMouseEnterInteractive);
+      el.addEventListener('mouseleave', handleMouseLeaveInteractive);
+    };
+
+    const INTERACTIVE_SELECTOR = 'a, button, [role="button"], input, textarea, select, [data-cursor-hover]';
+
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
 
     // Track interactive elements
-    const interactiveElements = document.querySelectorAll(
-      'a, button, [role="button"], input, textarea, select, [data-cursor-hover]'
-    );
+    document.querySelectorAll(INTERACTIVE_SELECTOR).forEach(addListenersToElement);
 
-    interactiveElements.forEach((el) => {
-      el.addEventListener('mouseenter', handleMouseEnterInteractive);
-      el.addEventListener('mouseleave', handleMouseLeaveInteractive);
-    });
-
-    // MutationObserver for dynamically added elements
-    const observer = new MutationObserver(() => {
-      const newElements = document.querySelectorAll(
-        'a, button, [role="button"], input, textarea, select, [data-cursor-hover]'
-      );
-      newElements.forEach((el) => {
-        el.addEventListener('mouseenter', handleMouseEnterInteractive);
-        el.addEventListener('mouseleave', handleMouseLeaveInteractive);
-      });
+    // MutationObserver — only add listeners to NEW elements, using WeakSet guard
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node instanceof HTMLElement) {
+            if (node.matches(INTERACTIVE_SELECTOR)) {
+              addListenersToElement(node);
+            }
+            node.querySelectorAll(INTERACTIVE_SELECTOR).forEach(addListenersToElement);
+          }
+        }
+      }
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
@@ -79,12 +112,10 @@ export default function CustomCursor() {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
       observer.disconnect();
-      interactiveElements.forEach((el) => {
-        el.removeEventListener('mouseenter', handleMouseEnterInteractive);
-        el.removeEventListener('mouseleave', handleMouseLeaveInteractive);
-      });
+      // Note: listeners on interactive elements are cleaned up automatically
+      // when elements are removed from the DOM or when the page unloads
     };
-  }, [isVisible]);
+  }, []); // No dependencies — setup once
 
   return (
     <>
@@ -92,19 +123,17 @@ export default function CustomCursor() {
       <div
         ref={cursorRef}
         className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference hidden md:block"
-        style={{
-          opacity: isVisible ? 1 : 0,
-          transition: 'opacity 0.3s ease',
-        }}
+        style={{ opacity: 0, transition: 'opacity 0.3s ease' }}
       >
         <div
+          ref={cursorInnerRef}
           className="rounded-full border transition-all duration-300 ease-out -translate-x-1/2 -translate-y-1/2"
           style={{
-            width: isHovering ? 56 : 36,
-            height: isHovering ? 56 : 36,
+            width: 36,
+            height: 36,
             borderColor: 'rgba(13, 79, 79, 0.5)',
-            borderWidth: isHovering ? 1 : 1.5,
-            background: isHovering ? 'rgba(13, 79, 79, 0.06)' : 'transparent',
+            borderWidth: 1.5,
+            background: 'transparent',
           }}
         />
       </div>
@@ -112,16 +141,14 @@ export default function CustomCursor() {
       <div
         ref={cursorDotRef}
         className="fixed top-0 left-0 pointer-events-none z-[9999] hidden md:block"
-        style={{
-          opacity: isVisible ? 1 : 0,
-          transition: 'opacity 0.3s ease',
-        }}
+        style={{ opacity: 0, transition: 'opacity 0.3s ease' }}
       >
         <div
+          ref={dotInnerRef}
           className="rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-200"
           style={{
-            width: isHovering ? 4 : 5,
-            height: isHovering ? 4 : 5,
+            width: 5,
+            height: 5,
             background: 'var(--deep-teal)',
           }}
         />

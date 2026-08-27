@@ -23,7 +23,7 @@ export default function StageParticleEffect() {
       canvas.height = rect.height * dpr;
       canvas.style.width = rect.width + 'px';
       canvas.style.height = rect.height + 'px';
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resize();
@@ -31,6 +31,16 @@ export default function StageParticleEffect() {
 
     const W = () => canvas.width / dpr;
     const H = () => canvas.height / dpr;
+
+    // Visibility tracking — pause render loop when off-screen
+    let isVisible = true;
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0]?.isIntersecting ?? false;
+      },
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(canvas);
 
     // --- Particle System ---
     interface Particle {
@@ -105,6 +115,11 @@ export default function StageParticleEffect() {
     let frameId: number;
 
     function draw() {
+      frameId = requestAnimationFrame(draw);
+
+      // Skip rendering when off-screen
+      if (!isVisible) return;
+
       const w = W();
       const h = H();
 
@@ -208,8 +223,6 @@ export default function StageParticleEffect() {
       centerGrad.addColorStop(1, 'transparent');
       ctx.fillStyle = centerGrad;
       ctx.fillRect(0, 0, w, h);
-
-      frameId = requestAnimationFrame(draw);
     }
 
     frameId = requestAnimationFrame(draw);
@@ -217,6 +230,7 @@ export default function StageParticleEffect() {
     return () => {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(frameId);
+      visibilityObserver.disconnect();
     };
   }, []);
 

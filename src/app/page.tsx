@@ -126,21 +126,15 @@ function HeroSection() {
         data-nav-title="THE MAN"
       >
         {/* Floating shapes */}
-        <FloatingShapes count={6} />
+        <FloatingShapes count={3} />
 
-        {/* Slow-drifting ambient glow */}
-        <motion.div
-          className="absolute top-1/4 left-1/3 w-[600px] h-[600px] rounded-full pointer-events-none opacity-40"
+        {/* Static ambient glow — replaces animated version for performance */}
+        <div
+          className="absolute top-1/4 left-1/3 w-[500px] h-[500px] rounded-full pointer-events-none opacity-30"
           style={{
             background: 'radial-gradient(circle, rgba(200, 230, 208, 0.3) 0%, transparent 70%)',
-            filter: 'blur(60px)',
+            filter: 'blur(50px)',
           }}
-          animate={{
-            x: [0, 40, -20, 0],
-            y: [0, -30, 20, 0],
-            opacity: [0.3, 0.5, 0.35, 0.3],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
         />
 
         {/* Mouse-following glow */}
@@ -244,6 +238,7 @@ function HeroSection() {
                     alt="Prabhat Singh Rajput"
                     fill
                     priority
+                    sizes="(max-width: 768px) 90vw, (max-width: 1024px) 40vw, 460px"
                     className="object-cover object-center"
                   />
                 </motion.div>
@@ -523,8 +518,13 @@ function GalleryPreview() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           <ScrollReveal variant="fade-up" delay={0.2}>
             <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden group shadow-lg">
-              <Image src="/images/hope-event.jpg" alt="Theatre Event" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-charcoal/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-soft-mint via-sage to-deep-teal flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
+                <div className="text-center text-white/80">
+                  <Sparkles className="w-8 h-8 mx-auto mb-3 opacity-60" />
+                  <p className="text-sm font-mono tracking-wider opacity-60">THEATRE WORKSHOP</p>
+                </div>
+              </div>
+              <div className="absolute inset-0 bg-charcoal/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
           </ScrollReveal>
           <ScrollReveal variant="fade-up" delay={0.4}>
@@ -537,8 +537,13 @@ function GalleryPreview() {
           </ScrollReveal>
           <ScrollReveal variant="fade-up" delay={0.6}>
             <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden group shadow-lg hidden sm:block">
-              <Image src="/images/stage4you-event.jpg" alt="Stage4You Event" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-charcoal/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#1C1C1C] via-[#2a2a2a] to-[#FFB800]/30 flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
+                <div className="text-center text-white/80">
+                  <Star className="w-8 h-8 mx-auto mb-3 opacity-60" />
+                  <p className="text-sm font-mono tracking-wider opacity-60">STAGE4YOU EVENT</p>
+                </div>
+              </div>
+              <div className="absolute inset-0 bg-charcoal/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
           </ScrollReveal>
         </div>
@@ -559,12 +564,12 @@ function HopePreview() {
           <div className="order-2 lg:order-1">
             <ScrollReveal variant="scale">
               <div className="relative aspect-square md:aspect-[4/3] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
-                <Image
-                  src="/images/hope-event.jpg"
-                  alt="HOPE Initiative"
-                  fill
-                  className="object-cover"
-                />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#07173c] via-[#154eb0] to-[#09b4e2] flex items-center justify-center">
+                  <div className="text-center text-white/70">
+                    <Users className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p className="text-sm font-mono tracking-wider opacity-50">H.O.P.E. INITIATIVE</p>
+                  </div>
+                </div>
                 <div className="absolute inset-0 bg-[#0a192f]/20 mix-blend-overlay" />
               </div>
             </ScrollReveal>
@@ -640,12 +645,12 @@ function Stage4YouPreview() {
           <div>
             <ScrollReveal variant="scale">
               <div className="relative aspect-square md:aspect-[4/3] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(255,184,0,0.15)] border border-white/5">
-                <Image
-                  src="/images/stage4you-event.jpg"
-                  alt="Stage4You Initiative"
-                  fill
-                  className="object-cover"
-                />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1C1C1C] via-[#2a2a2a] to-[#FFB800]/40 flex items-center justify-center">
+                  <div className="text-center text-white/70">
+                    <Award className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p className="text-sm font-mono tracking-wider opacity-50">STAGE4YOU INITIATIVE</p>
+                  </div>
+                </div>
                 <div className="absolute inset-0 bg-[#FFB800]/10 mix-blend-overlay" />
               </div>
             </ScrollReveal>
@@ -659,38 +664,39 @@ function Stage4YouPreview() {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━
    TESTIMONIAL PREVIEW
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const PREVIEW_TESTIMONIALS = [
+  {
+    text: "I had the opportunity to work with Prabhat Singh during the online placement assessment process for Nxtwave at Amity University Greater Noida, and it was a very smooth experience. Even though we worked together for only one day, I was impressed by his leadership, planning, and sense of accountability.",
+    name: 'Sangeet Banik',
+    title: 'Associate Program Manager — Nxtwave',
+    initials: 'SB',
+  },
+  {
+    text: "I have had the pleasure of working with Mr. Prabhat Singh, and I can confidently say that they are an exceptional professional with a strong commitment to excellence. He consistently demonstrates deep subject knowledge, a proactive attitude, and the ability to handle responsibilities with great efficiency.",
+    name: 'Er. Gourav Tomar',
+    title: 'Assistant Professor — Former Govt. College Lecturer',
+    initials: 'GT',
+  },
+  {
+    text: "Prabhat is one of the best people I have as a youngest colleague. His ability to tackle any problem is remarkable and with a warm smile. I highly recommend his expertise to any person who want to seek an advice on team building as well as theatre.",
+    name: 'Arpit Agrawal',
+    title: 'Vice Chairperson — JECRC University',
+    initials: 'AA',
+  },
+];
+
 function TestimonialPreview() {
-  const previewTestimonials = [
-    {
-      text: "I had the opportunity to work with Prabhat Singh during the online placement assessment process for Nxtwave at Amity University Greater Noida, and it was a very smooth experience. Even though we worked together for only one day, I was impressed by his leadership, planning, and sense of accountability.",
-      name: 'Sangeet Banik',
-      title: 'Associate Program Manager — Nxtwave',
-      initials: 'SB',
-    },
-    {
-      text: "I have had the pleasure of working with Mr. Prabhat Singh, and I can confidently say that they are an exceptional professional with a strong commitment to excellence. He consistently demonstrates deep subject knowledge, a proactive attitude, and the ability to handle responsibilities with great efficiency.",
-      name: 'Er. Gourav Tomar',
-      title: 'Assistant Professor — Former Govt. College Lecturer',
-      initials: 'GT',
-    },
-    {
-      text: "Prabhat is one of the best people I have as a youngest colleague. His ability to tackle any problem is remarkable and with a warm smile. I highly recommend his expertise to any person who want to seek an advice on team building as well as theatre.",
-      name: 'Arpit Agrawal',
-      title: 'Vice Chairperson — JECRC University',
-      initials: 'AA',
-    },
-  ];
 
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % previewTestimonials.length);
+      setActiveIndex((prev) => (prev + 1) % PREVIEW_TESTIMONIALS.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, [previewTestimonials.length]);
+  }, []);
 
-  const current = previewTestimonials[activeIndex];
+  const current = PREVIEW_TESTIMONIALS[activeIndex];
 
   return (
     <section className="section-spacing bg-soft-ivory relative overflow-hidden" data-nav-chapter="03" data-nav-title="IMPACT">
@@ -736,7 +742,7 @@ function TestimonialPreview() {
 
           {/* Dots indicator */}
           <div className="flex justify-center gap-2 mt-8 mb-12">
-            {previewTestimonials.map((_, i) => (
+            {PREVIEW_TESTIMONIALS.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActiveIndex(i)}

@@ -196,6 +196,16 @@ export default function OrganicInkEffect({
       drainProgress: 0,
     };
 
+    // Visibility tracking — pause render loop when off-screen
+    let isVisible = true;
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0]?.isIntersecting ?? false;
+      },
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(canvas);
+
     // Resize Handler
     const handleResize = () => {
       // Use devicePixelRatio for crisp rendering on retina, cap lower on mobile
@@ -239,11 +249,16 @@ export default function OrganicInkEffect({
       });
     }
 
-    // Render Loop
+    // Render Loop — pauses when not visible
     let animationFrameId: number;
     const startTime = performance.now();
 
     const render = (now: number) => {
+      animationFrameId = requestAnimationFrame(render);
+
+      // Skip rendering when off-screen
+      if (!isVisible) return;
+
       const time = (now - startTime) * 0.001; // Seconds
 
       if (autoPlay) {
@@ -261,14 +276,13 @@ export default function OrganicInkEffect({
       gl.clear(gl.COLOR_BUFFER_BIT);
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
-
-      animationFrameId = requestAnimationFrame(render);
     };
     animationFrameId = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
+      visibilityObserver.disconnect();
       ScrollTrigger.getAll().forEach(t => t.trigger === section ? t.kill() : null);
       gl.deleteProgram(program);
       gl.deleteShader(vertexShader);

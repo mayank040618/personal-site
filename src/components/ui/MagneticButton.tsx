@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface MagneticButtonProps {
@@ -25,13 +25,26 @@ export default function MagneticButton({
   const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const rafPending = useRef(false);
+  const isTouchDevice = useRef(false);
+
+  useEffect(() => {
+    isTouchDevice.current = window.matchMedia('(pointer: coarse)').matches;
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!buttonRef.current) return;
-    const rect = buttonRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) * magneticStrength;
-    const y = (e.clientY - rect.top - rect.height / 2) * magneticStrength;
-    setPosition({ x, y });
+    if (!buttonRef.current || isTouchDevice.current) return;
+    if (rafPending.current) return;
+    rafPending.current = true;
+
+    requestAnimationFrame(() => {
+      rafPending.current = false;
+      if (!buttonRef.current) return;
+      const rect = buttonRef.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) * magneticStrength;
+      const y = (e.clientY - rect.top - rect.height / 2) * magneticStrength;
+      setPosition({ x, y });
+    });
   };
 
   const handleMouseLeave = () => {

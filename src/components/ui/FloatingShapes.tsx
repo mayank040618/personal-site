@@ -26,7 +26,7 @@ export default function FloatingShapes({
 }: FloatingShapesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const shapesRef = useRef<HTMLDivElement[]>([]);
-  const mouseRef = useRef({ x: 0, y: 0 });
+  const rafPending = useRef(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -39,9 +39,9 @@ export default function FloatingShapes({
       const delay = Math.random() * 2;
 
       gsap.to(shape, {
-        y: `+=${20 + Math.random() * 30}`,
-        x: `+=${10 + Math.random() * 20}`,
-        rotation: Math.random() * 30 - 15,
+        y: `+=${15 + Math.random() * 20}`,
+        x: `+=${8 + Math.random() * 15}`,
+        rotation: Math.random() * 20 - 10,
         duration,
         delay,
         ease: 'sine.inOut',
@@ -50,27 +50,32 @@ export default function FloatingShapes({
       });
     });
 
-    // Mouse reactive movement
-    if (mouseReactive) {
+    // Mouse reactive movement — desktop only, RAF-throttled
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (mouseReactive && !isMobile) {
       const handleMouseMove = (e: MouseEvent) => {
-        mouseRef.current = {
-          x: (e.clientX / window.innerWidth - 0.5) * 2,
-          y: (e.clientY / window.innerHeight - 0.5) * 2,
-        };
+        if (rafPending.current) return;
+        rafPending.current = true;
 
-        shapes.forEach((shape, i) => {
-          const factor = (i + 1) * 8;
-          gsap.to(shape, {
-            x: `+=${mouseRef.current.x * factor}`,
-            y: `+=${mouseRef.current.y * factor}`,
-            duration: 1.5,
-            ease: 'power2.out',
-            overwrite: 'auto',
+        requestAnimationFrame(() => {
+          rafPending.current = false;
+          const mx = (e.clientX / window.innerWidth - 0.5) * 2;
+          const my = (e.clientY / window.innerHeight - 0.5) * 2;
+
+          shapes.forEach((shape, i) => {
+            const factor = (i + 1) * 6;
+            gsap.to(shape, {
+              x: `+=${mx * factor}`,
+              y: `+=${my * factor}`,
+              duration: 1.5,
+              ease: 'power2.out',
+              overwrite: 'auto',
+            });
           });
         });
       };
 
-      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
       return () => window.removeEventListener('mousemove', handleMouseMove);
     }
   }, [mouseReactive, count]);
@@ -80,16 +85,16 @@ export default function FloatingShapes({
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const mobileCount = isMobile ? Math.min(count, 3) : count;
+    const mobileCount = isMobile ? Math.min(count, 2) : count;
     setShapeDefs(
       Array.from({ length: mobileCount }, (_, i) => ({
         id: i,
-        size: 80 + Math.random() * 200,
+        size: 60 + Math.random() * 150,
         x: Math.random() * 100,
         y: Math.random() * 100,
         color: colors[i % colors.length],
         borderRadius: Math.random() > 0.5 ? '50%' : `${30 + Math.random() * 20}%`,
-        blur: 40 + Math.random() * 40,
+        blur: 30 + Math.random() * 20, // Capped at 50px max (was up to 80px)
       }))
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -108,7 +113,7 @@ export default function FloatingShapes({
           ref={(el) => {
             if (el) shapesRef.current[shape.id] = el;
           }}
-          className="absolute will-change-transform"
+          className="absolute"
           style={{
             width: shape.size,
             height: shape.size,
