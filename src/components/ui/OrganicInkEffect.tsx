@@ -30,7 +30,6 @@ const getFragmentShaderSource = (theme: 'emerald' | 'hope') => {
   uniform vec2 u_resolution;
   uniform float u_time;
   uniform float u_progress;
-  uniform float u_drainProgress;
 
   float hash(vec2 p) {
       p = fract(p * vec2(234.34, 435.345));
@@ -76,14 +75,8 @@ const getFragmentShaderSource = (theme: 'emerald' | 'hope') => {
           fbm(uv * 2.0 + 4.0 * q + vec2(8.3, 2.8) - u_time * 0.12)
       );
       
-      // Drain distortion
+      // Just pass through uv for warping
       vec2 warpedUV = uv;
-      if (u_drainProgress > 0.0) {
-          float centerX = abs(uv.x - 0.5);
-          warpedUV.y -= u_drainProgress * (1.0 - centerX) * 2.5;
-          // Pull towards center
-          warpedUV.x += (uv.x > 0.5 ? -1.0 : 1.0) * u_drainProgress * 0.4 * uv.y;
-      }
       
       float n = fbm(warpedUV * 2.0 + 4.0 * r);
       
@@ -92,11 +85,6 @@ const getFragmentShaderSource = (theme: 'emerald' | 'hope') => {
       
       // Calculate ink field
       float inkField = (threshold - warpedUV.y) * 2.0 + n * 1.5;
-      
-      if (u_drainProgress > 0.0) {
-          float drainMask = smoothstep(1.2, 0.4, uv.y + u_drainProgress * 0.5) * smoothstep(0.5, 0.0, abs(uv.x - 0.5));
-          inkField -= drainMask * 5.0 * u_drainProgress;
-      }
 
       float alpha = smoothstep(0.1, 0.8, inkField);
       
@@ -188,12 +176,10 @@ export default function OrganicInkEffect({
     const uResolution = gl.getUniformLocation(program, 'u_resolution');
     const uTime = gl.getUniformLocation(program, 'u_time');
     const uProgress = gl.getUniformLocation(program, 'u_progress');
-    const uDrainProgress = gl.getUniformLocation(program, 'u_drainProgress');
 
     // State
     const state = {
       progress: 0,
-      drainProgress: 0,
     };
 
     // Visibility tracking — pause render loop when off-screen
@@ -234,18 +220,11 @@ export default function OrganicInkEffect({
         },
       });
 
-      // 0% to 70% of the section scroll: Ink spreads and fills (u_progress: 0 -> 1)
+      // 0% to 100% of the section scroll: Ink spreads and fills (u_progress: 0 -> 1)
       tl.to(state, {
         progress: 1,
         ease: 'power2.inOut',
-        duration: 0.7,
-      });
-
-      // 70% to 100% of the section scroll: Ink drains (u_drainProgress: 0 -> 1)
-      tl.to(state, {
-        drainProgress: 1,
-        ease: 'power2.inOut',
-        duration: 0.3,
+        duration: 1.0,
       });
     }
 
@@ -269,7 +248,6 @@ export default function OrganicInkEffect({
 
       gl.uniform1f(uTime, time);
       gl.uniform1f(uProgress, state.progress);
-      gl.uniform1f(uDrainProgress, state.drainProgress);
 
       // Clear with transparent
       gl.clearColor(0, 0, 0, 0);
