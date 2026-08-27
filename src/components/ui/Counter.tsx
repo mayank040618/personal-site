@@ -13,6 +13,8 @@ interface CounterProps {
   duration?: number;
   className?: string;
   label?: string;
+  decimals?: number;
+  compact?: boolean;
 }
 
 export default function Counter({
@@ -22,6 +24,8 @@ export default function Counter({
   duration = 2,
   className = '',
   label,
+  decimals = 0,
+  compact = false,
 }: CounterProps) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -43,7 +47,7 @@ export default function Counter({
           duration,
           ease: 'power2.out',
           onUpdate: () => {
-            setCount(Math.floor(obj.val));
+            setCount(obj.val);
           },
         });
       },
@@ -58,7 +62,11 @@ export default function Counter({
     <div ref={ref} className={`text-center ${className}`}>
       <div className="text-4xl md:text-5xl lg:text-6xl font-display gradient-text font-bold leading-none">
         {prefix}
-        {count.toLocaleString()}
+        {compact
+          ? Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: decimals }).format(Math.floor(count))
+          : decimals > 0
+          ? count.toFixed(decimals)
+          : Math.floor(count).toLocaleString()}
         {suffix}
       </div>
       {label && (

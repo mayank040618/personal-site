@@ -82,7 +82,7 @@ export default function Footer() {
       {pathname !== '/contact' && (
         <div className="section-spacing border-b border-white/10">
           <div className="container-editorial">
-            <ScrollReveal variant="fade-up">
+            <ScrollReveal variant="fade-up" threshold={0.99}>
               <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
                 <div>
                   <span className={`text-eyebrow ${theme.accent} block mb-4 transition-colors duration-500`}>
@@ -110,7 +110,7 @@ export default function Footer() {
         <div className="container-editorial">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-16">
             {/* Brand Column */}
-            <ScrollReveal variant="fade-up">
+            <ScrollReveal variant="fade-up" threshold={0.99}>
               <div className="col-span-1 sm:col-span-2 md:col-span-1">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/10 shrink-0">
@@ -148,7 +148,7 @@ export default function Footer() {
 
             {/* Link Columns */}
             {footerLinks.map((group, i) => (
-              <ScrollReveal key={group.title} variant="fade-up" delay={0.1 * (i + 1)}>
+              <ScrollReveal key={group.title} variant="fade-up" delay={0.1 * (i + 1)} threshold={0.99}>
                 <div>
                   <h3 className="text-caption !text-white/40 mb-5">
                     {group.title}

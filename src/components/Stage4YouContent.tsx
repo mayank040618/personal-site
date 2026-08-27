@@ -53,7 +53,7 @@ export default function Stage4YouContent() {
                 <Counter end={50} suffix="+" label="Competitions" duration={2} />
               </div>
               <div>
-                <Counter end={1} suffix="M+" label="Audience Reached" duration={3} />
+                <Counter end={1000000} suffix="+" label="Audience Reached" duration={3} compact={true} />
               </div>
             </div>
           </div>
