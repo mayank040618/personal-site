@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Heart, Theater, Users } from 'lucide-react';
 import AnimatedText from '@/components/ui/AnimatedText';
@@ -36,8 +38,8 @@ function AboutHero() {
     >
       <FloatingShapes count={4} />
 
-      {/* 1. Portrait Layer (Behind Ink) - z-0 */}
-      <div className="absolute inset-0 z-0 container-editorial pt-24 lg:pt-40 pb-20 pointer-events-none">
+      {/* 1. Portrait Layer (Above Ink) - z-15 */}
+      <div className="absolute inset-0 z-[15] container-editorial pt-24 lg:pt-40 pb-20 pointer-events-none">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 h-full items-start lg:items-end">
           <div className="hidden lg:block" /> {/* spacer for text side */}
           <motion.div
@@ -47,15 +49,19 @@ function AboutHero() {
             transition={{ duration: 1, delay: 0.6 }}
           >
             <div
-              className="aspect-square lg:aspect-[3/4] rounded-full lg:rounded-3xl overflow-hidden shadow-xl w-[55%] sm:w-[45%] lg:w-full max-w-sm mx-auto lg:ml-auto"
+              className="relative aspect-square lg:aspect-[3/4] rounded-full lg:rounded-3xl overflow-hidden shadow-xl w-[65%] sm:w-[55%] lg:w-[85%] max-w-sm lg:max-w-md mx-auto lg:ml-auto"
               style={{
                 background:
                   'linear-gradient(150deg, var(--sage) 0%, var(--deep-teal) 100%)',
               }}
             >
-              <div className="absolute inset-0 flex items-center justify-center text-white/60">
-                <p className="text-[10px] lg:text-sm font-mono tracking-wider">PORTRAIT</p>
-              </div>
+              <Image
+                src="/images/prabhat-about.jpeg"
+                alt="Prabhat Singh Rajput Portrait"
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 50vw, 33vw"
+              />
             </div>
           </motion.div>
         </div>
@@ -119,6 +125,7 @@ function StorySection() {
       text: `Prabhat's journey began not in a classroom, but on a stage — where a shy young man discovered that theatre wasn't just performance; it was transformation. In the spotlight, he found his voice. In the audience's eyes, he found his purpose. That moment sparked a lifelong mission to bring the same transformation to others.`,
       imageGradient: 'from-soft-mint to-sage',
       imageLabel: 'EARLY THEATRE DAYS',
+      imageSrc: '/images/early-theatre-days.jpeg',
     },
     {
       eyebrow: 'The Evolution',
@@ -126,6 +133,7 @@ function StorySection() {
       text: `What began as a passion for theatre evolved into a methodology. Prabhat pioneered Theatre in Education (TIE) workshops across Indian universities, developing a unique pedagogy that uses improvisational theatre, role-play, and experiential exercises to dismantle communication anxiety. His approach doesn't just teach skills — it rebuilds confidence from the ground up.`,
       imageGradient: 'from-emerald to-deep-teal',
       imageLabel: 'WORKSHOP SESSIONS',
+      imageSrc: '/images/workshop-sessions.jpeg',
       reversed: true,
     },
     {
@@ -134,6 +142,7 @@ function StorySection() {
       text: `Prabhat's impact extends far beyond individual sessions. Through HOPE — his community development initiative — and Stage4You — a platform celebrating the performing arts — he has created ecosystems of growth. Together, these initiatives have reached over 100,000 people, proving that the arts aren't a luxury; they're a necessity for human development.`,
       imageGradient: 'from-deep-teal to-forest',
       imageLabel: 'COMMUNITY IMPACT',
+      imageSrc: '/images/community-impact-new.jpeg',
     },
   ];
 
@@ -176,13 +185,23 @@ function StorySection() {
               <ScrollReveal variant="scale">
                 <div className="relative">
                   <div
-                    className={`aspect-[4/3] rounded-3xl overflow-hidden shadow-lg bg-gradient-to-br ${story.imageGradient}`}
+                    className={`relative aspect-[4/3] rounded-3xl overflow-hidden shadow-lg bg-gradient-to-br ${story.imageGradient}`}
                   >
-                    <div className="absolute inset-0 flex items-center justify-center text-white/60">
-                      <p className="text-sm font-mono tracking-wider">
-                        {story.imageLabel}
-                      </p>
-                    </div>
+                    {story.imageSrc ? (
+                      <Image
+                        src={story.imageSrc}
+                        alt={story.imageLabel}
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center text-white/60">
+                        <p className="text-sm font-mono tracking-wider">
+                          {story.imageLabel}
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <div className="absolute -bottom-3 -right-3 w-full h-full rounded-3xl border-2 border-sage/15 -z-10" />
                 </div>
