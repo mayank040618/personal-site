@@ -3,6 +3,8 @@
 import AnimatedText from '@/components/ui/AnimatedText';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import Counter from '@/components/ui/Counter';
+import FloatingShapes from '@/components/ui/FloatingShapes';
+import OrganicInkEffect from '@/components/ui/OrganicInkEffect';
 
 export default function TheatreInEducationContent() {
   return (
@@ -11,7 +13,9 @@ export default function TheatreInEducationContent() {
       <section className="sticky top-0 h-[70vh] sm:h-[90vh] flex items-center justify-center overflow-hidden pt-20 z-0" data-theme="dark">
         <div className="absolute inset-0 bg-forest">
           {/* Placeholder for dramatic workshop photo */}
-          <div className="absolute inset-0 opacity-40 mix-blend-overlay bg-gradient-to-t from-forest via-transparent to-transparent" />
+          <div className="absolute inset-0 opacity-40 mix-blend-overlay bg-gradient-to-t from-forest via-transparent to-transparent z-10" />
+          <OrganicInkEffect theme="emerald" autoPlay={true} />
+          <FloatingShapes count={6} mouseReactive={true} colors={['rgba(200, 230, 208, 0.15)', 'rgba(255, 255, 255, 0.05)', 'rgba(143, 174, 139, 0.1)']} />
         </div>
         
         <div className="container-editorial relative z-10 text-center text-white mt-12">

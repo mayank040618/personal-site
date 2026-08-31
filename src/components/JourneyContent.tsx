@@ -101,7 +101,7 @@ const milestones: Milestone[] = [
   {
     year: '2022',
     period: 'Sep 2022 – Jan 2023',
-    title: 'Admission Counselor & Outreach',
+    title: '',
     organization: 'Indian Institute of Art and Design',
     description: 'Managed student admissions and outreach in New Delhi, blending communication design expertise with trend analysis to recruit top creative talent.',
     category: 'experience',
@@ -110,7 +110,7 @@ const milestones: Milestone[] = [
   {
     year: '2023',
     period: 'Feb 2023 – Present',
-    title: 'Executive — Corporate Resource Center',
+    title: '',
     organization: 'Amity University',
     description: 'Currently leading corporate engagement at Amity University Greater Noida Campus. Manages training programs, relationship development, and industry-academia partnerships on-site.',
     category: 'experience',

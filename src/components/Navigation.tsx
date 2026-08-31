@@ -73,14 +73,18 @@ export default function Navigation() {
     const darkSections = document.querySelectorAll('[data-theme="dark"]');
     const chapterSections = document.querySelectorAll('[data-nav-chapter]');
     
+    const intersectingDarkSections = new Set();
     // Observer for dark theme (top 15% of viewport)
     const themeObserver = new IntersectionObserver(
       (entries) => {
-        let anyIntersecting = false;
         entries.forEach((entry) => {
-          if (entry.isIntersecting) anyIntersecting = true;
+          if (entry.isIntersecting) {
+            intersectingDarkSections.add(entry.target);
+          } else {
+            intersectingDarkSections.delete(entry.target);
+          }
         });
-        setIsDarkTheme(anyIntersecting);
+        setIsDarkTheme(intersectingDarkSections.size > 0);
       },
       { rootMargin: '-20px 0px -85% 0px' }
     );

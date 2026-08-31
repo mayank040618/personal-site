@@ -473,11 +473,13 @@ function IntroductionSection() {
                       'linear-gradient(160deg, var(--soft-ivory) 0%, var(--sage) 50%, var(--deep-teal) 100%)',
                   }}
                 >
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white/80">
-                    <p className="text-sm font-mono tracking-wider opacity-60">
-                      WORKSHOP PHOTOGRAPH
-                    </p>
-                  </div>
+                  <Image
+                    src="/images/prabhat-hero-new.jpg"
+                    alt="Prabhat Singh Rajput"
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
                 </div>
                 {/* Offset decorative frame */}
                 <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-full h-full rounded-3xl border border-sage/40 -z-10 bg-soft-mint/10 backdrop-blur-md" />

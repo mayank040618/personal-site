@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ArrowUpRight, Mail } from 'lucide-react';
-import { LinkedinIcon, InstagramIcon, YoutubeIcon } from './ui/SocialIcons';
+import { LinkedinIcon, InstagramIcon, FacebookIcon, XIcon } from './ui/SocialIcons';
 import ScrollReveal from './ui/ScrollReveal';
 
 const footerLinks = [
@@ -72,7 +72,8 @@ export default function Footer() {
   const socials = [
     { label: 'LinkedIn', icon: LinkedinIcon, href: 'https://www.linkedin.com/in/prabhatsinghrajput/' },
     { label: 'Instagram', icon: InstagramIcon, href: instagramLink },
-    { label: 'YouTube', icon: YoutubeIcon, href: 'https://youtube.com' },
+    { label: 'Facebook', icon: FacebookIcon, href: 'https://www.facebook.com/share/19Un4x9Rgv/' },
+    { label: 'X', icon: XIcon, href: 'https://x.com/Prabsinghrajput' },
     { label: 'Email', icon: Mail, href: 'mailto:prabhatweb23@gmail.com' },
   ];
 
@@ -126,7 +127,7 @@ export default function Footer() {
                   </span>
                 </div>
                 <p className="text-white/50 text-sm leading-relaxed mb-8">
-                  Theatre Educator, Corporate Trainer, TEDx Speaker & PhD
+                  Theatre Educator, Corporate Trainer, Speaker & PhD
                   Scholar. Transforming lives through the art of communication.
                 </p>
                 <div className="flex gap-3">
@@ -174,7 +175,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/10 py-6">
+      <div className="border-t-2 border-white/10 py-6">
         <div className="container-editorial flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/30">
           <p>© {new Date().getFullYear()} Prabhat Singh Rajput. All rights reserved.</p>
           <p>
