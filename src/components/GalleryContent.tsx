@@ -6,15 +6,15 @@ import { Award, Trophy, Star, Medal, Mic, GraduationCap, Heart, Users } from 'lu
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import SectionHeading from '@/components/ui/SectionHeading';
 
-const categories = ['All', 'Workshops', 'Theatre', 'Corporate', 'Events'];
+const categories = ['All', 'Workshops', 'Corporate', 'Events'];
 
 const galleryItems = [
   { id: 1, category: 'Workshops', title: 'Student Empathy Workshop', height: 'h-96', bg: 'bg-sage/40' },
-  { id: 2, category: 'Theatre', title: 'Annual Play Direction', height: 'h-64', bg: 'bg-emerald/30' },
+  { id: 2, category: 'Events', title: 'Annual Play Direction', height: 'h-64', bg: 'bg-emerald/30' },
   { id: 3, category: 'Corporate', title: 'Leadership Offsite', height: 'h-80', bg: 'bg-deep-teal/40' },
   { id: 4, category: 'Events', title: 'TEDx Talk 2019', height: 'h-[28rem]', bg: 'bg-forest/30' },
   { id: 5, category: 'Workshops', title: 'Voice Modulation Training', height: 'h-72', bg: 'bg-soft-mint/60' },
-  { id: 6, category: 'Theatre', title: 'Stage4You Event', height: 'h-96', bg: 'bg-mist' },
+  { id: 6, category: 'Events', title: 'Stage4You Event', height: 'h-96', bg: 'bg-mist' },
   { id: 7, category: 'Events', title: 'University Keynote', height: 'h-64', bg: 'bg-sage/30' },
   { id: 8, category: 'Corporate', title: 'Team Building Session', height: 'h-80', bg: 'bg-emerald/20' },
 ];
@@ -99,24 +99,7 @@ export default function GalleryContent() {
             </ScrollReveal>
           </div>
 
-          {/* Filter Navigation */}
-          <ScrollReveal variant="fade-up" delay={0.2}>
-            <div className="flex flex-wrap justify-center gap-4 mb-16">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border ${
-                    activeCategory === category 
-                      ? 'bg-deep-teal text-white border-deep-teal shadow-md' 
-                      : 'bg-transparent text-graphite border-mist hover:border-deep-teal/50 hover:text-charcoal'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </ScrollReveal>
+
 
           {/* Masonry Grid */}
           <motion.div layout className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">

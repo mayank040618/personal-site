@@ -7,6 +7,7 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 export default function ContactContent() {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [activeField, setActiveField] = useState<string | null>(null);
+  const [formData, setFormData] = useState({ name: '', email: '', service: '', message: '' });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +18,6 @@ export default function ContactContent() {
   const contactInfo = [
     { label: 'Email', value: 'prabhatweb23@gmail.com', href: 'mailto:prabhatweb23@gmail.com' },
     { label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
-    { label: 'Location', value: 'Greater Noida, India', href: '#' },
     { label: 'LinkedIn', value: 'Prabhat Singh Rajput', href: 'https://linkedin.com/' },
   ];
 
@@ -25,12 +25,18 @@ export default function ContactContent() {
     <div className="min-h-screen relative overflow-hidden" style={{ background: 'var(--soft-ivory)' }}>
       {/* Decorative background elements */}
       <div 
-        className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[120px] opacity-[0.07] pointer-events-none translate-x-1/3 -translate-y-1/3"
-        style={{ background: 'var(--emerald)' }}
+        className="absolute top-0 right-0 w-[800px] h-[800px] pointer-events-none translate-x-1/3 -translate-y-1/3"
+        style={{ 
+          background: 'radial-gradient(circle, var(--emerald) 0%, transparent 65%)',
+          opacity: 0.12
+        }}
       />
       <div 
-        className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[100px] opacity-[0.05] pointer-events-none -translate-x-1/3 translate-y-1/3"
-        style={{ background: 'var(--deep-teal)' }}
+        className="absolute bottom-0 left-0 w-[600px] h-[600px] pointer-events-none -translate-x-1/3 translate-y-1/3"
+        style={{ 
+          background: 'radial-gradient(circle, var(--deep-teal) 0%, transparent 65%)',
+          opacity: 0.1
+        }}
       />
 
       <div className="max-w-7xl mx-auto px-6 pt-32 pb-24 md:pt-40 md:pb-32 relative z-10 min-h-screen flex flex-col justify-center">
@@ -152,14 +158,16 @@ export default function ContactContent() {
                       <div className="relative group">
                         <label 
                           className={`absolute left-0 transition-all duration-300 pointer-events-none ${
-                            activeField === 'name' ? '-top-5 text-[10px] uppercase tracking-widest text-emerald-700' : 'top-3 text-base text-gray-400'
-                          }`}
+                            activeField === 'name' || formData.name ? '-top-5 text-[10px] uppercase tracking-widest' : 'top-3 text-base'
+                          } ${activeField === 'name' ? 'text-emerald-700' : 'text-gray-400'}`}
                         >
                           Your Name
                         </label>
                         <input 
                           type="text" 
                           required
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           onFocus={() => setActiveField('name')}
                           onBlur={(e) => !e.target.value && setActiveField(null)}
                           className="w-full bg-transparent border-b pb-3 pt-3 focus:outline-none transition-colors"
@@ -171,14 +179,16 @@ export default function ContactContent() {
                       <div className="relative group">
                         <label 
                           className={`absolute left-0 transition-all duration-300 pointer-events-none ${
-                            activeField === 'email' ? '-top-5 text-[10px] uppercase tracking-widest text-emerald-700' : 'top-3 text-base text-gray-400'
-                          }`}
+                            activeField === 'email' || formData.email ? '-top-5 text-[10px] uppercase tracking-widest' : 'top-3 text-base'
+                          } ${activeField === 'email' ? 'text-emerald-700' : 'text-gray-400'}`}
                         >
                           Email Address
                         </label>
                         <input 
                           type="email" 
                           required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           onFocus={() => setActiveField('email')}
                           onBlur={(e) => !e.target.value && setActiveField(null)}
                           className="w-full bg-transparent border-b pb-3 pt-3 focus:outline-none transition-colors"
@@ -190,14 +200,15 @@ export default function ContactContent() {
                       <div className="relative group">
                         <label 
                           className={`absolute left-0 transition-all duration-300 pointer-events-none ${
-                            activeField === 'service' ? '-top-5 text-[10px] uppercase tracking-widest text-emerald-700' : 'top-3 text-base text-gray-400'
-                          }`}
+                            activeField === 'service' || formData.service ? '-top-5 text-[10px] uppercase tracking-widest' : 'top-3 text-base'
+                          } ${activeField === 'service' ? 'text-emerald-700' : 'text-gray-400'}`}
                         >
                           Interested In
                         </label>
                         <select 
                           required
-                          defaultValue=""
+                          value={formData.service}
+                          onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                           onFocus={() => setActiveField('service')}
                           onBlur={(e) => !e.target.value && setActiveField(null)}
                           className="w-full bg-transparent border-b pb-3 pt-3 focus:outline-none transition-colors appearance-none"
@@ -220,14 +231,16 @@ export default function ContactContent() {
                       <div className="relative group pt-4">
                         <label 
                           className={`absolute left-0 transition-all duration-300 pointer-events-none ${
-                            activeField === 'message' ? 'top-0 text-[10px] uppercase tracking-widest text-emerald-700' : 'top-6 text-base text-gray-400'
-                          }`}
+                            activeField === 'message' || formData.message ? 'top-0 text-[10px] uppercase tracking-widest' : 'top-6 text-base'
+                          } ${activeField === 'message' ? 'text-emerald-700' : 'text-gray-400'}`}
                         >
                           Your Message
                         </label>
                         <textarea 
                           required
                           rows={4}
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                           onFocus={() => setActiveField('message')}
                           onBlur={(e) => !e.target.value && setActiveField(null)}
                           className="w-full bg-transparent border-b pb-3 pt-6 focus:outline-none transition-colors resize-none"

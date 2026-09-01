@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ZoomableImage from '@/components/ui/ZoomableImage';
 
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Heart, Theater, Users } from 'lucide-react';
@@ -55,8 +55,8 @@ function AboutHero() {
                   'linear-gradient(150deg, var(--sage) 0%, var(--deep-teal) 100%)',
               }}
             >
-              <Image
-                src="/images/prabhat-about.jpeg"
+              <ZoomableImage
+                src="/images/prabhat-about-bw.jpeg"
                 alt="Prabhat Singh Rajput Portrait"
                 fill
                 className="object-cover object-center"
@@ -188,7 +188,7 @@ function StorySection() {
                     className={`relative aspect-[4/3] rounded-3xl overflow-hidden shadow-lg bg-gradient-to-br ${story.imageGradient}`}
                   >
                     {story.imageSrc ? (
-                      <Image
+                      <ZoomableImage
                         src={story.imageSrc}
                         alt={story.imageLabel}
                         fill

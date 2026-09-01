@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, ChevronDown, Users, Award, Building2, Sparkles, Star } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import ZoomableImage from '@/components/ui/ZoomableImage';
 import FloatingShapes from '@/components/ui/FloatingShapes';
 import AnimatedText from '@/components/ui/AnimatedText';
 
@@ -233,7 +234,7 @@ function HeroSection() {
                   animate={{ y: [0, -3, 0] }}
                   transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
                 >
-                  <Image
+                  <ZoomableImage
                     src="/images/prabhat-hero-white-shirt.jpg"
                     alt="Prabhat Singh Rajput"
                     fill
@@ -473,7 +474,7 @@ function IntroductionSection() {
                       'linear-gradient(160deg, var(--soft-ivory) 0%, var(--sage) 50%, var(--deep-teal) 100%)',
                   }}
                 >
-                  <Image
+                  <ZoomableImage
                     src="/images/prabhat-hero-new.jpg"
                     alt="Prabhat Singh Rajput"
                     fill
@@ -566,13 +567,13 @@ function HopePreview() {
           <div className="order-2 lg:order-1">
             <ScrollReveal variant="scale">
               <div className="relative aspect-square md:aspect-[4/3] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#07173c] via-[#154eb0] to-[#09b4e2] flex items-center justify-center">
-                  <div className="text-center text-white/70">
-                    <Users className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                    <p className="text-sm font-mono tracking-wider opacity-50">H.O.P.E. INITIATIVE</p>
-                  </div>
-                </div>
-                <div className="absolute inset-0 bg-[#0a192f]/20 mix-blend-overlay" />
+                <ZoomableImage
+                  src="/images/hope-initiative.jpeg"
+                  alt="H.O.P.E. Initiative - Audience"
+                  fill
+                  sizes="(max-width: 768px) 90vw, 50vw"
+                  className="object-cover object-center"
+                />
               </div>
             </ScrollReveal>
           </div>
@@ -647,13 +648,13 @@ function Stage4YouPreview() {
           <div>
             <ScrollReveal variant="scale">
               <div className="relative aspect-square md:aspect-[4/3] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(255,184,0,0.15)] border border-white/5">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1C1C1C] via-[#2a2a2a] to-[#FFB800]/40 flex items-center justify-center">
-                  <div className="text-center text-white/70">
-                    <Award className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                    <p className="text-sm font-mono tracking-wider opacity-50">STAGE4YOU INITIATIVE</p>
-                  </div>
-                </div>
-                <div className="absolute inset-0 bg-[#FFB800]/10 mix-blend-overlay" />
+                <ZoomableImage
+                  src="/images/stage4you-performance.jpeg"
+                  alt="Stage4You Theatre Performance"
+                  fill
+                  sizes="(max-width: 768px) 90vw, 50vw"
+                  className="object-cover object-center"
+                />
               </div>
             </ScrollReveal>
           </div>
