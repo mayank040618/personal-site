@@ -5,6 +5,7 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 import Counter from '@/components/ui/Counter';
 import TypingText from '@/components/ui/TypingText';
 import OrganicInkEffect from '@/components/ui/OrganicInkEffect';
+import ZoomableImage from '@/components/ui/ZoomableImage';
 
 export default function HopeContent() {
   return (
@@ -82,11 +83,13 @@ export default function HopeContent() {
               <div className="relative">
                 <ScrollReveal variant="scale">
                   <div className="aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-700 to-cyan-400 relative group">
-                    <div className="absolute inset-0 flex items-center justify-center text-white/80">
-                      <p className="font-mono text-sm tracking-widest text-center px-4">WORKSHOP IN ACTION</p>
-                    </div>
-                    {/* Hover effect */}
-                    <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <ZoomableImage
+                      src="/images/hope-workshop.jpeg"
+                      alt="HOPE Workshop in Action"
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
                   </div>
                 </ScrollReveal>
                 <div className="absolute -bottom-8 -left-8 w-64 h-64 bg-cyan-400/30 rounded-full blur-[60px] -z-10" />
@@ -128,8 +131,14 @@ export default function HopeContent() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               <ScrollReveal variant="fade-up" delay={0.1}>
                 <div className="aspect-square rounded-2xl bg-mist shadow-lg overflow-hidden group">
-                  <div className="w-full h-full bg-gradient-to-br from-blue-600/40 to-cyan-600/40 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                    <span className="text-xs font-mono text-white/80 tracking-wider">EVENT 1</span>
+                  <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-700">
+                    <ZoomableImage
+                      src="/images/masters-union.jpeg"
+                      alt="Masters' Union Event"
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
                   </div>
                 </div>
               </ScrollReveal>

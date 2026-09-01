@@ -17,7 +17,7 @@ export default function ContactContent() {
 
   const contactInfo = [
     { label: 'Email', value: 'prabhatweb23@gmail.com', href: 'mailto:prabhatweb23@gmail.com' },
-    { label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
+    { label: 'Phone', value: '+91-92898 30699', href: 'tel:+919289830699' },
     { label: 'LinkedIn', value: 'Prabhat Singh Rajput', href: 'https://linkedin.com/' },
   ];
 
