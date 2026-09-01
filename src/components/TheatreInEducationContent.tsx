@@ -86,8 +86,8 @@ export default function TheatreInEducationContent() {
               <ScrollReveal variant="scale">
                 <div className="aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-sage to-emerald relative group">
                   <ZoomableImage
-                    src="/images/student-transformation.jpeg"
-                    alt="Student Transformation"
+                    src="/images/theatre-stage.jpeg"
+                    alt="Theatre in Education Performance"
                     fill
                     className="object-cover object-center"
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -136,7 +136,7 @@ export default function TheatreInEducationContent() {
               <div className="aspect-square rounded-2xl bg-mist shadow-lg overflow-hidden group">
                 <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-700">
                   <ZoomableImage
-                    src="/images/workshop-1.jpeg"
+                    src="/images/netflix-group.jpeg"
                     alt="Theatre Workshop"
                     fill
                     className="object-cover object-center"
