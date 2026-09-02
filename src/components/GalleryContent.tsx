@@ -5,18 +5,29 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Award, Trophy, Star, Medal, Mic, GraduationCap, Heart, Users } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import SectionHeading from '@/components/ui/SectionHeading';
+import ZoomableImage from '@/components/ui/ZoomableImage';
 
-const categories = ['All', 'Workshops', 'Corporate', 'Events'];
+const categories = ['All', 'Workshops', 'Corporate', 'Events', 'Theatre', 'HOPE'];
 
 const galleryItems = [
-  { id: 1, category: 'Workshops', title: 'Student Empathy Workshop', height: 'h-96', bg: 'bg-sage/40' },
-  { id: 2, category: 'Events', title: 'Annual Play Direction', height: 'h-64', bg: 'bg-emerald/30' },
-  { id: 3, category: 'Corporate', title: 'Leadership Offsite', height: 'h-80', bg: 'bg-deep-teal/40' },
-  { id: 4, category: 'Events', title: 'TEDx Talk 2019', height: 'h-[28rem]', bg: 'bg-forest/30' },
-  { id: 5, category: 'Workshops', title: 'Voice Modulation Training', height: 'h-72', bg: 'bg-soft-mint/60' },
-  { id: 6, category: 'Events', title: 'Stage4You Event', height: 'h-96', bg: 'bg-mist' },
-  { id: 7, category: 'Events', title: 'University Keynote', height: 'h-64', bg: 'bg-sage/30' },
-  { id: 8, category: 'Corporate', title: 'Team Building Session', height: 'h-80', bg: 'bg-emerald/20' },
+  { id: 1, src: '/images/masters-union.jpeg', category: 'Events', title: "Masters' Union Event", height: 'h-96' },
+  { id: 2, src: '/images/audience-boy.jpg', category: 'Events', title: 'Audience Moment', height: 'h-[28rem]' },
+  { id: 3, src: '/images/sir.jpeg', category: 'Events', title: 'HOPE Event Moment', height: 'h-80' },
+  { id: 4, src: '/images/stage4you-performance.jpeg', category: 'Theatre', title: 'Stage4You Performance', height: 'h-96' },
+  { id: 5, src: '/images/hope-workshop.jpeg', category: 'HOPE', title: 'HOPE Workshop', height: 'h-72' },
+  { id: 6, src: '/images/netflix-group.jpeg', category: 'Corporate', title: 'Netflix Collaboration', height: 'h-80' },
+  { id: 7, src: '/images/workshop-1.jpeg', category: 'Workshops', title: 'Workshop Session', height: 'h-96' },
+  { id: 8, src: '/images/community-impact-new.jpeg', category: 'HOPE', title: 'Community Impact', height: 'h-[28rem]' },
+  { id: 9, src: '/images/theatre-stage.jpeg', category: 'Theatre', title: 'Theatre Stage', height: 'h-80' },
+  { id: 10, src: '/images/student-transformation.jpeg', category: 'Workshops', title: 'Student Transformation', height: 'h-96' },
+  { id: 11, src: '/images/early-theatre-days.jpeg', category: 'Theatre', title: 'Early Theatre Days', height: 'h-72' },
+  { id: 12, src: '/images/workshop-sessions.jpeg', category: 'Workshops', title: 'Workshop Sessions', height: 'h-80' },
+  { id: 13, src: '/images/hope-initiative.jpeg', category: 'HOPE', title: 'HOPE Initiative', height: 'h-96' },
+  { id: 14, src: '/images/prabhat-about.jpeg', category: 'Events', title: 'Prabhat Singh', height: 'h-[28rem]' },
+  { id: 15, src: '/images/prabhat-hero-new.jpg', category: 'Events', title: 'Profile Shot', height: 'h-96' },
+  { id: 16, src: '/images/prabhat-hero.jpg', category: 'Events', title: 'On Stage', height: 'h-80' },
+  { id: 17, src: '/images/prabhat-hero-white-shirt.jpg', category: 'Corporate', title: 'Corporate Look', height: 'h-72' },
+  { id: 18, src: '/images/prabhat-about-bw.jpeg', category: 'Theatre', title: 'Dramatic Moment', height: 'h-[28rem]' },
 ];
 
 const achievements = [
@@ -99,7 +110,22 @@ export default function GalleryContent() {
             </ScrollReveal>
           </div>
 
-
+          {/* Category Filters */}
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-5 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 ${
+                  activeCategory === cat
+                    ? 'bg-charcoal text-white shadow-lg'
+                    : 'bg-mist text-graphite hover:bg-sage/30 hover:text-charcoal'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
 
           {/* Masonry Grid */}
           <motion.div layout className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
@@ -112,24 +138,26 @@ export default function GalleryContent() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.5 }}
                   key={item.id}
-                  className={`relative w-full rounded-2xl overflow-hidden group break-inside-avoid ${item.height} ${item.bg}`}
+                  className={`relative w-full rounded-2xl overflow-hidden group break-inside-avoid ${item.height}`}
                 >
-                  {/* Image Placeholder Background */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500 z-10" />
-                  
-                  {/* Simulated Image Scale Effect */}
-                  <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 group-hover:scale-110 transition-transform duration-700 ease-out" />
-                  
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-                     <span className="text-charcoal/30 font-mono text-sm tracking-widest rotate-[-45deg] font-bold">PHOTO {item.id}</span>
-                  </div>
+                  {/* Actual Image */}
+                  <ZoomableImage
+                    src={item.src}
+                    alt={item.title}
+                    fill
+                    className="object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
 
                   {/* Content Overlay */}
                   <div className="absolute bottom-0 left-0 right-0 p-8 z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     <span className="text-[10px] uppercase tracking-widest text-soft-mint font-semibold block mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                       {item.category}
                     </span>
-                    <h3 className="text-xl font-display font-medium text-white opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                    <h3 className="text-xl font-display font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       {item.title}
                     </h3>
                   </div>
