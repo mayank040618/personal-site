@@ -153,35 +153,35 @@ function HeroSection() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-12 items-center">
             {/* Left — Typography */}
             <div className="order-2 lg:order-1 lg:col-span-7 min-w-0 pr-0 lg:pr-4">
-              <motion.span
+              <AnimatedText
+                text="Theatre. Communication. Leadership. Human Development."
                 className="text-eyebrow block mb-6"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: t.eyebrow, ease: [0.22, 1, 0.36, 1] }}
-              >
-                Theatre. Communication. Leadership. Human Development.
-              </motion.span>
+                variant="typewriter"
+                tag="span"
+                splitBy="chars"
+                delay={t.eyebrow}
+              />
 
               {/* First headline */}
               <h1 className="text-hero font-display text-charcoal mb-4">
                 <span className="block overflow-hidden w-full pb-2 pr-4 -mb-2">
-                  <motion.span className="inline-block pr-4 whitespace-normal max-w-full" {...wordReveal(t.word1)}>CONFIDENCE ISN&apos;T TAUGHT.</motion.span>
+                  <motion.span className="inline-block pr-4 whitespace-normal max-w-full origin-left" whileHover={{ scale: 1.02, color: 'var(--deep-teal)' }} {...wordReveal(t.word1)}>CONFIDENCE ISN&apos;T TAUGHT.</motion.span>
                 </span>
                 <span className="block overflow-hidden w-full pb-2 pr-4 -mb-2">
-                  <motion.span className="inline-block pr-4 whitespace-normal max-w-full" {...wordReveal(t.word2)}>IT&apos;S DISCOVERED.</motion.span>
+                  <motion.span className="inline-block pr-4 whitespace-normal max-w-full origin-left" whileHover={{ scale: 1.02, color: 'var(--deep-teal)' }} {...wordReveal(t.word2)}>IT&apos;S DISCOVERED.</motion.span>
                 </span>
               </h1>
 
               {/* Second headline */}
               <h1 className="text-hero font-display gradient-text mb-8">
                 <span className="block overflow-hidden w-full pb-2 pr-4 -mb-2">
-                  <motion.span className="inline-block gradient-text pr-4 whitespace-normal max-w-full" {...wordReveal(t.word4)}>COMMUNICATION ISN&apos;T</motion.span>
+                  <motion.span className="inline-block gradient-text pr-4 whitespace-normal max-w-full origin-left" whileHover={{ scale: 1.02, filter: 'brightness(1.2)' }} {...wordReveal(t.word4)}>COMMUNICATION ISN&apos;T</motion.span>
                 </span>
                 <span className="block overflow-hidden w-full pb-2 pr-4 -mb-2">
-                  <motion.span className="inline-block gradient-text pr-4 whitespace-normal max-w-full" {...wordReveal(t.word5)}>MEMORIZED.</motion.span>
+                  <motion.span className="inline-block gradient-text pr-4 whitespace-normal max-w-full origin-left" whileHover={{ scale: 1.02, filter: 'brightness(1.2)' }} {...wordReveal(t.word5)}>MEMORIZED.</motion.span>
                 </span>
                 <span className="block overflow-hidden w-full pb-2 pr-4 -mb-2">
-                  <motion.span className="inline-block gradient-text pr-4 whitespace-normal max-w-full" {...wordReveal(t.word6)}>IT&apos;S EXPERIENCED.</motion.span>
+                  <motion.span className="inline-block gradient-text pr-4 whitespace-normal max-w-full origin-left" whileHover={{ scale: 1.02, filter: 'brightness(1.2)' }} {...wordReveal(t.word6)}>IT&apos;S EXPERIENCED.</motion.span>
                 </span>
               </h1>
 

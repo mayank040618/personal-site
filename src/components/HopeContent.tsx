@@ -144,8 +144,14 @@ export default function HopeContent() {
               </ScrollReveal>
               <ScrollReveal variant="fade-up" delay={0.3}>
                 <div className="aspect-[3/4] rounded-2xl bg-mist shadow-lg overflow-hidden group mt-0 md:mt-16">
-                  <div className="w-full h-full bg-gradient-to-br from-cyan-400/40 to-blue-900/40 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                    <span className="text-xs font-mono text-white/80 tracking-wider">EVENT 2</span>
+                  <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-700">
+                    <ZoomableImage
+                      src="/images/audience-boy.jpg"
+                      alt="Audience Event"
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
                   </div>
                 </div>
               </ScrollReveal>
