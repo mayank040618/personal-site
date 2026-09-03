@@ -61,6 +61,13 @@ const achievements = [
     year: '2021',
     category: 'Industry',
   },
+  {
+    icon: Mic,
+    title: 'Keynote Speaker & Facilitator',
+    description: 'Delivered over 100+ keynotes, leadership seminars, and interactive theatre pedagogy workshops.',
+    year: '2018–Present',
+    category: 'Speaking',
+  },
 ];
 
 export default function GalleryContent() {

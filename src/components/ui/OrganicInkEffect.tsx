@@ -92,6 +92,10 @@ const getFragmentShaderSource = (theme: 'emerald' | 'hope') => {
       alpha = min(alpha, alpha * (0.8 + 0.2 * densityVariation));
       
       float finalAlpha = clamp(alpha, 0.0, 0.92); 
+
+      // Dissolve bottom edge with organic noise tendrils to eliminate hard horizontal cut lines
+      float bottomDissolve = smoothstep(0.98, 0.68, uv.y - (n - 0.5) * 0.35);
+      finalAlpha *= bottomDissolve;
       
       float colorNoise = fbm(warpedUV * 4.0 + u_time * 0.05);
       vec3 deepColor;
