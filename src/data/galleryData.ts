@@ -30,4 +30,5 @@ export const galleryItems: GalleryItem[] = [
   { id: 21, src: '/images/theatre-team-steps.jpg', category: 'Theatre', title: 'Theatre Team & NayaPUN Festival', height: 'h-[28rem]' },
   { id: 22, src: '/images/workshop-circle-discussion.jpg', category: 'Workshops', title: 'Interactive Group Mentorship', height: 'h-96' },
   { id: 23, src: '/images/nukkad-natak-outdoor.jpg', category: 'Theatre', title: 'Street Theatre & Outdoor Address', height: 'h-[28rem]' },
+  { id: 24, src: '/images/prabhat-keynote-speaking.jpg', category: 'Events', title: 'Keynote & Stage Address', height: 'h-96' },
 ];
