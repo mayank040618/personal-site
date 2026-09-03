@@ -10,7 +10,7 @@ export const galleryItems: GalleryItem[] = [
   { id: 1, src: '/images/masters-union.jpeg', category: 'Events', title: "Masters' Union Event", height: 'h-96' },
   { id: 2, src: '/images/casting.jpeg', category: 'Events', title: 'Netflix Mismatched On Set', height: 'h-[28rem]' },
   { id: 3, src: '/images/audience-boy.jpg', category: 'Events', title: 'Audience Moment', height: 'h-80' },
-  { id: 4, src: '/images/stage4you-performance.jpeg', category: 'Theatre', title: 'Stage4You Performance', height: 'h-96' },
+  { id: 4, src: '/images/stage4you-showcase-2.jpg', category: 'Theatre', title: 'Stage4You Performance', height: 'h-96' },
   { id: 5, src: '/images/hope-workshop.jpeg', category: 'HOPE', title: 'HOPE Workshop', height: 'h-72' },
   { id: 6, src: '/images/netflix-group.jpeg', category: 'Corporate', title: 'Netflix Collaboration', height: 'h-80' },
   { id: 7, src: '/images/workshop-1.jpeg', category: 'Workshops', title: 'Workshop Session', height: 'h-96' },

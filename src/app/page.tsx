@@ -717,8 +717,8 @@ function Stage4YouPreview() {
             <ScrollReveal variant="scale">
               <div className="relative aspect-square md:aspect-[4/3] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(255,184,0,0.15)] border border-white/5">
                 <ZoomableImage
-                  src="/images/stage4you-performance.jpeg"
-                  alt="Stage4You Theatre Performance"
+                  src="/images/stage4you-showcase-2.jpg"
+                  alt="Stage4You Theatre Production"
                   fill
                   sizes="(max-width: 768px) 90vw, 50vw"
                   className="object-cover object-center"
