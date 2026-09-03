@@ -13,13 +13,6 @@ const categories = ['All', 'Workshops', 'Corporate', 'Events', 'Theatre', 'HOPE'
 
 const achievements = [
   {
-    icon: Mic,
-    title: 'TEDx Speaker',
-    description: 'Delivered a TEDx talk on the transformative power of theatre pedagogy in modern education.',
-    year: '2019',
-    category: 'Speaking',
-  },
-  {
     icon: GraduationCap,
     title: 'PhD Scholar',
     description: 'Pursuing PhD in Business Administration at Amity University — researching theatre-based training impact.',

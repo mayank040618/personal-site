@@ -31,12 +31,12 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   title: "Prabhat Singh Rajput — Theatre Educator, Speaker & Changemaker",
   description:
-    "Prabhat Singh Rajput is a theatre educator, corporate trainer, TEDx speaker, and PhD scholar. Transforming communication through theatre, training, and community impact.",
+    "Prabhat Singh Rajput is a theatre educator, corporate trainer, and PhD scholar. Transforming communication through theatre, training, and community impact.",
   keywords: [
     "Prabhat Singh Rajput",
     "Theatre Education",
     "Corporate Training",
-    "TEDx Speaker",
+    "Keynote Speaker",
     "Communication Skills",
     "Leadership Development",
     "HOPE",
