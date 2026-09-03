@@ -236,7 +236,7 @@ function HeroSection() {
                   transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
                 >
                   <ZoomableImage
-                    src="/images/prabhat-hero-white-shirt.jpg"
+                    src="/images/prabhat-about-bw.jpeg"
                     alt="Prabhat Singh Rajput"
                     fill
                     priority

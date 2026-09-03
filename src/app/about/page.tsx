@@ -56,7 +56,7 @@ function AboutHero() {
               }}
             >
               <ZoomableImage
-                src="/images/prabhat-about-bw.jpeg"
+                src="/images/prabhat-hero-white-shirt.jpg"
                 alt="Prabhat Singh Rajput Portrait"
                 fill
                 className="object-cover object-center"
