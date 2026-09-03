@@ -28,4 +28,6 @@ export const galleryItems: GalleryItem[] = [
   { id: 19, src: '/images/stage4you-showcase-1.jpg', category: 'Events', title: 'JU Rhythm Talent Showcase', height: 'h-96' },
   { id: 20, src: '/images/stage4you-showcase-3.jpg', category: 'Workshops', title: 'Performers Script Session', height: 'h-80' },
   { id: 21, src: '/images/theatre-team-steps.jpg', category: 'Theatre', title: 'Theatre Team & NayaPUN Festival', height: 'h-[28rem]' },
+  { id: 22, src: '/images/workshop-circle-discussion.jpg', category: 'Workshops', title: 'Interactive Group Mentorship', height: 'h-96' },
+  { id: 23, src: '/images/nukkad-natak-outdoor.jpg', category: 'Theatre', title: 'Street Theatre & Outdoor Address', height: 'h-[28rem]' },
 ];
