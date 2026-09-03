@@ -632,6 +632,45 @@ function GalleryPreview() {
 function HopePreview() {
   return (
     <section className="relative overflow-hidden py-24 md:py-32" style={{ background: 'linear-gradient(180deg, var(--white) 0%, var(--soft-ivory) 100%)' }} data-nav-chapter="05" data-nav-title="H.O.P.E">
+      {/* Animated Blue Wave Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <svg
+          className="absolute bottom-0 left-0 w-[200%] h-[40%] md:h-[50%] opacity-[0.07]"
+          viewBox="0 0 2880 320"
+          preserveAspectRatio="none"
+          style={{ animation: 'waveFlow 12s linear infinite' }}
+        >
+          <path
+            d="M0,160 C240,240 480,80 720,160 C960,240 1200,80 1440,160 C1680,240 1920,80 2160,160 C2400,240 2640,80 2880,160 L2880,320 L0,320 Z"
+            fill="url(#blueWaveGrad1)"
+          />
+          <defs>
+            <linearGradient id="blueWaveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#0a192f" />
+              <stop offset="50%" stopColor="#1e90ff" />
+              <stop offset="100%" stopColor="#0a192f" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <svg
+          className="absolute bottom-0 left-0 w-[200%] h-[35%] md:h-[45%] opacity-[0.05]"
+          viewBox="0 0 2880 320"
+          preserveAspectRatio="none"
+          style={{ animation: 'waveFlow 18s linear infinite reverse' }}
+        >
+          <path
+            d="M0,200 C320,120 640,280 960,200 C1280,120 1600,280 1920,200 C2240,120 2560,280 2880,200 L2880,320 L0,320 Z"
+            fill="url(#blueWaveGrad2)"
+          />
+          <defs>
+            <linearGradient id="blueWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#1e90ff" />
+              <stop offset="50%" stopColor="#64ffda" />
+              <stop offset="100%" stopColor="#1e90ff" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
       <div className="container-editorial relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="order-2 lg:order-1">

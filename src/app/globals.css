@@ -442,3 +442,10 @@ canvas {
   transition: color 0.8s ease !important;
 }
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   WAVE FLOW — HOPE section background
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@keyframes waveFlow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
