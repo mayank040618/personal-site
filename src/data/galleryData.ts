@@ -7,7 +7,7 @@ export interface GalleryItem {
 }
 
 export const galleryItems: GalleryItem[] = [
-  { id: 1, src: '/images/masters-union.jpeg', category: 'Events', title: "Masters' Union Event", height: 'h-96' },
+  { id: 1, src: '/images/stage4you-live.jpg', category: 'Events', title: 'Stage4You Runway Showcase', height: 'h-96' },
   { id: 2, src: '/images/casting.jpeg', category: 'Events', title: 'Netflix Mismatched On Set', height: 'h-[28rem]' },
   { id: 3, src: '/images/audience-boy.jpg', category: 'Events', title: 'Audience Moment', height: 'h-80' },
   { id: 4, src: '/images/stage4you-showcase-2.jpg', category: 'Theatre', title: 'Stage4You Performance', height: 'h-96' },
@@ -20,9 +20,7 @@ export const galleryItems: GalleryItem[] = [
   { id: 11, src: '/images/early-theatre-days.jpeg', category: 'Theatre', title: 'Early Theatre Days', height: 'h-72' },
   { id: 12, src: '/images/workshop-sessions.jpeg', category: 'Workshops', title: 'Workshop Sessions', height: 'h-80' },
   { id: 13, src: '/images/hope-initiative.jpeg', category: 'HOPE', title: 'HOPE Initiative', height: 'h-96' },
-  { id: 14, src: '/images/prabhat-about.jpeg', category: 'Events', title: 'Prabhat Singh', height: 'h-[28rem]' },
   { id: 15, src: '/images/prabhat-hero-new.jpg', category: 'Events', title: 'Profile Shot', height: 'h-96' },
-  { id: 16, src: '/images/prabhat-hero.jpg', category: 'Events', title: 'On Stage', height: 'h-80' },
   { id: 17, src: '/images/prabhat-hero-white-shirt.jpg', category: 'Corporate', title: 'Corporate Look', height: 'h-72' },
   { id: 18, src: '/images/prabhat-about-bw.jpeg', category: 'Theatre', title: 'Dramatic Moment', height: 'h-[28rem]' },
   { id: 19, src: '/images/stage4you-showcase-1.jpg', category: 'Events', title: 'JU Rhythm Talent Showcase', height: 'h-96' },

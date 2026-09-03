@@ -498,10 +498,12 @@ function IntroductionSection() {
 function AnimatedGalleryCard({
   items,
   initialDelay = 0,
+  intervalDuration = 7500,
   className = '',
 }: {
   items: typeof galleryItems;
   initialDelay?: number;
+  intervalDuration?: number;
   className?: string;
 }) {
   const [index, setIndex] = useState(0);
@@ -515,14 +517,14 @@ function AnimatedGalleryCard({
       setIndex((prev) => (prev + 1) % items.length);
       intervalId = setInterval(() => {
         setIndex((prev) => (prev + 1) % items.length);
-      }, 4000);
+      }, intervalDuration);
     }, initialDelay);
 
     return () => {
       clearTimeout(initialTimer);
       if (intervalId) clearInterval(intervalId);
     };
-  }, [items, isHovered, initialDelay]);
+  }, [items, isHovered, initialDelay, intervalDuration]);
 
   if (!items || items.length === 0) return null;
   const current = items[index];
@@ -540,7 +542,7 @@ function AnimatedGalleryCard({
           initial={{ opacity: 0, scale: 1.08 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0 w-full h-full"
         >
           <Image
@@ -609,13 +611,13 @@ function GalleryPreview() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           <ScrollReveal variant="fade-up" delay={0.2}>
-            <AnimatedGalleryCard items={group1} initialDelay={0} />
+            <AnimatedGalleryCard items={group1} initialDelay={0} intervalDuration={7500} />
           </ScrollReveal>
           <ScrollReveal variant="fade-up" delay={0.4}>
-            <AnimatedGalleryCard items={group2} initialDelay={1400} className="md:mt-12" />
+            <AnimatedGalleryCard items={group2} initialDelay={2500} intervalDuration={7500} className="md:mt-12" />
           </ScrollReveal>
           <ScrollReveal variant="fade-up" delay={0.6}>
-            <AnimatedGalleryCard items={group3} initialDelay={2800} className="hidden sm:block" />
+            <AnimatedGalleryCard items={group3} initialDelay={5000} intervalDuration={7500} className="hidden sm:block" />
           </ScrollReveal>
         </div>
       </div>

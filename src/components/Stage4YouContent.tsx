@@ -84,8 +84,8 @@ export default function Stage4YouContent() {
                 <ScrollReveal variant="scale">
                   <div className="aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-charcoal to-graphite relative group">
                     <ZoomableImage
-                      src="/images/stage4you-live.jpg"
-                      alt="Stage4You Live Performance"
+                      src="/images/masters-union.jpeg"
+                      alt="Stage4You Showcase & Recognition"
                       fill
                       className="object-cover object-center"
                       sizes="(max-width: 768px) 100vw, 50vw"
