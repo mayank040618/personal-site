@@ -104,17 +104,66 @@ export default function TheatreInEducationContent() {
 
       {/* 4. Immersive Quote */}
       <section className="py-16 md:py-32 relative bg-forest overflow-hidden mt-10 md:mt-20" data-theme="dark">
-        {/* Decorative elements */}
+        {/* Decorative blur orb */}
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
         
+        {/* Animated floating particles */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full bg-emerald/20"
+              style={{
+                width: `${6 + i * 4}px`,
+                height: `${6 + i * 4}px`,
+                left: `${10 + i * 15}%`,
+                bottom: `-10px`,
+                animation: `quoteParticleFloat ${8 + i * 3}s ease-in-out infinite`,
+                animationDelay: `${i * 1.5}s`,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Subtle moving spotlight */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.06]"
+          style={{
+            background: 'radial-gradient(circle 400px at 50% 50%, rgba(139,232,186,1), transparent 70%)',
+            animation: 'quoteSpotlight 10s ease-in-out infinite alternate',
+          }}
+        />
+
+        {/* Flowing wave at the bottom */}
+        <div className="absolute bottom-0 left-0 w-full pointer-events-none overflow-hidden">
+          <svg
+            className="w-[200%] h-[80px] md:h-[120px] opacity-[0.08]"
+            viewBox="0 0 2880 120"
+            preserveAspectRatio="none"
+            style={{ animation: 'waveFlow 14s linear infinite' }}
+          >
+            <path
+              d="M0,60 C360,100 720,20 1080,60 C1440,100 1800,20 2160,60 C2520,100 2880,20 2880,60 L2880,120 L0,120 Z"
+              fill="rgba(139,232,186,0.5)"
+            />
+          </svg>
+        </div>
+
         <div className="container-editorial relative z-10 text-center max-w-5xl mx-auto px-6">
           <ScrollReveal variant="fade-up">
             <span className="text-[clamp(5rem,15vw,12rem)] font-display text-emerald/30 leading-none block mb-4">
               &ldquo;
             </span>
-            <h3 className="text-[clamp(1.5rem,5vw,4rem)] font-display text-white leading-[1.2] italic mb-8 md:mb-12 -mt-6 md:-mt-16 relative z-10">
-              Every person has a story worth telling. Theatre simply gives them the courage and the stage to finally tell it.
-            </h3>
+          </ScrollReveal>
+          <AnimatedText
+            text="Every person has a story worth telling. Theatre simply gives them the courage and the stage to finally tell it."
+            className="text-[clamp(1.5rem,5vw,4rem)] font-display text-white leading-[1.2] italic mb-8 md:mb-12 -mt-6 md:-mt-16 relative z-10"
+            variant="word-reveal"
+            tag="h3"
+            stagger={0.06}
+            delay={0.2}
+          />
+          <ScrollReveal variant="fade-up" delay={0.8}>
             <p className="text-soft-mint tracking-[0.2em] text-sm uppercase font-semibold">
               Prabhat Singh Rajput
             </p>
