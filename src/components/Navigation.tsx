@@ -286,7 +286,7 @@ export default function Navigation() {
                 className="group flex items-center gap-2 text-[12px] md:text-[13px] font-[500] hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-deep-teal rounded-sm"
              >
                <motion.span animate={{ color: brandTextColor }} transition={{ duration: 0.3 }}>
-                 MENU
+                 EXPLORE
                </motion.span>
                <motion.span 
                  animate={{ color: brandTextColor }} 
