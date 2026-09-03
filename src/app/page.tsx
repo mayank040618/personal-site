@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, ChevronDown, Users, Award, Building2, Sparkles, Star } from 'lucide-react';
@@ -759,20 +759,50 @@ const PREVIEW_TESTIMONIALS = [
 ];
 
 function TestimonialPreview() {
-
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.2 });
   const [activeIndex, setActiveIndex] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+  const startTimer = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % PREVIEW_TESTIMONIALS.length);
     }, 6000);
-    return () => clearInterval(interval);
-  }, []);
+  };
+
+  useEffect(() => {
+    if (!isInView) {
+      setActiveIndex(0);
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
+
+    // Always ensure Arpit Agrawal (index 0) is displayed first when entering view
+    setActiveIndex(0);
+    startTimer();
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isInView]);
+
+  const handleSelect = (index: number) => {
+    setActiveIndex(index);
+    if (isInView) {
+      startTimer();
+    }
+  };
 
   const current = PREVIEW_TESTIMONIALS[activeIndex];
 
   return (
-    <section className="section-spacing bg-soft-ivory relative overflow-hidden" data-nav-chapter="03" data-nav-title="IMPACT">
+    <section 
+      ref={sectionRef} 
+      className="section-spacing bg-soft-ivory relative overflow-hidden" 
+      data-nav-chapter="03" 
+      data-nav-title="IMPACT"
+    >
       <div className="container-editorial">
         <div className="max-w-4xl mx-auto text-center">
           <ScrollReveal variant="fade-up">
@@ -818,7 +848,7 @@ function TestimonialPreview() {
             {PREVIEW_TESTIMONIALS.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setActiveIndex(i)}
+                onClick={() => handleSelect(i)}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   i === activeIndex ? 'bg-deep-teal w-6' : 'bg-sage/30'
                 }`}

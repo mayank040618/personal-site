@@ -349,7 +349,7 @@ export default function Navigation() {
                       onClick={() => setIsOpen(false)}
                       className="group flex flex-col items-start focus:outline-none"
                     >
-                      <span className="text-[9px] md:text-[10px] font-mono text-white/40 mb-1 group-hover:text-deep-teal transition-colors duration-300">
+                      <span className="text-xs sm:text-sm md:text-base font-mono font-medium text-white/60 mb-1 tracking-wider group-hover:text-soft-mint transition-colors duration-300">
                         {item.num}
                       </span>
                       <div className="flex items-center gap-2 md:gap-3 w-full">
