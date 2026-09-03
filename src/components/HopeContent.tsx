@@ -146,8 +146,8 @@ export default function HopeContent() {
                 <div className="aspect-[3/4] rounded-2xl bg-mist shadow-lg overflow-hidden group mt-0 md:mt-16">
                   <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-700">
                     <ZoomableImage
-                      src="/images/audience-boy.jpg"
-                      alt="Audience Event"
+                      src="/images/casting.jpeg"
+                      alt="Netflix Mismatched On Set Experience"
                       fill
                       className="object-cover object-center"
                       sizes="(max-width: 768px) 100vw, 33vw"
@@ -159,8 +159,8 @@ export default function HopeContent() {
                 <div className="aspect-square rounded-2xl bg-mist shadow-lg overflow-hidden group">
                   <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-700">
                     <ZoomableImage
-                      src="/images/sir.jpeg"
-                      alt="HOPE Event Moment"
+                      src="/images/audience-boy.jpg"
+                      alt="Audience Event"
                       fill
                       className="object-cover object-center"
                       sizes="(max-width: 768px) 100vw, 33vw"

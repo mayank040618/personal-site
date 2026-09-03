@@ -16,6 +16,7 @@ import Counter from '@/components/ui/Counter';
 import Card from '@/components/ui/Card';
 import MagneticButton from '@/components/ui/MagneticButton';
 import SectionHeading from '@/components/ui/SectionHeading';
+import { galleryItems } from '@/data/galleryData';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -494,7 +495,95 @@ function IntroductionSection() {
 }/* ━━━━━━━━━━━━━━━━━━━━━━━━━━
    GALLERY PREVIEW SECTION
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function AnimatedGalleryCard({
+  items,
+  initialDelay = 0,
+  className = '',
+}: {
+  items: typeof galleryItems;
+  initialDelay?: number;
+  className?: string;
+}) {
+  const [index, setIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    if (isHovered || !items || items.length === 0) return;
+
+    let intervalId: NodeJS.Timeout;
+    const initialTimer = setTimeout(() => {
+      setIndex((prev) => (prev + 1) % items.length);
+      intervalId = setInterval(() => {
+        setIndex((prev) => (prev + 1) % items.length);
+      }, 4000);
+    }, initialDelay);
+
+    return () => {
+      clearTimeout(initialTimer);
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [items, isHovered, initialDelay]);
+
+  if (!items || items.length === 0) return null;
+  const current = items[index];
+
+  return (
+    <Link
+      href="/gallery"
+      className={`relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden group shadow-xl border border-charcoal/10 bg-charcoal cursor-pointer block ${className}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current.id}
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 w-full h-full"
+        >
+          <Image
+            src={current.src}
+            alt={current.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
+          {/* Dark gradient overlay for typography contrast */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Floating Glassmorphism Badge */}
+      <div className="absolute bottom-5 left-5 right-5 z-10 pointer-events-none">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current.id}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.4 }}
+            className="bg-black/40 backdrop-blur-md border border-white/20 px-4 py-2.5 rounded-2xl w-fit max-w-full"
+          >
+            <span className="text-[10px] font-mono tracking-widest uppercase text-amber-400 font-semibold block mb-0.5">
+              {current.category}
+            </span>
+            <p className="text-xs md:text-sm font-medium text-white truncate max-w-[200px] sm:max-w-[240px]">
+              {current.title}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </Link>
+  );
+}
+
 function GalleryPreview() {
+  const group1 = galleryItems.filter((_, i) => i % 3 === 0);
+  const group2 = galleryItems.filter((_, i) => i % 3 === 1);
+  const group3 = galleryItems.filter((_, i) => i % 3 === 2);
+
   return (
     <section className="relative overflow-hidden py-24 md:py-32 bg-white" data-nav-chapter="04" data-nav-title="GALLERY">
       <div className="container-editorial">
@@ -518,36 +607,15 @@ function GalleryPreview() {
           </ScrollReveal>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           <ScrollReveal variant="fade-up" delay={0.2}>
-            <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden group shadow-lg">
-              <div className="absolute inset-0 bg-gradient-to-br from-soft-mint via-sage to-deep-teal flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
-                <div className="text-center text-white/80">
-                  <Sparkles className="w-8 h-8 mx-auto mb-3 opacity-60" />
-                  <p className="text-sm font-mono tracking-wider opacity-60">THEATRE WORKSHOP</p>
-                </div>
-              </div>
-              <div className="absolute inset-0 bg-charcoal/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </div>
+            <AnimatedGalleryCard items={group1} initialDelay={0} />
           </ScrollReveal>
           <ScrollReveal variant="fade-up" delay={0.4}>
-            <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden group shadow-lg md:mt-12">
-              <div className="absolute inset-0 bg-sage/20 flex flex-col items-center justify-center p-6 text-center transition-transform duration-700 group-hover:scale-105">
-                <Star className="w-8 h-8 text-deep-teal mb-4 opacity-50" />
-                <span className="text-charcoal font-mono tracking-widest text-xs uppercase opacity-60">Over 50+ Workshops</span>
-              </div>
-            </div>
+            <AnimatedGalleryCard items={group2} initialDelay={1400} className="md:mt-12" />
           </ScrollReveal>
           <ScrollReveal variant="fade-up" delay={0.6}>
-            <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden group shadow-lg hidden sm:block">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1C1C1C] via-[#2a2a2a] to-[#FFB800]/30 flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
-                <div className="text-center text-white/80">
-                  <Star className="w-8 h-8 mx-auto mb-3 opacity-60" />
-                  <p className="text-sm font-mono tracking-wider opacity-60">STAGE4YOU EVENT</p>
-                </div>
-              </div>
-              <div className="absolute inset-0 bg-charcoal/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </div>
+            <AnimatedGalleryCard items={group3} initialDelay={2800} className="hidden sm:block" />
           </ScrollReveal>
         </div>
       </div>

@@ -5,6 +5,7 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 import Counter from '@/components/ui/Counter';
 import TypingText from '@/components/ui/TypingText';
 import LivePerformanceEffect from '@/components/ui/LivePerformanceEffect';
+import ZoomableImage from '@/components/ui/ZoomableImage';
 
 export default function Stage4YouContent() {
   return (
@@ -82,11 +83,15 @@ export default function Stage4YouContent() {
               <div className="relative">
                 <ScrollReveal variant="scale">
                   <div className="aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-charcoal to-graphite relative group">
-                    <div className="absolute inset-0 flex items-center justify-center text-white/80">
-                      <p className="font-mono text-sm tracking-widest text-center px-4">LIVE PERFORMANCE</p>
-                    </div>
+                    <ZoomableImage
+                      src="/images/stage4you-live.jpg"
+                      alt="Stage4You Live Performance"
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
                     {/* Hover effect */}
-                    <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                   </div>
                 </ScrollReveal>
                 <div className="absolute -bottom-8 -left-8 w-64 h-64 bg-amber-500/20 rounded-full blur-[60px] -z-10" />
@@ -128,22 +133,40 @@ export default function Stage4YouContent() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               <ScrollReveal variant="fade-up" delay={0.1}>
                 <div className="aspect-square rounded-2xl bg-mist shadow-lg overflow-hidden group">
-                  <div className="w-full h-full bg-gradient-to-br from-charcoal/40 to-graphite/40 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                    <span className="text-xs font-mono text-white/80 tracking-wider">SHOWCASE 1</span>
+                  <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-700">
+                    <ZoomableImage
+                      src="/images/stage4you-showcase-1.jpg"
+                      alt="JU Rhythm Talent Showcase"
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
                   </div>
                 </div>
               </ScrollReveal>
               <ScrollReveal variant="fade-up" delay={0.3}>
                 <div className="aspect-[3/4] rounded-2xl bg-mist shadow-lg overflow-hidden group mt-0 md:mt-16">
-                  <div className="w-full h-full bg-gradient-to-br from-amber-600/40 to-charcoal/40 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                    <span className="text-xs font-mono text-white/80 tracking-wider">SHOWCASE 2</span>
+                  <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-700">
+                    <ZoomableImage
+                      src="/images/stage4you-showcase-2.jpg"
+                      alt="Stage4You Theatre Production"
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
                   </div>
                 </div>
               </ScrollReveal>
               <ScrollReveal variant="fade-up" delay={0.5}>
                 <div className="aspect-square rounded-2xl bg-mist shadow-lg overflow-hidden group">
-                  <div className="w-full h-full bg-gradient-to-br from-graphite/40 to-amber-600/40 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                    <span className="text-xs font-mono text-white/80 tracking-wider">SHOWCASE 3</span>
+                  <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-700">
+                    <ZoomableImage
+                      src="/images/stage4you-showcase-3.jpg"
+                      alt="Stage4You Workshop Session"
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
                   </div>
                 </div>
               </ScrollReveal>
