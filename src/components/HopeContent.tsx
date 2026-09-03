@@ -84,8 +84,8 @@ export default function HopeContent() {
                 <ScrollReveal variant="scale">
                   <div className="aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-700 to-cyan-400 relative group">
                     <ZoomableImage
-                      src="/images/hope-workshop.jpeg"
-                      alt="HOPE Workshop in Action"
+                      src="/images/prabhat-keynote-speaking.jpg"
+                      alt="Prabhat Singh — Keynote & Stage Address"
                       fill
                       className="object-cover object-center"
                       sizes="(max-width: 768px) 100vw, 50vw"

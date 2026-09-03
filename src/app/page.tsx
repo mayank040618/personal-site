@@ -550,7 +550,7 @@ function AnimatedGalleryCard({
             alt={current.title}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+            className={`object-cover ${current.position || 'object-center'} transition-transform duration-700 group-hover:scale-105`}
           />
           {/* Dark gradient overlay for typography contrast */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
@@ -739,22 +739,22 @@ function Stage4YouPreview() {
    ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const PREVIEW_TESTIMONIALS = [
   {
-    text: "I had the opportunity to work with Prabhat Singh during the online placement assessment process for Nxtwave at Amity University Greater Noida, and it was a very smooth experience. Even though we worked together for only one day, I was impressed by his leadership, planning, and sense of accountability.",
-    name: 'Sangeet Banik',
-    title: 'Associate Program Manager — Nxtwave',
-    initials: 'SB',
-  },
-  {
-    text: "I have had the pleasure of working with Mr. Prabhat Singh, and I can confidently say that they are an exceptional professional with a strong commitment to excellence. He consistently demonstrates deep subject knowledge, a proactive attitude, and the ability to handle responsibilities with great efficiency.",
-    name: 'Er. Gourav Tomar',
-    title: 'Assistant Professor — Former Govt. College Lecturer',
-    initials: 'GT',
-  },
-  {
     text: "Prabhat is one of the best people I have as a youngest colleague. His ability to tackle any problem is remarkable and with a warm smile. I highly recommend his expertise to any person who want to seek an advice on team building as well as theatre.",
     name: 'Arpit Agrawal',
     title: 'Vice Chairperson — JECRC University',
     initials: 'AA',
+  },
+  {
+    text: "I had the pleasure of meeting Prabhat Singh at a business event at Amity University, Noida. He is a dynamic and optimistic professional with strong management and communication skills. Prabhat is highly dedicated, and any team he is part of will benefit from his commitment.",
+    name: 'Juhi Singh',
+    title: 'Tedx Speaker & WEF Awardee',
+    initials: 'JS',
+  },
+  {
+    text: "On both occasions, he impressed me with his professionalism, resourcefulness, and ability to smoothly manage multiple aspects of the program. His proactive approach and attention to detail ensured everything ran seamlessly.",
+    name: 'Dr. Himdweep Walia',
+    title: 'Associate Consultant — Tata Consultancy Services',
+    initials: 'HW',
   },
 ];
 
@@ -791,7 +791,7 @@ function TestimonialPreview() {
                 <span className="text-5xl sm:text-7xl md:text-8xl font-display text-sage/30 leading-none block mb-4">
                   &ldquo;
                 </span>
-                <p className="text-heading font-display text-charcoal italic leading-snug mb-8 -mt-8">
+                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-display text-charcoal italic leading-relaxed mb-8 -mt-8 max-w-3xl mx-auto">
                   {current.text}
                 </p>
                 <div className="flex items-center justify-center gap-4">

@@ -59,7 +59,7 @@ function AboutHero() {
                 src="/images/prabhat-hero-white-shirt.jpg"
                 alt="Prabhat Singh Rajput Portrait"
                 fill
-                className="object-cover object-center"
+                className="object-cover object-top"
                 sizes="(max-width: 1024px) 50vw, 33vw"
               />
             </div>
