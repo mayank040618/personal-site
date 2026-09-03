@@ -27,4 +27,5 @@ export const galleryItems: GalleryItem[] = [
   { id: 18, src: '/images/prabhat-about-bw.jpeg', category: 'Theatre', title: 'Dramatic Moment', height: 'h-[28rem]' },
   { id: 19, src: '/images/stage4you-showcase-1.jpg', category: 'Events', title: 'JU Rhythm Talent Showcase', height: 'h-96' },
   { id: 20, src: '/images/stage4you-showcase-3.jpg', category: 'Workshops', title: 'Performers Script Session', height: 'h-80' },
+  { id: 21, src: '/images/theatre-team-steps.jpg', category: 'Theatre', title: 'Theatre Team & NayaPUN Festival', height: 'h-[28rem]' },
 ];
